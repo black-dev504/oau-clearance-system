@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'OAU CLEARANCE SYSTEM'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,6 +53,9 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    'domain' => env('APP_DOMAIN', 'oauife'),
+
 
     /*
     |--------------------------------------------------------------------------

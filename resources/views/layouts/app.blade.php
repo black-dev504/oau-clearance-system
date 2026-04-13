@@ -5,7 +5,7 @@
     @include('partials.head')
 </head>
 
-<x-layouts.sidebar :title="View::yieldContent('title', 'OAU CLEARANCE SYSTEM')" :unit="View::yieldContent('unit', 'UnitName')">
+<x-layouts.sidebar >
     <flux:main>
 
     {{ $slot }}

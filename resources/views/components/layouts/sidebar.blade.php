@@ -1,9 +1,8 @@
-@props(
-[
-    'title' => '',
-    'unit' => '',
-]
-)
+@php
+    $unit = request()->segment(1);
+@endphp
+
+
 
 <body class="min-h-screen bg-white flex dark:bg-zinc-800 antialiased">
 <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
@@ -12,7 +11,8 @@
             href="#"
             logo="assets/images/oauLogo.svg"
             logo:dark="assets/images/oauLogo.svg"
-            name="{{$unit}}"
+            class="text-lg font-bold text-gray-800 dark:text-gray-200"
+            :name="config('units.' . $unit . '.short')"
         />
 
         <flux:sidebar.collapse class="lg:hidden" />
@@ -20,10 +20,10 @@
 
 
     <flux:sidebar.nav>
-        <flux:sidebar.item icon="home" href="#" current>Home</flux:sidebar.item>
-        <flux:sidebar.item icon="inbox" badge="12" href="#">Inbox</flux:sidebar.item>
-        <flux:sidebar.item icon="document-text" href="#">Documents</flux:sidebar.item>
-        <flux:sidebar.item icon="calendar" href="#">Calendar</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('dashboard')" icon="home" :href="route($unit . '.dashboard')">Dashboard</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('pending')"  icon="calendar" badge="12" :href="route($unit .'.pending')">Pending Requests</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('announcement')" icon="document-text" :href="route($unit .'.announcements')">Announcements</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('emails')"  icon="inbox" :href="route($unit .'.emails')">Emails</flux:sidebar.item>
     </flux:sidebar.nav>
 
     <flux:sidebar.spacer />
@@ -73,7 +73,7 @@
     </flux:navbar>
 
     <flux:navbar >
-       <h1>{{ $title }}</h1>
+       <h1 class="text-2xl ">{{ config('units.' . $unit . '.heading') }}</h1>
 
     </flux:navbar>
 </flux:header>
