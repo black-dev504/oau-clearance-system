@@ -1,4 +1,4 @@
 <div>
 
-    <h1>pending</h1>
+    <livewire:request-table title="Pending Requests" />
 </div>

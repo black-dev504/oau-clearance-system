@@ -10,7 +10,7 @@
 {{-- @section('logo', 'assets/images/logo.svg') --}}
 
 @section('content')
-    <div class="grid grid-cols-3 gap-8 justify-between bg-[#F9FAFB] min-h-screen px-4 sm:px-8 lg:px-32 py-4 lg:py-6  items-center w-full border-b-1 border-[#EAECF0] transition-all duration-300 ">
+    <div class="grid grid-cols-3 gap-8 justify-between bg-[#F9FAFB] min-h-screen px-4 sm:px-8 lg:px-20 py-4 lg:py-6  items-center w-full border-b-1 border-[#EAECF0] transition-all duration-300 ">
         <div class="col-span-2 flex flex-col gap-8 h-full">
             <div class="rounded-[20px]">
                 <img src="{{ asset('assets/images/hero.png') }}" alt="Hero Image" class="w-full h-auto rounded-[20px]">

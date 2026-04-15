@@ -61,7 +61,8 @@
             </div>
         </div>
 
-        {{--        <livewire:companies-table />--}}
+
+                <livewire:request-table />
 
     </div>
 

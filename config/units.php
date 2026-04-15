@@ -3,15 +3,15 @@
 return [
 
     'dsa' => [
-        'name' => 'Department of Student Affairs',
+        'name' => 'Division of Student Affairs',
         'short' => 'DSA',
-        'heading' => 'Department of Student Affairs Dashboard',
+        'heading' => 'Division of Student Affairs Clearance Portal',
     ],
 
     'library' => [
         'name' => 'Library',
         'short' => 'Library',
-        'heading' => 'Hezekiah Library Dashboard',
+        'heading' => 'Hezekiah Library Clearance Portal',
     ],
 
 

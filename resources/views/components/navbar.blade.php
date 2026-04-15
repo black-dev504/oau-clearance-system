@@ -4,7 +4,7 @@
 ])
 
 <header
-    class="px-4 sm:px-8 lg:px-32 py-4 lg:py-6 flex items-center justify-between w-full border-b-1 border-[#EAECF0] transition-all duration-300 {{ $bgColor }}">
+    class="px-4 sm:px-8 lg:px-20 py-4 lg:py-6 flex items-center justify-between w-full border-b-1 border-[#EAECF0] transition-all duration-300 {{ $bgColor }}">
 
 
 

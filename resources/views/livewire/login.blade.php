@@ -43,7 +43,7 @@
                 <!-- Remember Me -->
                 <flux:checkbox wire:model="remember" :label="__('Remember me')" />
 
-                <a href="{{route('dashboard')}}"  class=" w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
+                <a href="{{route('student.dashboard')}}"  class=" w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
                     Login
                 </a>
 
