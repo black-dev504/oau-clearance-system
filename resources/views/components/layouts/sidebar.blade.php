@@ -20,10 +20,10 @@
 
 
     <flux:sidebar.nav>
-        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('dashboard')" icon="home" :href="route($unit . '.dashboard')">Dashboard</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('pending')"  icon="calendar" badge="12" :href="route($unit .'.pending')">Pending Requests</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('announcement')" icon="document-text" :href="route($unit .'.announcements')">Announcements</flux:sidebar.item>
-        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('emails')"  icon="inbox" :href="route($unit .'.emails')">Emails</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.dashboard')" icon="home" :href="route($unit . '.dashboard')">Dashboard</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.pending')"  icon="calendar" badge="12" :href="route($unit .'.pending')">Pending Requests</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.announcements')" icon="document-text" :href="route($unit .'.announcements')">Announcements</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.emails')"  icon="inbox" :href="route($unit .'.emails')">Emails</flux:sidebar.item>
     </flux:sidebar.nav>
 
     <flux:sidebar.spacer />

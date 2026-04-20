@@ -15,7 +15,7 @@
                         <p class="text-[18px]">You haven't submitted a clearance request yet. Start your clearance process to get approved by all university units.</p>
                     </div>
 
-                        <button wire:click="openModal" type="button" class="inline-flex cursor-pointer bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-8 py-4.5 rounded-lg hover:bg-primary-700 transition-colors duration-200">
+                        <button wire:click="openModal" type="button" class="inline-flex items-center cursor-pointer bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-8 py-4.5 rounded-lg hover:bg-primary-700 transition-colors duration-200">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg> Start Clearance Request

@@ -46,7 +46,7 @@
 
             <div class="w-full border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
                 <div class="w-full flex justify-between items-center">
-                    <h3 class="font-semibold text-xl dark:text-zinc-400">Action Required</h3>
+                    <h3 class="font-semibold text-xl dark:text-zinc-400">Announcements</h3>
                     <button class="text-[#667085] dark:text-zinc-400">View all</button>
                 </div>
 
@@ -62,9 +62,75 @@
         </div>
 
 
-                <livewire:request-table />
+        <div class="bg-white border border-gray-100 rounded-2xl mt-8 shadow-sm">
+            <div class="px-8 py-6 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-900">Recent Requests</h2>
+                        <p class="text-sm text-gray-500 mt-1">Manage and review student clearances</p>
+                    </div>
+                    <button class="flex items-center gap-2 px-4 py-2 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <SlidersHorizontal class="w-4 h-4" />
+                        Filters
+                    </button>
+                </div>
+            </div>
 
+
+
+        <div class="divide-y divide-gray-50">
+
+            <div  class="px-8 py-6 hover:bg-gray-50/50 transition-colors">
+                <div class="flex items-center gap-6">
+                    <div
+                        class="bg-primary text-white font-bold rounded-full image-fit zoom-in mr-7 h-12 w-12 flex items-center justify-center">
+                        <span>JD</span>
+                    </div>
+
+                    <div class="flex-1 min-w-0 grid grid-cols-4 gap-6">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="font-medium text-gray-900">John Doe</div>
+                                <AlertCircle class="w-4 h-4 text-orange-500" />
+                            </div>
+                            <div class="text-sm text-gray-500">CSC/2000/1002</div>
+                        </div>
+
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Course</div>
+                            <div class="text-sm text-gray-900">Computer Science</div>
+                        </div>
+
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Status</div>
+                            <div class="text-sm text-gray-900">tag</div>
+                        </div>
+
+                        <div>
+                            <div class="text-sm text-gray-500 mb-1">Submitted</div>
+                            <div class="text-sm text-gray-900">12/02/2000</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 shrink-0">
+
+                        <button class="px-4 py-2 bg-violet-600 text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
+                            Review
+                        </button>
+
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
+    </div>
+
+        <div class="px-8 py-5 border-t border-gray-100 bg-gray-50/50">
+            <button class="text-sm text-violet-600 font-medium hover:text-violet-700">
+                View all 280 requests →
+            </button>
+        </div>
+
 
 
 </div>
