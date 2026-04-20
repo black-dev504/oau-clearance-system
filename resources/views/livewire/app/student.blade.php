@@ -1,119 +1,292 @@
 <div class="">
-
-    @section('content')
-
-        <h1 class="font-semibold text-4xl  !text-black my-8">
-            Welcome to the Student Dashboard!!
-        </h1>
-
-        <div class="flex flex-col p-5 gap-5 bg-white border border-primary-border rounded-[20px]">
-            <div>
-                <h2 class="font-semibold text-2xl">Clearance Status By Units</h2>
-                <p class="text-[#93979D] font-medium text-base">Track your clearance progress across all department</p>
-            </div>
-
-            <div class="flex w-full gap-6.5">
-                <x-student-card title="Library" />
-                <x-student-card title="Dsa" />
-                <x-student-card title="Health Center"/>
-                <x-student-card title="Hostel"/>
-            </div>
-
+        <div class="flex flex-col my-8">
+            <h1 class=" text-4xl"> Student Dashboard</h1>
+            <p>Track your clearance progress and manage pending actions</p>
         </div>
 
         @if(!$registered)
-            <div class="bg-white mt-6 border rounded-2xl p-5 border-primary-border">
-                <h2 class="font-semibold text-2xl">Submit Clearance Request</h2>
-                <p class="text-[#93979D] font-medium text-base">Upload necessary documents for clearance</p>
+            <div class=" flex flex-col gap-6 max-w-3xl mx-auto">
 
-                <div class="flex flex-col gap-5 justify-center items-center">
-                    <div>
-                        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_136_250)">
-                                <rect width="200" height="200" fill="#1D1B20" fill-opacity="0.08"/>
-                                <path d="M245 100.062V205.405C245 213.466 238.036 220 229.444 220H35C35 145.442 99.4212 85 178.889 85C202.724 85 225.205 90.4372 245 100.062Z" fill="#1D1B20" fill-opacity="0.08"/>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_136_250">
-                                    <rect width="200" height="200" rx="12" fill="white"/>
-                                </clipPath>
-                            </defs>
+                <div class="  flex flex-col p-8 gap-6 bg-white border border-primary-border rounded-[20px] text-center items-center">
+                    <x-icons.envelope />
+
+                    <div class="flex flex-col gap-2">
+                        <h1 class="text-3xl">Welcome to the Clearance Portal</h1>
+                        <p class="text-[18px]">You haven't submitted a clearance request yet. Start your clearance process to get approved by all university units.</p>
+                    </div>
+
+                        <button wire:click="openModal" type="button" class="inline-flex cursor-pointer bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-8 py-4.5 rounded-lg hover:bg-primary-700 transition-colors duration-200">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg> Start Clearance Request
+                        </button>
+
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl  p-8">
+                    <h3 class="text-2xl text-gray-900 mb-6">What to Expect</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M14 2V8H20" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M16 13H8" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M16 17H8" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg text-gray-900 mb-2">Fill Out Your Information</h4>
+                                <p class="text-gray-600">Complete your personal details and upload required documents like transcripts, ID cards, and forms.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.76489 14.1003 1.98232 16.07 2.86" stroke="#a70088" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M22 4L12 14.01L9 11.01" stroke="#a70088" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg text-gray-900 mb-2">Submit to All Units</h4>
+                                <p class="text-gray-600">Your clearance will be sent to Library, DSA, Hostel, Senate, and other university units for review.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#027a48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M12 6V12L16 14" stroke="#027a48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg text-gray-900 mb-2">Track Your Progress</h4>
+                                <p class="text-gray-600">Monitor approval status from each department, view feedback, and take action on any rejected applications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
+                    <div class="flex gap-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M12 16V12" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M12 8H12.01" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-
+                        <div>
+                            <h4 class="text-lg text-gray-900 mb-2">Documents You'll Need</h4>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Valid Student ID Card</li>
+                                <li>• Academic Transcript</li>
+                                <li>• Clearance forms from each department</li>
+                                <li>• Any outstanding fee receipts (if applicable)</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="flex flex-col gap-1 text-base text-center ">
-                        <p class="font-semibold">No Registration here</p>
-                        <p class="text-[#93979D]">Start the clearance process by clicking on the “Fill clearance Form” button.</p>
+                </div>
+
+            </div>
+
+        @else
+            <div class="bg-gradient-to-r from-primary to-secondary rounded-xl p-6 mb-8 text-white">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-2xl mb-1">Clearance Progress</h2>
+                        <p class="text-white/80">2 of 6 units cleared</p>
                     </div>
+                    <div class="text-right">
+                        <div class="text-3xl mb-1">25%</div>
+                        <p class="text-white/80">Complete</p>
+                    </div>
+                </div>
 
-                    <a href="#"  class="  bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-60 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
-                        Fill Clearance Form
-                    </a>
+                <div class="w-full bg-white/20 rounded-full h-3">
+                    <div class="bg-white rounded-full h-3 transition-all duration-500 w-1/4">
+                    </div>
+                </div>
 
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-2xl text-gray-900 mb-2">Clearance Status by Unit</h2>
+                <p class="text-gray-600 mb-6">Track your clearance progress across all departments</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <x-student-card title="DSA" />
+                <x-student-card title="Hostel" />
+                <x-student-card title="Library" />
+                <x-student-card title="Department" />
+                <x-student-card title="Faculty" :reapply="true" />
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-6 my-8">
+                <h3 class="text-xl text-gray-900 mb-4">Recent Activity</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div class="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" ></div>
+                        <div class="flex-1">
+                            <p class="text-gray-900">Library clearance approved</p>
+                            <p class="text-sm text-gray-500">April 10, 2026</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div class="w-2 h-2 rounded-full bg-yellow-500 mt-2 flex-shrink-0" ></div>
+                        <div class="flex-1">
+                            <p class="text-gray-900">Hostel clearance submitted</p>
+                            <p class="text-sm text-gray-500">April 15, 2026</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div class="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" ></div>
+                        <div class="flex-1">
+                            <p class="text-gray-900">Senate clearance rejected</p>
+                            <p class="text-sm text-gray-500">April 12, 2026</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" ></div>
+                        <div class="flex-1">
+                            <p class="text-gray-900">Initial clearance request submitted</p>
+                            <p class="text-sm text-gray-500">April 8, 2026</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        @else
-            <div class="grid grid-cols-3 gap-8.5 mt-4">
-                <div class="col-span-1 bg-white px-5 py-3 rounded-[20px] shadow-sm border border-gray-200">
-                    <h2 class="font-semibold text-2xl">Student Profile</h2>
-                    <p class="text-[#6C767D] font-medium text-base bg-white">Academic and clearance details</p>
 
-                    <div class="flex flex-col gap-5 mt-5">
-                        <div class="flex justify-between mt-5 w-full pb-1 border-b border-gray-200">
-                            <p class="text-[#6C767D] font-medium text-[14px]">Matric No.</p>
-                            <p class="text-black text-[14px]">CSC/2000/100</p>
+            <div class="mb-8">
+                <h2 class="text-2xl text-gray-900 mb-2">Submitted Details</h2>
+                <p class="text-gray-600 mb-6">Review your submitted clearance information</p>
+
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                        <div class="p-6">
+                            <h3 class="text-lg text-gray-900 mb-4 flex items-center gap-2">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M10 10C12.7614 10 15 7.76142 15 5C15 2.23858 12.7614 0 10 0C7.23858 0 5 2.23858 5 5C5 7.76142 7.23858 10 10 10Z" fill="#4b3be4"/>
+                                    <path d="M10 12C4.477 12 0 14.015 0 16.5V20H20V16.5C20 14.015 15.523 12 10 12Z" fill="#4b3be4"/>
+                                </svg>
+                                Personal Information
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-sm text-gray-500">Full Name</p>
+                                    <p class="text-gray-900">John Doe</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Student ID</p>
+                                    <p class="text-gray-900">2023/HD/12345</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Email</p>
+                                    <p class="text-gray-900">john.doe@student.edu</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Phone Number</p>
+                                    <p class="text-gray-900">+234 801 234 5678</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Program</p>
+                                    <p class="text-gray-900">BSc Computer Science</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="flex justify-between mt-5 w-full pb-1 border-b border-gray-200">
-                            <p class="text-[#6C767D] font-medium text-[14px]">Department</p>
-                            <p class="text-black text-[14px]">Mechanical Engineering</p>
-                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg text-gray-900 mb-4 flex items-center gap-2">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M12 0H4C2.01 0 2 0.9 2 2L2 18C2 19.1 2.89 20 3.99 20H16C17.1 20 18 19.1 18 18V6L12 0ZM4 18V2H11V7H16V18H4Z" fill="#4b3be4"/>
+                                </svg>
+                                Uploaded Documents
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M12 0H4C2.9 0 2 0.9 2 2V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V6L12 0Z" fill="#4b3be4"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-900">Academic Transcript</p>
+                                            <p class="text-xs text-gray-500">2.4 MB • PDF</p>
+                                        </div>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
+                                </div>
 
-                        <div class="flex justify-between mt-5 w-full pb-1 border-b border-gray-200">
-                            <p class="text-[#6C767D] font-medium text-[14px]">Faculty</p>
-                            <p class="text-black text-[14px]">Technology</p>
-                        </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M12 0H4C2.9 0 2 0.9 2 2V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V6L12 0Z" fill="#4b3be4"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-900">Student ID Card</p>
+                                            <p class="text-xs text-gray-500">1.8 MB • PDF</p>
+                                        </div>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
+                                </div>
 
-                        <div class="flex justify-between mt-5 w-full pb-1 border-b border-gray-200">
-                            <p class="text-[#6C767D] font-medium text-[14px]">Level</p>
-                            <p class="text-black text-[14px]">500</p>
-                        </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M12 0H4C2.9 0 2 0.9 2 2V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V6L12 0Z" fill="#4b3be4"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-900">Library Clearance Form</p>
+                                            <p class="text-xs text-gray-500">890 KB • PDF</p>
+                                        </div>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
+                                </div>
 
-                        <div class="flex justify-between mt-5 w-full pb-1 border-b border-gray-200">
-                            <p class="text-[#6C767D] font-medium text-[14px]">Overall</p>
-                            <x-tag/>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M12 0H4C2.9 0 2 0.9 2 2V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V6L12 0Z" fill="#4b3be4"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-900">Hostel Clearance Form</p>
+                                            <p class="text-xs text-gray-500">1.1 MB • PDF</p>
+                                        </div>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-center my-5 items-center ">
-
-                        <a href="#"  class="bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-8 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
-                            Generate certificate
-                        </a>
+                    <div class="border-t border-gray-200 p-4 bg-gray-50 flex items-center justify-between">
+                        <p class="text-sm text-gray-600">Submitted on April 8, 2026 at 10:30 AM</p>
+                        <button class="text-blue-600 hover:text-blue-700 text-sm flex items-center gap-1">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z" fill="currentColor"/>
+                                <path d="M11.5 8.5l-4-2.5V11l4-2.5z" fill="currentColor"/>
+                            </svg>
+                            Download All Documents
+                        </button>
                     </div>
-
+                </div>
+                <div class="my-8 bg-white">
+                    <div class="flex items-center gap-2 mb-4">
+                        <h2 class="text-2xl text-gray-900">Actions Required</h2>
+                        <span class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded-full text-sm">
+              2
+              </span>
+                    </div>
                 </div>
 
-                <div class="col-span-2 ">
-                    <div class="w-full bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
-                        <div class="w-full flex justify-between items-center">
-                            <h3 class="font-semibold text-xl dark:text-zinc-400">Action Required</h3>
-                            <button class="text-[#667085] dark:text-zinc-400">View all</button>
-                        </div>
-
-                        <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
-                            <x-action-card title="Global Marketing" description="Subscription expires in 3 days" size="High"
-                                           sizeBg="bg-[#E33B32]" />
-                            <x-action-card title="Product Launch" description="Subscription expires in 5 days" size="Medium"
-                                           sizeBg="bg-[#EEA23E]" />
-                            <x-action-card title="Customer Support" description="Subscription expires in 10 days" size="Low"
-                                           sizeBg="bg-[#039855]" />
-                        </div>
-                    </div>
-
-                </div>
             </div>
         @endif
-    @endsection
-
+    <livewire:clearance-modal />
 </div>

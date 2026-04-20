@@ -15,6 +15,8 @@
     --color-secondary: #A70088;
     --color-background: #F9FAFB;
     --color-primary-border: #D0D5DD;
+    --color-textPrimary: #101828;
+    --color-textSecondary: #4A5565;
 
 }
 
@@ -24,6 +26,11 @@
     }
     h1 {
         font-family: var(--font-heading);
+        color: var(--color-textPrimary);
+    }
+
+    p{
+        color: var(--color-textSecondary);
     }
 
 }

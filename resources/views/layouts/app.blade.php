@@ -5,12 +5,17 @@
     @include('partials.head')
 </head>
 
+<body>
 <x-layouts.sidebar >
     <flux:main>
 
-    {{ $slot }}
+        {{ $slot }}
     </flux:main>
 </x-layouts.sidebar>
+
+@fluxScripts
+</body>
+
 
 
 </html>

@@ -9,8 +9,15 @@ class Student extends Component
 
     public $registered = false;
 
+
+    public function openModal(): void
+    {
+        $this->dispatch('open-clearance-modal');
+    }
+
     public function render()
     {
-        return view('livewire.app.student')->layout('layouts.student');
+        return view('livewire.app.student')
+            ->layout('layouts.student', ['user' => auth()->user()]);
     }
 }
