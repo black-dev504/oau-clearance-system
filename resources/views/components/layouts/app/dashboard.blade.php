@@ -3,7 +3,7 @@
     'unit' =>'unpassed'
     ])
 
-<div>
+<div class="bg-background">
     <flux:heading size="xl" level="1">Good afternoon, {{$unit}} officer </flux:heading>
     <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
 
@@ -27,10 +27,10 @@
 
     </div>
 
-    <div class="relative flex-1 overflow-hidden mt-8">
-        <div class="w-full gap-6 grid xl:grid-cols-4 lg:grid-cols-5 grid-cols-2">
+    <div class="relative flex-1 overflow-hidden mt-8 ">
+        <div class="w-full gap-6 grid xl:grid-cols-4 lg:grid-cols-5 grid-cols-2 ">
             <div
-                class="w-full  xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
+                class="w-full  xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
                 <div class="w-full flex items-center justify-between text-xl dark:text-zinc-400 font-semibold">
                     <h3>Clearance Status</h3>
                     <span>1420</span>
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="w-full border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
+            <div class="w-full bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
                 <div class="w-full flex justify-between items-center">
                     <h3 class="font-semibold text-xl dark:text-zinc-400">Announcements</h3>
                     <button class="text-[#667085] dark:text-zinc-400">View all</button>
@@ -83,7 +83,7 @@
             <div  class="px-8 py-6 hover:bg-gray-50/50 transition-colors">
                 <div class="flex items-center gap-6">
                     <div
-                        class="bg-primary text-white font-bold rounded-full image-fit zoom-in mr-7 h-12 w-12 flex items-center justify-center">
+                        class="bg-primary text-white font-bold rounded-full image-fit zoom-in mr-1 h-12 w-12 flex items-center justify-center">
                         <span>JD</span>
                     </div>
 
@@ -121,6 +121,7 @@
                 </div>
             </div>
         </div>
+
         </div>
     </div>
     </div>

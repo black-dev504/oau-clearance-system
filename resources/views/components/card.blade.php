@@ -7,7 +7,7 @@
 )
 
 
-<div {{$attributes->merge(["class" => "relative w-full flex flex-col bg-white border border-gray-200 border-l-4  rounded-xl shadow-sm p-6"])}} >
+<div {{$attributes->merge(["class" => "relative w-full flex bg-white flex-col bg-white border border-gray-200 border-l-4  rounded-xl shadow-sm p-6"])}} >
     <div class="flex justify-between items-start">
 
         <div>

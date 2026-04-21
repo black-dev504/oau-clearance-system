@@ -32,7 +32,7 @@
         <button type="button" class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
-        <button type="submit" class="px-13 py-3 bg-red-500 text-white rounded-[10px]">
+        <button type="submit" class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
             Confirm Rejection
         </button>
     </div>
