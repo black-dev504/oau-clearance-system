@@ -11,11 +11,29 @@ class ClearanceModal extends Component
     public bool $showModal = false;
     public string $currentForm = 'personalInfo';
     protected array $steps = ['personalInfo', 'contact', 'library', 'review'];
+
     public array $completedSteps = [
         'personalInfo' => true,
         'contact' => false,
         'library' => false,
         'review' => false,
+    ];
+
+    public array $info = [
+        'name' =>'',
+        'email' => '',
+        'phone' => '',
+        'matric_no' => '',
+        'department' =>'',
+        'faculty' =>'',
+        'graduation_year' =>'',
+        'address' =>'',
+        'course' =>'',
+        'hall' =>'',
+        'block' =>'',
+        'bed_space' =>'',
+        'room_number' =>'',
+        'library_registration_status' => 0,
     ];
 
 

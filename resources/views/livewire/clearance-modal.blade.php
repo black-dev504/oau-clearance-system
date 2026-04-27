@@ -49,7 +49,7 @@
         <div class="flex-1 overflow-y-auto p-6">
             <div class="flex-1 overflow-y-auto p-6">
                 <div x-show="form === 'personalInfo'">
-                    <x-form.personal-info />
+                    <x-form.personal-info :departments="$departments"/>
                 </div>
                 <div x-show="form === 'contact'">
                     <x-form.contact-hostel-info />

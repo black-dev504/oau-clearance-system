@@ -13,6 +13,7 @@ class Dashboard extends Component
     public function mount()
     {
         $this->unit = request()->segment(1);
+//        $this->
     }
     public function render()
     {
