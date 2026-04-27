@@ -10,6 +10,7 @@
             <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
 
             <form wire:submit="login" class="flex w-full flex-col gap-6">
+                @csrf
                 <!-- Email Address -->
                 <flux:input
                     wire:model="email"
@@ -43,9 +44,9 @@
                 <!-- Remember Me -->
                 <flux:checkbox wire:model="remember" :label="__('Remember me')" />
 
-                <a href="{{route('student.dashboard')}}"  class=" w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
+                <button type="submit" wire:model="login"  class="cursor-pointer w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
                     Login
-                </a>
+                </button>
 
             </form>
         </div>

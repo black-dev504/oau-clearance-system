@@ -8,6 +8,6 @@ class Emails extends Component
 {
     public function render()
     {
-        return view('livewire.app.emails');
+        return view('livewire.app.emails')->layout('layouts.app');
     }
 }

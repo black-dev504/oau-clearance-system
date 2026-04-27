@@ -34,17 +34,13 @@
     </flux:sidebar.nav>
 
     <flux:dropdown position="top" align="start" class="max-lg:hidden">
-        <flux:sidebar.profile avatar="https://fluxui.dev/img/demo/user.png" name="Olivia Martin" />
+        <flux:sidebar.profile avatar="https://fluxui.dev/img/demo/user.png" name="{{strtoupper( user()->full_name)}}" />
 
         <flux:menu>
-            <flux:menu.radio.group>
-                <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
-                <flux:menu.radio>Truly Delta</flux:menu.radio>
-            </flux:menu.radio.group>
-
-            <flux:menu.separator />
-
-            <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+            <flux:menu.item class="w-full inline-flex" as="button" type="submit" icon="arrow-right-start-on-rectangle"> Log out</flux:menu.item>
+            </form>
         </flux:menu>
     </flux:dropdown>
 </flux:sidebar>

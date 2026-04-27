@@ -8,6 +8,6 @@ class PendingRequests extends Component
 {
     public function render()
     {
-        return view('livewire.app.pending-requests');
+        return view('livewire.app.pending-requests')->layout('layouts.app');
     }
 }

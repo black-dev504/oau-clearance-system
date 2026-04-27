@@ -3,7 +3,7 @@
     'unit' =>'unpassed'
     ])
 
-<div class="bg-background">
+<div wire:navigate class="bg-background">
     <flux:heading size="xl" level="1">Good afternoon, {{$unit}} officer </flux:heading>
     <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
 

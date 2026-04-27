@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Department;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -44,6 +45,8 @@ class ClearanceModal extends Component
 
     public function render()
     {
-        return view('livewire.clearance-modal');
+        return view('livewire.clearance-modal', [
+            'departments' => Department::all(),
+        ]);
     }
 }
