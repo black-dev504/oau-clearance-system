@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        UploadedFile::macro('storeOnCloudinary', function (string $folder = 'student_clearance_pics') {
+            return Cloudinary::uploadFile(
+                $this->getRealPath(),
+                ['folder' => $folder, 'resource_type' => 'auto']
+            );
+        });
     }
 }

@@ -5,12 +5,18 @@ namespace App\Livewire;
 use App\Models\Department;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ClearanceModal extends Component
 {
+    use WithFileUploads;
+
     public bool $showModal = false;
     public string $currentForm = 'personalInfo';
     protected array $steps = ['personalInfo', 'contact', 'library', 'review'];
+
+    public string $studentIdPreview='';
+    public string $receiptPreview;
 
     public array $completedSteps = [
         'personalInfo' => true,
@@ -20,6 +26,8 @@ class ClearanceModal extends Component
     ];
 
     public array $info = [
+        'studentId' => '',
+        'receipt' => '',
         'name' =>'',
         'email' => '',
         'phone' => '',
@@ -36,6 +44,17 @@ class ClearanceModal extends Component
         'library_registration_status' => 0,
     ];
 
+
+
+    public function updatedInfoStudentId()
+    {
+        if ($this->info['student_id'])
+        {
+            $this->studentIdPreview = $this->info['student_id']->temporaryUrl();
+        }
+
+        logger($this->studentIdPreview);
+    }
 
     public function next(): void
     {

@@ -7,8 +7,12 @@
 
     <h4 class="font-medium text-xl">Personal Information</h4>
     <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
-        <x-upload label="Means of Identification*" />
-        <x-upload label="DSA Payment Receipt" />
+        <x-upload
+            label="Means of Identification*"
+            model="info.student_id"
+            :preview="$this->studentIdPreview"
+        />
+        <x-upload label="DSA Payment Receipt" model="info.receipt"/>
 
         <flux:input wire:model="info.name" label="Student Name*" placeholder="Enter Full Name"  />
         <flux:input wire:model="info.graduation_year" label="Year of Graduation*" placeholder="eg.2023/24" type="text"  />
