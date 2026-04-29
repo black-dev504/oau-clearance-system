@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\ClearanceRequest;
 use App\Models\Department;
+use http\Env\Request;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -40,8 +42,8 @@ class ClearanceModal extends Component
         'hall' =>'',
         'block' =>'',
         'bed_space' =>'',
-        'room_number' =>'',
-        'library_registration_status' => 0,
+        'room_number' => null,
+        'library_registration_status' => false,
     ];
 
 
@@ -81,9 +83,9 @@ class ClearanceModal extends Component
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
 
-            $this->validate(
-                $this->getRulesForForm($this->currentForm),
-            );
+//            $this->validate(
+//                $this->getRulesForForm($this->currentForm),
+//            );
 
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;
@@ -158,6 +160,20 @@ class ClearanceModal extends Component
              'info.library_registration_status' => 'nullable|boolean',
          ],
      };
+  }
+
+  public function submit()
+  {
+      $student_id = $this->info['studentId']->storeOnCloudinary('means_of_identification');
+      $receipt = $this->info['receipt']->storeOnCloudinary('payment_receipts');
+
+      $this->info['means_of_identification'] = $student_id['public_id'];
+      $this->info['clearance_receipt'] = $receipt['public_id'];
+
+      $clearance_request = ClearanceRequest::create($this->info);
+
+
+
   }
     public function render()
     {

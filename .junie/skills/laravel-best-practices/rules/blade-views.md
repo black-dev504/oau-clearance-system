@@ -28,7 +28,7 @@ A single view can return either the full page or just a fragment, keeping routin
 
 ```php
 return view('dashboard', compact('users'))
-    ->fragmentIf($request->hasHeader('HX-Request'), 'user-list');
+    ->fragmentIf($request->hasHeader('HX-ClearanceRequest'), 'user-list');
 ```
 
 ## Use `@aware` for Deeply Nested Component Props

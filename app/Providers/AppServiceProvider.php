@@ -22,10 +22,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         UploadedFile::macro('storeOnCloudinary', function (string $folder = 'student_clearance_pics') {
-            return Cloudinary::uploadFile(
+            return Cloudinary::uploadApi()->upload(
                 $this->getRealPath(),
                 ['folder' => $folder, 'resource_type' => 'auto']
             );
         });
+
     }
 }

@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->belongsTo(Unit::class);
     }
 
+    public function clearanceRequests()
+    {
+        return $this->hasMany(ClearanceRequest::class);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;

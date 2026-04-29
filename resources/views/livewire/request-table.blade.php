@@ -1,5 +1,5 @@
 @props(
-    ['title'=> 'Clearance Request']
+    ['title'=> 'Clearance ClearanceRequest']
 )
 
 <div class="mt-8">
