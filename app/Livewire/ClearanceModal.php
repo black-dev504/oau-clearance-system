@@ -15,8 +15,8 @@ class ClearanceModal extends Component
     public string $currentForm = 'personalInfo';
     protected array $steps = ['personalInfo', 'contact', 'library', 'review'];
 
-    public string $studentIdPreview='';
-    public string $receiptPreview;
+    public string $studentIdPreview = '';
+    public string $receiptPreview = '';
 
     public array $completedSteps = [
         'personalInfo' => true,
@@ -48,18 +48,43 @@ class ClearanceModal extends Component
 
     public function updatedInfoStudentId()
     {
-        if ($this->info['student_id'])
+        $this->validateOnly('info.studentId',
+        [
+            'info.studentId' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+
+        ]
+        );
+
+        if ($this->info['studentId'])
         {
-            $this->studentIdPreview = $this->info['student_id']->temporaryUrl();
+            $this->studentIdPreview = $this->info['studentId']->temporaryUrl();
         }
 
-        logger($this->studentIdPreview);
     }
+
+    public function updatedInfoReceipt()
+    {
+        $this->validateOnly('receipt', [
+            'info.receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($this->info['receipt'])
+        {
+            $this->receiptPreview = $this->info['receipt']->temporaryUrl();
+
+        }
+    }
+
 
     public function next(): void
     {
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
+
+            $this->validate(
+                $this->getRulesForForm($this->currentForm),
+            );
+
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;
 
@@ -80,6 +105,60 @@ class ClearanceModal extends Component
 
     }
 
+    protected function validationAttributes()
+    {
+        return [
+            'info.studentId' => 'Means of Identification',
+            'info.receipt' => 'DSA Payment Receipt',
+            'info.name' => 'Name',
+            'info.email' => 'Email',
+            'info.phone' => 'Phone',
+            'info.matric_no' => 'Matric Number',
+            'info.department' => 'Department',
+            'info.faculty' => 'Faculty',
+            'info.graduation_year' => 'Graduation Year',
+            'info.address' => 'Address',
+            'info.course' => 'Course',
+            'info.hall' => 'Hall',
+            'info.block' => 'Block',
+            'info.bed_space' => 'Bed Space',
+            'info.room_number' => 'Room Number',
+            'info.library_registration_status' => 'Library Registration Status',
+
+        ];
+    }
+
+
+  public function getRulesForForm($form): array
+  {
+     return match ($form) {
+         'personalInfo' => [
+             'info.studentId' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+             'info.receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+             'info.name' => 'required|string|max:255',
+             'info.matric_no' => 'required|string|unique:requests,matric_no|max:10',
+             'info.department' => 'required|string|exists:departments,name|max:50',
+             'info.faculty' => 'required|string|exists:faculties,name|max:50',
+             'info.graduation_year' => 'required|string|date_format:Y',
+             'info.course' => 'required|string|max:50',
+
+         ],
+
+         'contact' => [
+             'info.address' => 'required|string|max:255',
+             'info.email' => 'required|email|max:255',
+             'info.phone' => 'required|digits_between:10,15',
+             'info.hall' => 'nullable|string|max:255',
+             'info.block' => 'nullable|string|max:255',
+             'info.bed_space' => 'nullable|string|max:255',
+             'info.room_number' => 'nullable|digits_between:1,4',
+         ],
+
+         'library' => [
+             'info.library_registration_status' => 'nullable|boolean',
+         ],
+     };
+  }
     public function render()
     {
         return view('livewire.clearance-modal', [

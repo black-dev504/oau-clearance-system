@@ -13,19 +13,19 @@
                 <div class="space-y-3">
                     <div>
                         <p class="text-xs text-gray-600">Full Name</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['name'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Matric Number</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['matric_no'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Course</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['course'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Faculty</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['faculty'] ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
@@ -38,15 +38,15 @@
                 <div class="space-y-3">
                     <div>
                         <p class="text-xs text-gray-600">Email</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['email'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Phone</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['phone'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Address</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['address'] ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="space-y-3">
                     <div>
                         <p class="text-xs text-gray-600">Hall of Residence</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['hall'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Block & Room</p>
@@ -69,7 +69,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-gray-600">Bed Space</p>
-                        <p class="text-sm font-medium text-gray-900">Not provided</p>
+                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['bed_space'] ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
@@ -116,9 +116,8 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-900">Identification</p>
-                            <p class="text-xs text-gray-500">
-                             Not uploaded
-                            </p>
+                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['studentId'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
+
                         </div>
                     </div>
 
@@ -136,11 +135,12 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-900">DSA Payment Receipt</p>
-                            <p class="text-xs text-gray-500">
-                               Not uploaded
-                            </p>
+                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['receipt'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
+
                         </div>
                     </div>
+
+{{--                   TODO: UI FOR WHEN IMAGES NOT UPLOADED --}}
 
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M20 6L9 17L4 12" stroke="#027a48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

@@ -11,7 +11,7 @@
         </h4>
         <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 border border-gray-200 shadow-sm dark:border-white/10 rounded-xl p-4 mt-4">
             <div class="col-span-2">
-                <flux:input wire:model="info.contact" label="Contact address*" placeholder="1st ave"  />
+                <flux:input wire:model="info.address" label="Contact address*" placeholder="1st ave"  />
             </div>
             <flux:input wire:model="info.email" label="Email Address" placeholder="johndoe@gmail.com" type="email"  />
             <flux:input wire:model="info.phone" label="Phone Number" type="number" placeholder="234 0000 0000"  />

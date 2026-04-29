@@ -1,7 +1,8 @@
 @props([
     'label' => '',
     'model' => '',
-    'preview' => false
+    'preview' => false,
+    'id' => uniqid('upload_')
 
 ])
 
@@ -11,7 +12,7 @@
         {{ $label }}
     </label>
 
-    <label for="upload" class="flex flex-col items-center justify-center w-full h-48 border border-dashed hover:border-primary border-primary-border py-1 dark:border-white/10 rounded-2xl cursor-pointer dark:hover:bg-zinc-700 hover:bg-gray-50 text-center transition">
+    <label for="{{$id}}" class="flex flex-col items-center justify-center w-full h-48 border border-dashed hover:border-primary border-primary-border py-1 dark:border-white/10 rounded-2xl cursor-pointer dark:hover:bg-zinc-700 hover:bg-gray-50 text-center transition">
 
     <div class="flex flex-col items-center justify-center text-gray-500 space-y-2">
         @if(!$preview)
@@ -23,11 +24,11 @@
                     </svg>
                 </div>
                 <p class="text-sm font-medium text-gray-900 mb-1">Click to upload ID</p>
-                <p class="text-xs text-gray-500">PNG, JPG or PDF (max. 5MB)</p>
+                <p class="text-xs text-gray-500">PNG, JPG or PDF (max. 2MB)</p>
 
         @else
-            <div class="flex relative items-center justify-center w-full h-full">
-                <img src="{{ $preview }}" alt="Preview" class="max-w-full h-full object-contain rounded-lg mb-2">
+            <div class="flex relative items-center justify-center w-full max-h-44">
+                <img src="{{ $preview }}" alt="Preview" class="max-w-full h-full object-contain rounded-lg ">
                 <span class="absolute top-35 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary/90 transition">
                         Change Picture
                 </span>
@@ -37,6 +38,9 @@
 
     </div>
     </label>
+    @error($model)
+    <span class="text-red-500 text-sm font-semibold">{{ $message }}</span>
+    @enderror
 
-    <input wire:model="{{$model}}" id="upload" type="file" class="sr-only"  />
+    <input wire:model="{{$model}}" id="{{$id}}" type="file" class="sr-only"  />
 </div>
