@@ -80,18 +80,26 @@ class ClearanceModal extends Component
 
     public function next(): void
     {
+        $this->dispatch('show-toast', [
+            'type' => 'error',
+            'message' => 'Saved successfully',
+        ]);
+
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
 
-//            $this->validate(
-//                $this->getRulesForForm($this->currentForm),
-//            );
+            $this->validate(
+                $this->getRulesForForm($this->currentForm),
+            );
 
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;
 
         }
         $this->dispatch('form-changed', form: $this->currentForm);
+        $this->dispatch('show-toast', [
+            'type' => 'success',
+        ]);
     }
 
     public function prev(): void
