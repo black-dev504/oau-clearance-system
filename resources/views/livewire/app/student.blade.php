@@ -289,4 +289,6 @@
             </div>
         @endif
     <livewire:clearance-modal />
+    <x-modals.student-confirmation />
+
 </div>

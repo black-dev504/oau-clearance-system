@@ -82,7 +82,6 @@
                 <flux:modal.trigger name="confirm-submission">
                 <button
                     x-show="form === 'review'"
-                    @click="$wire.submit()"
                     class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
                     Submit
                 </button>
@@ -92,5 +91,4 @@
 
 
     </div>
-        <x-modals.student-confirmation />
 </div>

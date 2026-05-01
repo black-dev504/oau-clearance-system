@@ -80,16 +80,16 @@ class ClearanceModal extends Component
 
     public function next(): void
     {
-        $this->dispatch('show-toast', [
-            'type' => 'error',
-            'message' => 'Saved successfully',
-        ]);
 
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
 
             $this->validate(
                 $this->getRulesForForm($this->currentForm),
+                [
+                    'info.matric_no.unique' => 'Matric Number already applied',
+
+                ]
             );
 
             $this->currentForm = $this->steps[$index + 1];
@@ -97,9 +97,7 @@ class ClearanceModal extends Component
 
         }
         $this->dispatch('form-changed', form: $this->currentForm);
-        $this->dispatch('show-toast', [
-            'type' => 'success',
-        ]);
+
     }
 
     public function prev(): void
@@ -146,7 +144,7 @@ class ClearanceModal extends Component
              'info.studentId' => 'required|image|mimes:jpeg,png,jpg|max:2048',
              'info.receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
              'info.name' => 'required|string|max:255',
-             'info.matric_no' => 'required|string|unique:requests,matric_no|max:10',
+             'info.matric_no' => 'required|string|unique:clearance_requests,matric_no|max:12',
              'info.department' => 'required|string|exists:departments,name|max:50',
              'info.faculty' => 'required|string|exists:faculties,name|max:50',
              'info.graduation_year' => 'required|string|date_format:Y',
@@ -170,19 +168,37 @@ class ClearanceModal extends Component
      };
   }
 
+  #[On('submit-form')]
   public function submit()
   {
-      $student_id = $this->info['studentId']->storeOnCloudinary('means_of_identification');
-      $receipt = $this->info['receipt']->storeOnCloudinary('payment_receipts');
+      try
+      {
+          $student_id = $this->info['studentId']->storeOnCloudinary('means_of_identification');
+          $receipt = $this->info['receipt']->storeOnCloudinary('payment_receipts');
 
-      $this->info['means_of_identification'] = $student_id['public_id'];
-      $this->info['clearance_receipt'] = $receipt['public_id'];
+          $this->info['means_of_identification'] = $student_id['public_id'];
+          $this->info['clearance_receipt'] = $receipt['public_id'];
 
-      $clearance_request = ClearanceRequest::create($this->info);
+          ClearanceRequest::create($this->info);
+          $this->js('$flux.modal("confirm-submission").close()');
+          $this->dispatch('close-clearance-modal');
 
+          $this->dispatch('show-toast', [
+              'type' => 'success',
+              'message' => 'Successfully Submitted Clearance Request'
+          ]);
+
+      } catch (\Throwable $e) {
+
+          $this->dispatch('show-toast', [
+              'type' => 'error',
+              'message' => 'Upload failed: ' . $e->getMessage()
+          ]);
+      }
 
 
   }
+
     public function render()
     {
         return view('livewire.clearance-modal', [
