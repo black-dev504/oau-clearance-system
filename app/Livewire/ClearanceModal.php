@@ -17,8 +17,8 @@ class ClearanceModal extends Component
     public string $currentForm = 'personalInfo';
     protected array $steps = ['personalInfo', 'contact', 'library', 'review'];
 
-    public string $studentIdPreview = '';
-    public string $receiptPreview = '';
+    public string $meansOfIdentificationPreview = '';
+    public string $clearanceReceiptPreview = '';
 
     public array $completedSteps = [
         'personalInfo' => true,
@@ -28,8 +28,8 @@ class ClearanceModal extends Component
     ];
 
     public array $info = [
-        'studentId' => '',
-        'receipt' => '',
+        'means_of_identification' => '',
+        'clearance_receipt' => '',
         'name' =>'',
         'email' => '',
         'phone' => '',
@@ -47,33 +47,34 @@ class ClearanceModal extends Component
     ];
 
 
-
-    public function updatedInfoStudentId()
+    public function updated($name, $value)
     {
-        $this->validateOnly('info.studentId',
-        [
-            'info.studentId' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        if ($name === 'info.means_of_identification') {
 
-        ]
-        );
+            $this->validateOnly('info.means_of_identification',
+                [
+                    'info.means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
 
-        if ($this->info['studentId'])
-        {
-            $this->studentIdPreview = $this->info['studentId']->temporaryUrl();
+                ]
+            );
+
+            if ($value)
+            {
+                $this->meansOfIdentificationPreview = $value->temporaryUrl();
+            }
         }
 
-    }
-
-    public function updatedInfoReceipt()
-    {
-        $this->validateOnly('receipt', [
-            'info.receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-
-        if ($this->info['receipt'])
+        if ($name === 'info.clearance_receipt')
         {
-            $this->receiptPreview = $this->info['receipt']->temporaryUrl();
+            $this->validateOnly('clearance_receipt', [
+                'info.clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
+            if ($value)
+            {
+                $this->clearanceReceiptPreview = $value->temporaryUrl();
+
+            }
         }
     }
 
@@ -116,8 +117,8 @@ class ClearanceModal extends Component
     protected function validationAttributes()
     {
         return [
-            'info.studentId' => 'Means of Identification',
-            'info.receipt' => 'DSA Payment Receipt',
+            'info.means_of_identification' => 'Means of Identification',
+            'info.clearance_receipt' => 'DSA Payment Receipt',
             'info.name' => 'Name',
             'info.email' => 'Email',
             'info.phone' => 'Phone',
@@ -141,8 +142,8 @@ class ClearanceModal extends Component
   {
      return match ($form) {
          'personalInfo' => [
-             'info.studentId' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-             'info.receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+             'info.means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+             'info.clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
              'info.name' => 'required|string|max:255',
              'info.matric_no' => 'required|string|unique:clearance_requests,matric_no|max:12',
              'info.department' => 'required|string|exists:departments,name|max:50',
@@ -168,19 +169,20 @@ class ClearanceModal extends Component
      };
   }
 
-  #[On('submit-form')]
   public function submit()
   {
       try
       {
-          $student_id = $this->info['studentId']->storeOnCloudinary('means_of_identification');
-          $receipt = $this->info['receipt']->storeOnCloudinary('payment_receipts');
+          $means_of_identification = $this->info['means_of_identification']->storeOnCloudinary('means_of_identification');
+          $clearance_receipt = $this->info['clearance_receipt']->storeOnCloudinary('payment_receipts');
 
-          $this->info['means_of_identification'] = $student_id['public_id'];
-          $this->info['clearance_receipt'] = $receipt['public_id'];
+          $this->info['means_of_identification'] = $means_of_identification['public_id'];
+          $this->info['clearance_receipt'] = $clearance_receipt['public_id'];
 
           ClearanceRequest::create($this->info);
-          $this->js('$flux.modal("confirm-submission").close()');
+
+          $this->dispatch('form-submitted');
+          $this->dispatch('submission-complete');
           $this->dispatch('close-clearance-modal');
 
           $this->dispatch('show-toast', [
@@ -189,14 +191,13 @@ class ClearanceModal extends Component
           ]);
 
       } catch (\Throwable $e) {
-
+          logger($e->getMessage());
           $this->dispatch('show-toast', [
               'type' => 'error',
               'message' => 'Upload failed: ' . $e->getMessage()
           ]);
+          $this->dispatch('submission-complete');
       }
-
-
   }
 
     public function render()

@@ -116,7 +116,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-900">Identification</p>
-                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['studentId'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
+                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['means_of_identification'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
 
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-900">DSA Payment Receipt</p>
-                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['receipt'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
+                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['clearance_receipt'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
 
                         </div>
                     </div>

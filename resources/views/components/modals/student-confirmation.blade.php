@@ -11,8 +11,8 @@
                 Cancel
             </button>
             <button
-                @click="$dispatch('submit-form')"
-                type="submit"
+                @click="window.dispatchEvent(new CustomEvent('confirm-submit')); $flux.modal('confirm-submission').close()"
+                type="button"
                 class="px-13 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full">
                 Confirm
             </button>

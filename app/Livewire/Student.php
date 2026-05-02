@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Student extends Component
@@ -13,6 +14,14 @@ class Student extends Component
     public function openModal(): void
     {
         $this->dispatch('open-clearance-modal');
+    }
+
+
+    #[On('form-submitted')]
+    public function submitted()
+    {
+        $this->registered = true;
+
     }
 
     public function render()

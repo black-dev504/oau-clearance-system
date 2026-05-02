@@ -9,14 +9,14 @@
     <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
         <x-upload
             label="Means of Identification*"
-            model="info.studentId"
-            :preview="$this->studentIdPreview"
+            model="info.means_of_identification"
+            :preview="$this->meansOfIdentificationPreview"
         />
 
         <x-upload
             label="DSA Payment Receipt"
-            model="info.receipt"
-            :preview="$this->receiptPreview"
+            model="info.clearance_receipt"
+            :preview="$this->clearanceReceiptPreview"
         />
 
         <flux:input wire:model="info.name" label="Student Name*" placeholder="Enter Full Name"  />
