@@ -30,4 +30,4 @@ foreach ($units as $unit) {
         Route::get('emails', Emails::class)->name('emails');
     });
 }
-Route::get('student/dashboard', Student::class)->name('student.dashboard');
+Route::get('student/dashboard', Student::class)->name('student.dashboard')->middleware(['auth','role:student']);

@@ -4,7 +4,7 @@
     @include('partials.head')
 </head>
 <body>
-<x-navbar :logo="'assets/images/oauLogo.svg'" />
+<x-navbar :logo="'assets/images/oauLogo.svg'" :user="$user"/>
 
 <main class="min-h-screen bg-background px-20">
     {{ $slot }}

@@ -31,7 +31,7 @@ class Login extends Component
             'password' => 'required|min:8',
         ]);
 
-        if (!Auth::attemptWhen(['email' => $this->email, 'password' => $this->password], fn(User $user)=> $user->isOfficer() || $user->isAdmin())) {
+        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
 
             RateLimiter::hit($this->throttleKey());
 
@@ -43,9 +43,17 @@ class Login extends Component
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
+        if (Auth::user()->isStudent()) {
+
+            return $this->redirect(route('student.dashboard'));
+        }
+
         $redirectRoute = Auth::user()->isAdmin()
             ? route('admin-dashboard')
             : route(Auth::user()->unit?->slug . '.dashboard');
+
+        /**  TODO: Handle situation where officer is not assigned unit **/
+
 
         $this->redirect($redirectRoute);
 

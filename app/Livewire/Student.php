@@ -2,13 +2,14 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Student extends Component
 {
 
-    public $registered = false;
+    public $registered;
 
 
     public function openModal(): void
@@ -23,6 +24,10 @@ class Student extends Component
         $this->registered = true;
 
     }
+
+    public function mount()
+    {
+        $this->registered = auth()->user()?->clearanceRequests()->exists();    }
 
     public function render()
     {
