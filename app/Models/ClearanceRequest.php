@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\ClearanceStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class ClearanceRequest extends Model
 {
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'status' => ClearanceStatus::class,
+    ];
 
     /**
      * populates the clearance table on every clearance request made
@@ -21,7 +25,7 @@ class ClearanceRequest extends Model
             $request->clearances()->createMany(
                 $units->map(fn ($unit) => [
                     'unit_id' => $unit->id,
-                    'status' => 'pending',
+                    'status' => ClearanceStatus::PENDING,
                 ])->toArray()
             );
         });

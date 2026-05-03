@@ -15,4 +15,9 @@ class Unit extends Model
     {
         return $this->hasMany(ClearanceRequest::class);
     }
+
+    public function clearances()
+    {
+        return $this->hasMany(Clearance::class);
+    }
 }

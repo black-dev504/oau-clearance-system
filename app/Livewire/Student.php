@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\ClearanceStatus;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -18,20 +19,27 @@ class Student extends Component
     }
 
 
-    #[On('form-submitted')]
-    public function submitted()
+    public function getStats()
     {
-        $this->registered = true;
+        $clearances = user()?->clearances ?? collect();
 
+        return [
+            'clearanceUnits' => $clearances,
+            'total' => $clearances->count(),
+            'approved' => $clearances->where('status', ClearanceStatus::APPROVED)->count(),
+        ];
     }
 
     public function mount()
     {
-        $this->registered = auth()->user()?->clearanceRequests()->exists();    }
+        $this->registered = user()?->clearanceRequests()->exists();
+
+    }
 
     public function render()
     {
-        return view('livewire.app.student')
-            ->layout('layouts.student', ['user' => auth()->user()]);
+        $stats = $this->getStats();
+        return view('livewire.app.student', compact('stats'))
+            ->layout('layouts.student', ['user' => user()]);
     }
 }

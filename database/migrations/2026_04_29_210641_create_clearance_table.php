@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ClearanceStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +23,7 @@ return new class extends Migration
                 ->constrained('units')
                 ->cascadeOnDelete();
 
-            $table->enum('status', [ 'pending', 'approved', 'rejected', 'reapply' ])->default('pending');
+            $table->tinyInteger('status')->default(ClearanceStatus::PENDING);
             $table->text('remark')->nullable();
             $table->timestamp('reviewed_at')->nullable();
             $table->timestamps();
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clearance');
+        Schema::dropIfExists('clearances');
     }
 };

@@ -91,20 +91,24 @@
             </div>
 
         @else
+                @php
+                    $percentage = round(($stats['approved'] / max($stats['total'], 1)) * 100);
+                @endphp
             <div class="bg-gradient-to-r from-primary to-secondary rounded-xl p-6 mb-8 text-white">
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h2 class="text-2xl mb-1">Clearance Progress</h2>
-                        <p class="text-white/80">2 of 6 units cleared</p>
+                        <p class="text-white/80"> {{$stats['approved']}} of {{$stats['total']}} units cleared</p>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl mb-1">25%</div>
+                        <div class="text-3xl mb-1">{{$percentage}}%</div>
                         <p class="text-white/80">Complete</p>
                     </div>
                 </div>
 
                 <div class="w-full bg-white/20 rounded-full h-3">
-                    <div class="bg-white rounded-full h-3 transition-all duration-500 w-1/4">
+                    <div class="bg-white rounded-full h-3 transition-all duration-500 "
+                         style="width: {{ $percentage }}%;">
                     </div>
                 </div>
 
@@ -116,11 +120,12 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                <x-student-card title="DSA" />
-                <x-student-card title="Hostel" />
-                <x-student-card title="Library" />
-                <x-student-card title="Department" />
-                <x-student-card title="Faculty" :reapply="true" />
+
+                @foreach($stats['clearanceUnits'] as $clearance)
+                    <x-student-card :title="$clearance?->unit?->name" :status="$clearance->status" :reapply="$clearance->status === 'reapply'" submission_date="{{ $clearance->created_at->format('M d Y') }}" />
+
+                @endforeach
+
             </div>
 
             <div class="bg-white border border-gray-200 rounded-xl p-6 my-8">
@@ -288,7 +293,10 @@
 
             </div>
         @endif
+    <div x-cloak>
+
     <livewire:clearance-modal />
+    </div>
     <x-modals.student-confirmation />
 
 </div>

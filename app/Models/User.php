@@ -68,6 +68,14 @@ class User extends Authenticatable
         return $this->hasMany(ClearanceRequest::class);
     }
 
+    public function clearances()
+    {
+        return $this->hasManyThrough(
+            Clearance::class,
+            ClearanceRequest::class
+        );
+    }
+
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;

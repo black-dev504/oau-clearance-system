@@ -44,6 +44,7 @@ class ClearanceModal extends Component
         'bed_space' =>'',
         'room_number' => null,
         'library_registration_status' => false,
+        'user_id' => null,
     ];
 
 
@@ -178,12 +179,15 @@ class ClearanceModal extends Component
 
           $this->info['means_of_identification'] = $means_of_identification['public_id'];
           $this->info['clearance_receipt'] = $clearance_receipt['public_id'];
+          $this->info['user_id'] = user()->id;
 
           ClearanceRequest::create($this->info);
 
           $this->dispatch('form-submitted');
           $this->dispatch('submission-complete');
           $this->dispatch('close-clearance-modal');
+
+          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 
           $this->dispatch('show-toast', [
               'type' => 'success',

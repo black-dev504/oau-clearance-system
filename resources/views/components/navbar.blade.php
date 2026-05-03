@@ -21,7 +21,13 @@
 
     <div class="flex flex-col">
         <span class="font-heading text-base text-[#6A7282]">Student ID</span>
-        <span class="text-[16px] font-heading text-[#101828]"></span>
+        <span class="text-[16px] font-heading text-[#101828]">
+            <form action="{{route('logout')}}" method="POST">
+                @csrf
+
+                <button type="submit">Log out</button>
+            </form>
+        </span>
     </div>
 
 </header>
