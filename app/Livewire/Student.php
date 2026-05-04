@@ -39,7 +39,10 @@ class Student extends Component
     public function render()
     {
         $stats = $this->getStats();
-        return view('livewire.app.student', compact('stats'))
-            ->layout('layouts.student', ['user' => user()]);
+        return view('livewire.app.student', [
+            'stats' => $stats,
+            'user' => user(),
+            'activities' => user()?->activities->take(6),
+        ])->layout('layouts.student', ['user' => user()]);
     }
 }

@@ -11,6 +11,8 @@ enum ClearanceStatus:int
 
     case REAPPLY = 3;
 
+    case SUBMITTED = 4;
+
 
     public  function label()
     {
@@ -19,6 +21,7 @@ enum ClearanceStatus:int
            self::APPROVED => __('Approved'),
            self::REJECTED => __('Rejected'),
            self::REAPPLY => __('Reapply'),
+           self::SUBMITTED => __('Submitted'),
        };
 
     }

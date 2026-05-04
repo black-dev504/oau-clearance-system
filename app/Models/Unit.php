@@ -20,4 +20,5 @@ class Unit extends Model
     {
         return $this->hasMany(Clearance::class);
     }
+
 }

@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\Enums\ClearanceStatus;
+use App\Observers\ClearanceRequestObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy(ClearanceRequestObserver::class)]
 class ClearanceRequest extends Model
 {
     protected $guarded = ['id'];
@@ -16,20 +19,6 @@ class ClearanceRequest extends Model
     /**
      * populates the clearance table on every clearance request made
      */
-    protected static function booted()
-    {
-        static::created(function ($request) {
-
-            $units = Unit::all();
-
-            $request->clearances()->createMany(
-                $units->map(fn ($unit) => [
-                    'unit_id' => $unit->id,
-                    'status' => ClearanceStatus::PENDING,
-                ])->toArray()
-            );
-        });
-    }
 
     public function user()
     {
@@ -39,5 +28,10 @@ class ClearanceRequest extends Model
     public function clearances()
     {
         return $this->hasMany(Clearance::class);
+    }
+
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'subject');
     }
 }

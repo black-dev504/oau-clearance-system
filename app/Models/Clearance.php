@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\ClearanceStatus;
+use App\Observers\ClearanceObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
-
+#[ObservedBy(ClearanceObserver::class)]
 class Clearance extends Model
 {
 
@@ -36,5 +38,10 @@ class Clearance extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'subject');
     }
 }

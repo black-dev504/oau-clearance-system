@@ -187,12 +187,13 @@ class ClearanceModal extends Component
           $this->dispatch('submission-complete');
           $this->dispatch('close-clearance-modal');
 
-          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 
           $this->dispatch('show-toast', [
               'type' => 'success',
               'message' => 'Successfully Submitted Clearance Request'
           ]);
+
+//          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 
       } catch (\Throwable $e) {
           logger($e->getMessage());

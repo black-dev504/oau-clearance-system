@@ -1,3 +1,6 @@
+@php
+    use App\Enums\ClearanceStatus
+@endphp
 <div class="">
         <div class="flex flex-col my-8">
             <h1 class=" text-4xl"> Student Dashboard</h1>
@@ -122,43 +125,30 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
                 @foreach($stats['clearanceUnits'] as $clearance)
-                    <x-student-card :title="$clearance?->unit?->name" :status="$clearance->status" :reapply="$clearance->status === 'reapply'" submission_date="{{ $clearance->created_at->format('M d Y') }}" />
+                    <x-student-card :title="$clearance?->unit?->name" :status="$clearance->status" :reapply="$clearance->status->label() === 'Rejected'" submission_date="{{ $clearance->created_at->diffForHumans() }}" />
 
                 @endforeach
-
             </div>
 
             <div class="bg-white border border-gray-200 rounded-xl p-6 my-8">
                 <h3 class="text-xl text-gray-900 mb-4">Recent Activity</h3>
                 <div class="space-y-3">
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div class="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" ></div>
-                        <div class="flex-1">
-                            <p class="text-gray-900">Library clearance approved</p>
-                            <p class="text-sm text-gray-500">April 10, 2026</p>
+                    @foreach($activities as $activity )
+                        <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                            <div class="w-2 h-2 rounded-full mt-2 flex-shrink-0
+                                 @if($activity->type === ClearanceStatus::APPROVED ) bg-green-500
+                                 @elseif($activity->type === ClearanceStatus::PENDING) bg-yellow-500
+                                 @elseif($activity->type === ClearanceStatus::REJECTED) bg-red-500
+                                 @elseif($activity->type === ClearanceStatus::SUBMITTED) bg-purple-400
+                                 @endif
+                           " ></div>
+                            <div class="flex-1">
+                                <p class="text-gray-900">{{$activity->title}}</p>
+                                <p class="text-sm text-gray-500"> {{ $activity->created_at->diffForHumans() }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div class="w-2 h-2 rounded-full bg-yellow-500 mt-2 flex-shrink-0" ></div>
-                        <div class="flex-1">
-                            <p class="text-gray-900">Hostel clearance submitted</p>
-                            <p class="text-sm text-gray-500">April 15, 2026</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div class="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" ></div>
-                        <div class="flex-1">
-                            <p class="text-gray-900">Senate clearance rejected</p>
-                            <p class="text-sm text-gray-500">April 12, 2026</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" ></div>
-                        <div class="flex-1">
-                            <p class="text-gray-900">Initial clearance request submitted</p>
-                            <p class="text-sm text-gray-500">April 8, 2026</p>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
 
@@ -179,7 +169,7 @@
                             <div class="space-y-3">
                                 <div>
                                     <p class="text-sm text-gray-500">Full Name</p>
-                                    <p class="text-gray-900">John Doe</p>
+                                    <p class="text-gray-900"></p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500">Student ID</p>
