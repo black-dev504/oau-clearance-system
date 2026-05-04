@@ -169,23 +169,27 @@
                             <div class="space-y-3">
                                 <div>
                                     <p class="text-sm text-gray-500">Full Name</p>
-                                    <p class="text-gray-900"></p>
+                                    <p class="text-gray-900">{{$user->fullName}}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500">Student ID</p>
-                                    <p class="text-gray-900">2023/HD/12345</p>
+                                    <p class="text-gray-900">{{$clearance_request->matric_no}}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500">Email</p>
-                                    <p class="text-gray-900">john.doe@student.edu</p>
+                                    <p class="text-gray-900">{{$clearance_request->email}}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500">Phone Number</p>
-                                    <p class="text-gray-900">+234 801 234 5678</p>
+                                    <p class="text-gray-900">{{$clearance_request->phone}}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500">Program</p>
-                                    <p class="text-gray-900">BSc Computer Science</p>
+                                    <p class="text-gray-900">Bsc.{{$clearance_request->course}}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Graduation Year</p>
+                                    <p class="text-gray-900">{{$clearance_request->graduation_year}}</p>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +210,8 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-sm text-gray-900">Academic Transcript</p>
+                                            <p class="text-sm text-gray-900">Means of Identification</p>
+{{--                                            TODO: IMAGE FORMAT AND PREVIEW--}}
                                             <p class="text-xs text-gray-500">2.4 MB • PDF</p>
                                         </div>
                                     </div>
@@ -221,54 +226,24 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-sm text-gray-900">Student ID Card</p>
-                                            <p class="text-xs text-gray-500">1.8 MB • PDF</p>
+                                            <p class="text-sm text-gray-900">Payment Receipt</p>
+{{--                                            TODO: IMAGE FORMAT AND PREVIEW--}}
+                                            <p class="text-xs text-gray-500">2.4 MB • PDF</p>
                                         </div>
                                     </div>
                                     <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
                                 </div>
 
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M12 0H4C2.9 0 2 0.9 2 2V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V6L12 0Z" fill="#4b3be4"/>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-900">Library Clearance Form</p>
-                                            <p class="text-xs text-gray-500">890 KB • PDF</p>
-                                        </div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
-                                </div>
 
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M12 0H4C2.9 0 2 0.9 2 2V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V6L12 0Z" fill="#4b3be4"/>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-900">Hostel Clearance Form</p>
-                                            <p class="text-xs text-gray-500">1.1 MB • PDF</p>
-                                        </div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
-                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="border-t border-gray-200 p-4 bg-gray-50 flex items-center justify-between">
-                        <p class="text-sm text-gray-600">Submitted on April 8, 2026 at 10:30 AM</p>
-                        <button class="text-blue-600 hover:text-blue-700 text-sm flex items-center gap-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z" fill="currentColor"/>
-                                <path d="M11.5 8.5l-4-2.5V11l4-2.5z" fill="currentColor"/>
-                            </svg>
-                            Download All Documents
+                        <p class="text-sm text-gray-500">
+                            Submitted on {{ $clearance_request->created_at->format('F j, Y \a\t g:i A') }}
+                        </p>                        <button class="text-blue-600 hover:text-blue-700 text-sm flex items-center gap-1">
+
                         </button>
                     </div>
                 </div>

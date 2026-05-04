@@ -192,6 +192,8 @@ class ClearanceModal extends Component
               'type' => 'success',
               'message' => 'Successfully Submitted Clearance Request'
           ]);
+          $this->dispatch('$refresh');
+
 
 //          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 

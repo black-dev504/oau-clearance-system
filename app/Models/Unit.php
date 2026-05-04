@@ -13,7 +13,14 @@ class Unit extends Model
 
     public function clearanceRequests()
     {
-        return $this->hasMany(ClearanceRequest::class);
+        return $this->hasManyThrough(
+            ClearanceRequest::class,
+            Clearance::class,
+            'unit_id', // Foreign key on clearances table
+            'id', // Foreign key on clearance_requests table
+            'id', // Local key on units table
+            'clearance_request_id'
+        );
     }
 
     public function clearances()

@@ -15,24 +15,25 @@ class Clearance extends Model
   protected $casts = [
       'status' => ClearanceStatus::class,
   ];
+
     public function scopePending($query)
     {
-        return $query->where('status', 'pending');
+        return $query->where('status', ClearanceStatus::PENDING);
     }
 
     public function scopeApproved($query)
     {
-        return $query->where('status', 'approved');
+        return $query->where('status', ClearanceStatus::APPROVED);
     }
 
     public function scopeReapply($query)
     {
-        return $query->where('status', 'reapply');
+        return $query->where('status', ClearanceStatus::REAPPLY);
     }
 
     public function scopeRejected($query)
     {
-        return $query->where('status', 'rejected');
+        return $query->where('status', ClearanceStatus::REJECTED);
     }
 
     public function unit()
@@ -43,5 +44,10 @@ class Clearance extends Model
     public function activities()
     {
         return $this->morphMany(Activity::class, 'subject');
+    }
+
+    public function clearancRequests()
+    {
+        return $this->hasMany(ClearanceRequest::class);
     }
 }

@@ -1,6 +1,8 @@
 @props(
 [
-    'unit' =>'unpassed'
+    'unit' =>'unpassed',
+    'data' => [],
+    'chartData' => []
     ])
 
 <div wire:navigate class="bg-background">
@@ -9,19 +11,19 @@
 
     <div class="flex gap-4 w-full">
 
-        <x-card title="Total Requests" value="1,420"  class="border-l-blue-400">
+        <x-card title="Total Requests" :value="$data['total']"  class="border-l-blue-400">
             <x-icons.total />
         </x-card>
 
-        <x-card title="Approved Requests" value="540"  class="border-l-green-500">
+        <x-card title="Approved Requests" :value="$data['approved']" class="border-l-green-500">
             <x-icons.approved />
         </x-card>
 
-        <x-card title="Pending Review" value="420"  icon="pending" class="border-l-yellow-500">
+        <x-card title="Pending Review" :value="$data['pending']"  icon="pending" class="border-l-yellow-500">
             <x-icons.pending />
         </x-card>
 
-        <x-card title="Queried Requests" value="20"  icon="pending" class="border-l-red-500">
+        <x-card title="Queried Requests" :value="$data['rejected']"  icon="pending" class="border-l-red-500">
             <x-icons.rejected />
         </x-card>
 
@@ -33,7 +35,7 @@
                 class="w-full  xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
                 <div class="w-full flex items-center justify-between text-xl dark:text-zinc-400 font-semibold">
                     <h3>Clearance Status</h3>
-                    <span>1420</span>
+                    <span>{{$data['total']}}</span>
                 </div>
                 <div class="w-full flex justify-center items-center">
                     <div
@@ -60,7 +62,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="bg-white border border-gray-100 rounded-2xl mt-8 shadow-sm">
             <div class="px-8 py-6 border-b border-gray-100">
@@ -110,15 +111,15 @@
                             <div class="text-sm text-gray-500 mb-1">Submitted</div>
                             <div class="text-sm text-gray-900">12/02/2000</div>
                         </div>
-                    </div>
 
                     <div class="flex items-center gap-3 shrink-0">
-
-                        <button class="px-4 py-2 bg-violet-600 text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
+                        <button class="px-4 py-2 bg-violet-500 text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
                             Review
                         </button>
+                    </div>
 
                 </div>
+                    </div>
             </div>
         </div>
 
@@ -140,41 +141,70 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const chart = document.getElementById('status-chart');
 
-    new Chart(chart, {
-        type: "doughnut",
-        data: {
-            labels: ['Active', 'Pending', 'Rejected'],
-            datasets: [{
-                data: [10, 30, 30],
-                backgroundColor: ['#039855', '#EEA23E', '#E33B32'],
-                hoverBackgroundColor: ['#039855', '#EEA23E', '#E33B32'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            cutout: "50%",
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'bottom',
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: 'circle',
-                        padding: 12,
-                        font: {
-                            size: 14
-                        },
-                        color: '#666',
-                        boxWidth: 6,
-                        boxHeight: 6
-                    }
-                }
-            }
+    window.addEventListener('updateChart', (event) => {
+        const {
+            approved,
+            pending,
+            rejected
+        } = event.detail;
+        updateChart(approved, pending, rejected);
+        console.log('update');
+    })
 
+    let statusChart;
+    let approved = {{ $chartData['approved'] }};
+    let pending = {{ $chartData['pending']  }};
+    let rejected = {{ $chartData['suspended']  }};
+
+
+    createChart(approved, pending, rejected);
+
+     function createChart($approved, $pending, $rejected)
+     {
+         statusChart = new Chart(document.getElementById('status-chart'), {
+             type: "doughnut",
+             data: {
+                 labels: ['Approved', 'Pending', 'Rejected'],
+                 datasets: [{
+                     data: [$approved, $pending, $rejected],
+                     backgroundColor: ['#039855', '#EEA23E', '#E33B32'],
+                     hoverBackgroundColor: ['#039855', '#EEA23E', '#E33B32'],
+                     borderWidth: 0
+                 }]
+             },
+             options: {
+                 cutout: "50%",
+                 responsive: true,
+                 maintainAspectRatio: true,
+                 plugins: {
+                     legend: {
+                         display: true,
+                         position: 'bottom',
+                         labels: {
+                             usePointStyle: true,
+                             pointStyle: 'circle',
+                             padding: 12,
+                             font: {
+                                 size: 14
+                             },
+                             color: '#666',
+                             boxWidth: 6,
+                             boxHeight: 6
+                         }
+                     }
+                 }
+
+             }
+         });
+    }
+
+    function updateChart($approved, $pending, $rejected)
+    {
+        if (statusChart) {
+           $statusChart.destroy();
         }
-    });
+        createChart($approved, $pending, $rejected);
+
+    }
 </script>
