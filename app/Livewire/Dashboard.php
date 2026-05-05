@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Http\Requests\DashboardRequest;
+use App\Models\ClearanceRequest;
 use http\Env\Request;
 use Livewire\Component;
 
@@ -10,8 +11,15 @@ class Dashboard extends Component
 {
 
     public $unit;
+    public $selectedRequest;
 
 
+
+    public function openModal($requestId)
+    {
+        $this->reset('selectedRequest');
+        $this->selectedRequest = ClearanceRequest::findorFail( $requestId);
+    }
 
    public function getUpdatedDataProperty(DashboardRequest $request)
    {
@@ -39,6 +47,8 @@ class Dashboard extends Component
                 'pending' => $data['pending'] ?? 0,
                 'suspended' => $data['rejected'] ?? 0,
             ],
+            'recentRequests' => user()->unit->clearanceRequests()->latest()->take(5)->get(),
+
         ])->layout('layouts.app');
     }
 }

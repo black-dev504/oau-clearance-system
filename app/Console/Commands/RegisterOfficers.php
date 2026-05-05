@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterOfficers extends Command
@@ -50,7 +51,7 @@ class RegisterOfficers extends Command
             'last_name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'role' => 'required|string|in:student,officer,admin',
-            'unit' => 'required|string|exists:units,name'
+            'unit' => 'nullable|string|exists:units,name'
         ]);
 
         if ($validator->fails()) {
@@ -58,14 +59,15 @@ class RegisterOfficers extends Command
                 $this->error($error);
             }
         }
-        $unit_id = Unit::where('name', $unit)->value('id');
+
 
         $user = User::create([
             'first_name' => $first_name,
             'last_name' => $last_name,
+            'password' => Hash::make('password'),
             'email' => $email,
             'role' => $role,
-            'unit_id' => $unit_id
+            'unit_id' => $unit ? Unit::where('name', $unit)->value('id') : null
         ]);
 
 

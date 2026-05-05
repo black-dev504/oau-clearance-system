@@ -4,12 +4,18 @@ namespace App\Models;
 
 use App\Enums\ClearanceStatus;
 use App\Observers\ClearanceRequestObserver;
+use Database\Factories\ClearanceRequestFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 #[ObservedBy(ClearanceRequestObserver::class)]
 class ClearanceRequest extends Model
 {
+
+    /** @use HasFactory<ClearanceRequestFactory> */
+    use HasFactory, Notifiable;
     protected $guarded = ['id'];
 
     protected $casts = [

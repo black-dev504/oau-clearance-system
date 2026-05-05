@@ -43,7 +43,7 @@ class Student extends Component
             'stats' => $stats,
             'user' => user(),
             'activities' => user()?->activities->take(6),
-            'clearance_request' => user()?->clearanceRequests[0],
+            'clearance_request' => $this->registered? user()?->clearanceRequests[0]: null,
         ])->layout('layouts.student', ['user' => user()]);
     }
 }
