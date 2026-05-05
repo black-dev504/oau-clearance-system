@@ -24,7 +24,7 @@
 <script>
 
     document.addEventListener('livewire:initialized', () => {
-        Livewire.on('show-toast', (data) => {
+        Livewire.on('notification', (data) => {
             const eventData = Array.isArray(data) ? data[0] : data;
 
             if (!eventData) return;

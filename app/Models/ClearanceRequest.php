@@ -40,4 +40,11 @@ class ClearanceRequest extends Model
     {
         return $this->morphMany(Activity::class, 'subject');
     }
+
+    public function clearanceForUnit($unitId)
+    {
+        return $this->clearances()
+            ->where('unit_id', $unitId)
+            ->first();
+    }
 }

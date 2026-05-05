@@ -1,3 +1,4 @@
+
 <flux:modal name="rejection-confirmation" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
 
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#E7000B] to-[#c10007]">
@@ -11,7 +12,7 @@
 
             <div class="flex flex-col">
                 <h1 class="font-semibold text-[20px] text-white">Reject Application</h1>
-                <p class="text-[14px] text-white/70">John Doe</p>
+                <p class="text-[14px] text-white/70">{{$this->selectedRequest?->name}}</p>
             </div>
         </div>
     </div>
@@ -19,20 +20,29 @@
         <div class="w-full flex flex-col gap-4">
 
             <p class="text-base text-[#2D2D2D]">You are about to reject this application. Please provide a reason for the rejection that will be communicated to the student.</p>
-
-            <flux:textarea
+            <flux:input
                 label="REASON FOR REJECTION *"
                 placeholder="e.g., Missing required documents, Incomplete library clearance, Invalid payment receipt..."
+                wire:model="remarks"
+{{--            <flux:textarea--}}
+{{--                label="REASON FOR REJECTION *"--}}
+{{--                placeholder="e.g., Missing required documents, Incomplete library clearance, Invalid payment receipt..."--}}
+{{--                wire:model="{{$model}}"--}}
+{{--                value="jj"--}}
             />
 
         </div>
     </div>
 
     <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
-        <button type="button" class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
+        <button type="button"
+                @click="$flux.modal('confirm-officer-submission').close()"
+                class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
-        <button type="submit" class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
+        <button type="submit"
+                @click="window.dispatchEvent(new CustomEvent('reject-request')); $flux.modal('rejection-confirmation').close()"
+                class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
             Confirm Rejection
         </button>
     </div>

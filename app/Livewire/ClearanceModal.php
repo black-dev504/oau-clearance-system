@@ -188,7 +188,7 @@ class ClearanceModal extends Component
           $this->dispatch('close-clearance-modal');
 
 
-          $this->dispatch('show-toast', [
+          $this->dispatch('notification', [
               'type' => 'success',
               'message' => 'Successfully Submitted Clearance Request'
           ]);
@@ -199,7 +199,7 @@ class ClearanceModal extends Component
 
       } catch (\Throwable $e) {
           logger($e->getMessage());
-          $this->dispatch('show-toast', [
+          $this->dispatch('notification', [
               'type' => 'error',
               'message' => 'Upload failed: ' . $e->getMessage()
           ]);

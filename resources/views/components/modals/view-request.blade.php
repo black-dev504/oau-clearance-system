@@ -7,8 +7,8 @@
             </div>
 
             <div class="flex flex-col">
-                <h1 class="font-semibold text-[20px] text-white">John Doe<span class="ml-1"> <x-tag /></span></h1>
-                <p class="text-[14px] text-white/70">Submitted on  <span>April 15, 2026</span></p>
+                <h1 class="font-semibold text-[20px] text-white">{{$this->selectedRequest?->name}}<span class="ml-1"> <x-tag /></span></h1>
+                <p class="text-[14px] text-white/70">Submitted on  <span>{{$this->selectedRequest?->created_at->format('F j, Y \a\t g:i A')}}</span></p>
 
             </div>
         </div>
@@ -25,11 +25,11 @@
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <flux:input label="MATRIC NUMBER" value="CSC/200/100"  />
-                        <flux:input label="COURSE OF STUDY" value="Computer Science"  />
-                        <flux:input label="DEPARTMENT" value="Computer Science and Engineering"/>
-                        <flux:input label="FACULTY" value="Technology" />
-                        <flux:input label="YEAR OF GRADUATION" value="2026" />
+                        <flux:input :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER"   />
+                        <flux:input :value="$this->selectedRequest?->course" label="COURSE OF STUDY"  />
+                        <flux:input :value="$this->selectedRequest?->department" label="DEPARTMENT" />
+                        <flux:input :value="$this->selectedRequest?->department" label="FACULTY"  />
+                        <flux:input :value="$this->selectedRequest?->graduation_year" label="YEAR OF GRADUATION" />
                     </div>
                 </div>
 
@@ -40,9 +40,9 @@
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <flux:input label="MATRIC NUMBER" value="CSC/200/100"  />
-                        <flux:input label="COURSE OF STUDY" value="Computer Science"  />
-                        <flux:input label="DEPARTMENT" value="Computer Science and Engineering"/>
+                        <flux:input :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER" value="CSC/20/100"  />
+                        <flux:input :value="$this->selectedRequest?->course" label="COURSE OF STUDY" value="Computer Science"  />
+                        <flux:input :value="$this->selectedRequest?->department" label="DEPARTMENT" value="Computer Science and Engineering"/>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
     <div class="border-t border-gray-200 px-8 py-6 bg-gray-50 flex-shrink-0">
         <div class="flex items-center flex-row-reverse gap-4">
 
-            <flux:modal.trigger name="confirm-submission">
+            <flux:modal.trigger name="confirm-officer-submission">
                 <button
                     class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
                     Approve Application

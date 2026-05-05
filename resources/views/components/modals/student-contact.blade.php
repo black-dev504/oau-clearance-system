@@ -1,5 +1,5 @@
 
-<flux:modal name="student-contact"  class="min-w-2xl rounded-2xl !p-0">
+<flux:modal name="student-contact"   class="min-w-2xl rounded-2xl !p-0">
 
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#2D2855] to-secondary">
         <div class="flex gap-3 items-center" >
@@ -11,7 +11,7 @@
 
             <div class="flex flex-col">
                 <h1 class="font-semibold text-[20px] text-white">Contact Information</h1>
-                <p class="text-[14px] text-white/70">John Doe</p>
+                <p class="text-[14px] text-white/70">{{$this->selectedRequest?->name}}</p>
             </div>
         </div>
     </div>
@@ -28,8 +28,10 @@
 
                 <div class="relative">
                     <flux:input
+                        disabled
                         class="w-full"
                         placeholder="adebayo.oluwaseun@university.edu"
+                        :value="$this->selectedRequest?->email"
                     />
                 </div>
             </div>
@@ -45,8 +47,10 @@
 
                 <div class="relative">
                     <flux:input
+                        disabled
                         class="w-full"
                         placeholder="+234 803 456 7890"
+                        :value="$this->selectedRequest?->phone"
                     />
                 </div>
             </div>
@@ -63,8 +67,10 @@
 
                 <div class="relative">
                     <flux:input
+                        disabled
                         class="w-full"
                         placeholder="adebayo.oluwaseun@university.edu"
+                        :value="$this->selectedRequest?->address"
                     />
                 </div>
             </div>

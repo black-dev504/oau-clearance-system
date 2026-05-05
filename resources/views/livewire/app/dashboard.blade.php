@@ -1,4 +1,6 @@
-<div>
+<div     @approve-request.window=" $wire.approveRequest()"
+         @reject-request.window=" $wire.rejectRequest()"
+>
     <div class="bg-background">
         <flux:heading size="xl" level="1">Good afternoon, {{$unit}} officer </flux:heading>
         <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
@@ -75,7 +77,7 @@
                 <div class="divide-y divide-gray-50">
 
                     @foreach($recentRequests as $request)
-                        <div  class="px-8 py-6 hover:bg-gray-50/50 transition-colors">
+                        <div wire:key="request-{{ $request->id }}" class="px-8 py-6 hover:bg-gray-50/50 transition-colors">
                             <div class="flex items-center gap-6">
                                 <div
                                     class="bg-gradient-to-br from-primary to-secondary text-white font-bold rounded-full image-fit zoom-in mr-1 h-12 w-12 flex items-center justify-center">
@@ -99,7 +101,7 @@
                                     <div >
                                         <div class="text-sm text-gray-500 mb-1 pl-3">Status</div>
                                         <div class="text-sm text-gray-900">
-                                            <x-tag :status="$request->status->label()" :classes="$request->status->classes()" />
+                                            <x-tag :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
                                         </div>
                                     </div>
 
@@ -110,19 +112,15 @@
                                 </div>
 
                                 <div class="flex items-center gap-3 shrink-0">
-                                    <flux:modal.trigger name="student-contact">
-                                        <button class=" flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
+                                        <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class=" flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
                                             <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                         </button>
-                                    </flux:modal.trigger>
 
-                                    <flux:modal.trigger name="view-request">
-                                        <button wire:click="openModal({{$request->id}})" class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
+                                        <button type="button"  wire:click="openModal('view-request', {{ $request->id }})" class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
                                             Review
                                         </button>
-                                    </flux:modal.trigger>
                                 </div>
 
                             </div>
@@ -136,15 +134,15 @@
 
     <div class="px-8 py-5 border-t border-gray-100 bg-gray-50/50">
         <button class="text-sm text-violet-600 font-medium hover:text-violet-700">
-            View all 280 requests →
+            View all {{$data['total']}} requests →
         </button>
     </div>
 
 
     <x-modals.student-contact />
     <x-modals.view-request />
-    <x-modals.rejection-confirmation />
-    <x-modals.student-confirmation />
+    <x-modals.rejection-confirmation  />
+    <x-modals.officer-confirmation />
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -164,7 +162,7 @@
     let statusChart;
     let approved = {{ $chartData['approved'] }};
     let pending = {{ $chartData['pending']  }};
-    let rejected = {{ $chartData['suspended']  }};
+    let rejected = {{ $chartData['rejected']  }};
 
 
     createChart(approved, pending, rejected);
