@@ -1,5 +1,7 @@
 <flux:modal name="view-request"  class="min-w-5xl rounded-2xl !p-0">
-
+    @php
+        $status = $this->selectedRequest?->clearanceForUnit(user()->unit_id)->status;
+    @endphp
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#2D2855] to-secondary">
         <div class="flex gap-3 items-center" >
             <div class="flex w-20 h-20 items-center justify-center rounded-full border-2 border-white/30 bg-white/20">
@@ -7,7 +9,7 @@
             </div>
 
             <div class="flex flex-col">
-                <h1 class="font-semibold text-[20px] text-white">{{$this->selectedRequest?->name}}<span class="ml-1"> <x-tag /></span></h1>
+                <h1 class="font-semibold text-[20px] text-white mb-1">{{$this->selectedRequest?->name}}<span class="ml-1">  <x-tag :status="$status?->label()" :classes="$status?->classes()" /></span></h1>
                 <p class="text-[14px] text-white/70">Submitted on  <span>{{$this->selectedRequest?->created_at->format('F j, Y \a\t g:i A')}}</span></p>
 
             </div>
@@ -65,6 +67,10 @@
 
     <div class="border-t border-gray-200 px-8 py-6 bg-gray-50 flex-shrink-0">
         <div class="flex items-center flex-row-reverse gap-4">
+
+
+
+{{--            TODO: RENDER BUTTONS BASED ON CURRENT STATUS--}}
 
             <flux:modal.trigger name="confirm-officer-submission">
                 <button

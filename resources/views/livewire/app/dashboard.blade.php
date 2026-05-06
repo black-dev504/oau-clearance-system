@@ -1,5 +1,5 @@
 <div     @approve-request.window=" $wire.approveRequest()"
-         @reject-request.window=" $wire.rejectRequest()"
+         @reject-request.window=" $wire.rejectRequest($event.detail.remarks) "
 >
     <div class="bg-background">
         <flux:heading size="xl" level="1">Good afternoon, {{$unit}} officer </flux:heading>
@@ -67,7 +67,7 @@
                             <p class="text-sm text-gray-500 mt-1">Manage and review student clearances</p>
                         </div>
                         <button class="flex items-center gap-2 px-4 py-2 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">
-                            <SlidersHorizontal class="w-4 h-4" />
+                            <SlidersHorizontal class="w-8 h-4" />
                             Filters
                         </button>
                     </div>

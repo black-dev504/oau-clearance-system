@@ -18,8 +18,6 @@ class Dashboard extends Component
     public $remarks = '';
 
 
-
-
     public function openModal($modal, $id = null)
     {
         $this->activeModal = $modal;
@@ -54,11 +52,13 @@ class Dashboard extends Component
          $this->closeModal();
    }
 
-   public function rejectRequest()
+   public function rejectRequest($remark)
    {
-       dd($this->remarks);
          $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
-         $current_unit->update(['status' => ClearanceStatus::REJECTED]);
+         $current_unit->update([
+             'status' => ClearanceStatus::REJECTED,
+             'remark' => $remark
+         ]);
          $this->dispatch('notification',  [
               'type' => 'success',
               'message'=>'Request rejected successfully!'
