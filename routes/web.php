@@ -25,7 +25,7 @@ $units = Unit::pluck('slug')->toArray();
 foreach ($units as $unit) {
     Route::prefix($unit)->name($unit . '.')->middleware(['auth','role:admin,officer'])->group(function () {
         Route::get('dashboard', Dashboard::class)->name('dashboard');
-        Route::get('pending-requests', PendingRequests::class)->name('pending');
+        Route::get('clearance-requests', PendingRequests::class)->name('clearance-requests');
         Route::get('announcements', Announcements::class)->name('announcements');
         Route::get('emails', Emails::class)->name('emails');
     });

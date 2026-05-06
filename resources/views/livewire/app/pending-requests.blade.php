@@ -1,28 +1,36 @@
+@php use App\Enums\ClearanceStatus @endphp
 <div @approve-request.window=" $wire.approveRequest()"
      @reject-request.window=" $wire.rejectRequest($event.detail.remarks) "
         @change-sort-value.window=" $wire.sortChange($event.detail.value) "
 >
 
     <div class="mt-8">
-        <h1 class="text-gray-900 text-3xl font-semibold mb-6">Pending Requests</h1>
+        <h1 class="text-gray-900 text-3xl font-semibold mb-6">Clearance Requests</h1>
         <div class="min-h-screen ">
             <div class=" mx-auto">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex gap-2 mb-6">
-                        <button
+                        @php
+                            $tabs = [
+                                ['status' => null,                             'label' => 'All Requests'],
+                                ['status' => ClearanceStatus::PENDING->value,  'label' => 'Pending Review'],
+                                ['status' => ClearanceStatus::APPROVED->value, 'label' => 'Approved'],
+                                ['status' => ClearanceStatus::REAPPLY->value,  'label' => 'Reapplications'],
+                            ];
+                        @endphp
 
-                            class="px-4 py-2 rounded-lg text-sm flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white">
-                            New Applications
+                        @foreach($tabs as $tab)
+                            <button
+                                wire:click="setStatus('{{ $tab['status'] }}')"
+                                @class([
+                                    'px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors',
+                                    'bg-gradient-to-r from-primary to-secondary text-white' => $currentStatus === $tab['status'],
+                                    'bg-white border border-gray-200 text-gray-700' => $currentStatus !== $tab['status'],
+                                ])>
+                                {{ $tab['label'] }}
+                            </button>
+                        @endforeach
 
-                            <span class="bg-purple-500 text-white text-xs px-2 py-0.5 rounded-full">{{$pending_requests->count()}}</span>
-
-                        </button>
-                        <button
-                            class="px-4 py-2 rounded-lg text-sm flex items-center gap-2 bg-white text-gray-700 border border-gray-200"
-                        >
-                            Reapplications
-                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full">3</span>
-                        </button>
                     </div>
 
 
@@ -64,7 +72,7 @@
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                        @foreach($pending_requests as $request)
+                        @foreach($requests as $request)
 
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4">

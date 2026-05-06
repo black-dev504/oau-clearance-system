@@ -13,7 +13,7 @@ class PendingRequests extends Component
     public $search;
     public $activeModal;
     public $sortValue = 'Newest';
-    public $currentTable = 'pending_requests';
+    public $currentStatus = null;
 
 
     public function openModal($modal, $id = null)
@@ -38,6 +38,11 @@ class PendingRequests extends Component
         $this->closeModal();
     }
 
+    public function openReapplications()
+    {
+       $this->currentStatus = ClearanceStatus::REAPPLY;
+    }
+
     public function rejectRequest($remark)
     {
         $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
@@ -58,30 +63,36 @@ class PendingRequests extends Component
         $this->sortValue = $value;
     }
 
-    public function render()
+    public function setStatus($status)
     {
+        $this->currentStatus = $status === 'null' ? null : $status;
+    }
 
+    public function getQuery()
+    {
         $query = ClearanceRequest::query()
-                 ->whereHas('clearances', function ($query) {
-                    $query->where('unit_id', user()->unit_id)
-                    ->where('status', ClearanceStatus::PENDING)
-                     ->when(! empty($this->search),
-                         fn ($query) => $query->where('name', 'like', '%'.$this->search.'%')
-                                                ->orWhere('matric_no', 'like', '%'.$this->search.'%')
-                     );
+            ->whereHas('clearances', function ($query) {
+                $query->where('unit_id', user()->unit_id)
+                    ->when($this->currentStatus !== null, fn($q) => $q->where('status', $this->currentStatus))
+                    ->when(! empty($this->search),
+                        fn ($query) => $query->where('name', 'like', '%'.$this->search.'%')
+                            ->orWhere('matric_no', 'like', '%'.$this->search.'%')
+                    );
             });
 
-        $query = match ($this->sortValue) {
+        return  $query = match ($this->sortValue) {
             'Newest' => $query->latest(),
             'Oldest' => $query->oldest(),
             'Name' => $query->orderBy('name'),
             default => $query->latest()
         };
+    }
 
+    public function render()
+    {
+        $query = $this->getQuery();
         return view('livewire.app.pending-requests', [
-            'pending_requests' => $query->paginate(10)
-
-
+            'requests' => $query->paginate(10)
 
         ]);
     }
