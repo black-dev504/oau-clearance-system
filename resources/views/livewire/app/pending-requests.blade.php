@@ -1,5 +1,6 @@
 <div @approve-request.window=" $wire.approveRequest()"
      @reject-request.window=" $wire.rejectRequest($event.detail.remarks) "
+        @change-sort-value.window=" $wire.sortChange($event.detail.value) "
 >
 
     <div class="mt-8">
@@ -32,9 +33,22 @@
                     <div class="relative w-64">
                         <x-search />
                     </div>
-                    <button class="flex items-center gap-2 text-sm text-gray-700">
-                        Filter by: Newest
-                    </button>
+                    <div class="relative" x-data="{ open: false, value: 'newest' }">
+
+                        <button @click="open = !open" class="flex items-center gap-2 text-sm text-gray-700 border rounded-full p-3 border-gray-300">
+                            Filter by:{{$this->sortValue}}
+                        </button>
+
+                        <div x-cloak x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border rounded border-gray-300 shadow-lg z-10">
+                            <ul>
+                                <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Name'})" class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">Name</li>
+                                <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Newest'})"  class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">Newest</li>
+                                <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Oldest'})" class="px-4 py-2 hover:bg-gray-100 cursor-pointer  border-b border-gray-300">Oldest</li>
+                                <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Course'})" class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">Course</li>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="bg-white rounded-lg shadow overflow-hidden">

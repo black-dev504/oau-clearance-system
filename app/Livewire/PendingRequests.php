@@ -12,7 +12,7 @@ class PendingRequests extends Component
     public $selectedRequest;
     public $search;
     public $activeModal;
-    public $sortValue;
+    public $sortValue = 'Newest';
     public $currentTable = 'pending_requests';
 
 
@@ -52,6 +52,12 @@ class PendingRequests extends Component
         $this->closeModal();
     }
 
+    #[On('change-sort-value')]
+    public function sortChange($value)
+    {
+        $this->sortValue = $value;
+    }
+
     public function render()
     {
 
@@ -64,6 +70,14 @@ class PendingRequests extends Component
                                                 ->orWhere('matric_no', 'like', '%'.$this->search.'%')
                      );
             });
+
+        $query = match ($this->sortValue) {
+            'Newest' => $query->latest(),
+            'Oldest' => $query->oldest(),
+            'Name' => $query->orderBy('name'),
+            default => $query->latest()
+        };
+
         return view('livewire.app.pending-requests', [
             'pending_requests' => $query->paginate(10)
 
