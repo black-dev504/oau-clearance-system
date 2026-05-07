@@ -2,9 +2,6 @@
     $unit = request()->segment(1);
 @endphp
 
-
-
-<body class="min-h-screen bg-background flex dark:bg-zinc-800 antialiased">
 <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
     <flux:sidebar.header>
         <flux:sidebar.brand
@@ -73,11 +70,11 @@
 
     </flux:navbar>
 </flux:header>
+    <flux:main>
+        {{ $slot }}
+    </flux:main>
 
-{{ $slot }}
 
 </div>
 
 
-@fluxScripts
-</body>

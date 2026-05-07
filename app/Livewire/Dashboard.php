@@ -27,7 +27,8 @@ class Dashboard extends Component
 
     public function closeModal()
     {
-        $this->reset(['activeModal', 'selectedRequest']);
+//        $this->js('$flux.modal("'.$this->activeModal.'").close()');
+//        $this->reset(['activeModal', 'selectedRequest']);
     }
 
    public function getUpdatedDataProperty(DashboardRequest $request)
@@ -83,6 +84,6 @@ class Dashboard extends Component
             ],
             'recentRequests' => user()->unit->clearanceRequests()->latest()->take(5)->get(),
 
-        ])->layout('layouts.app');
+        ]);
     }
 }

@@ -45,6 +45,8 @@ class ClearanceRequests extends Component
 
     public function rejectRequest($remark)
     {
+
+//        TODO: add validation for remark
         $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
         $current_unit->update([
             'status' => ClearanceStatus::REJECTED,

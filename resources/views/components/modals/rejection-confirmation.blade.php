@@ -33,12 +33,12 @@
 
     <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
         <button type="button"
-                @click="$flux.modal('confirm-officer-submission').close()"
+                @click="$flux.modal('rejection-confirmation').close()"
                 class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
         <button type="submit"
-                @click="window.dispatchEvent(new CustomEvent('reject-request', { detail: { remarks: remarks } }))"
+                @click="window.dispatchEvent(new CustomEvent('reject-request', { detail: { remarks: remarks } })); $flux.modal('rejection-confirmation').close() "
                 class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
             Confirm Rejection
         </button>

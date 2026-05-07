@@ -1,4 +1,4 @@
-<div     @approve-request.window=" $wire.approveRequest()"
+<div     @approve-request.window=" $wire.approveRequest() "
          @reject-request.window=" $wire.rejectRequest($event.detail.remarks) "
 >
     <div class="bg-background">
@@ -66,10 +66,7 @@
                             <h2 class="text-xl font-semibold text-gray-900">Recent Requests</h2>
                             <p class="text-sm text-gray-500 mt-1">Manage and review student clearances</p>
                         </div>
-                        <button class="flex items-center gap-2 px-4 py-2 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">
-                            <SlidersHorizontal class="w-8 h-4" />
-                            Filters
-                        </button>
+
                     </div>
                 </div>
 
@@ -81,7 +78,7 @@
                             <div class="flex items-center gap-6">
                                 <div
                                     class="bg-gradient-to-br from-primary to-secondary text-white font-bold rounded-full image-fit zoom-in mr-1 h-12 w-12 flex items-center justify-center">
-                                    <span>JD</span>
+                                    <span>{{get_initials($request->name)}}</span>
                                 </div>
 
 
@@ -112,13 +109,13 @@
                                 </div>
 
                                 <div class="flex items-center gap-3 shrink-0">
-                                        <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class=" flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
+                                        <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
                                             <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                         </button>
 
-                                        <button type="button"  wire:click="openModal('view-request', {{ $request->id }})" class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
+                                        <button type="button"  wire:click="openModal('view-request', {{ $request->id }})" class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
                                             Review
                                         </button>
                                 </div>
@@ -132,10 +129,14 @@
         </div>
     </div>
 
+    @php
+    $unit = strtolower(user()->unit->name);
+    @endphp
+
     <div class="px-8 py-5 border-t border-gray-100 bg-gray-50/50">
-        <button class="text-sm text-violet-600 font-medium hover:text-violet-700">
+        <a href="{{route($unit.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
             View all {{$data['total']}} requests →
-        </button>
+        </a>
     </div>
 
 
@@ -156,16 +157,12 @@
             rejected
         } = event.detail;
         updateChart(approved, pending, rejected);
-        console.log('update');
     })
 
     let statusChart;
     let approved = {{ $chartData['approved'] }};
     let pending = {{ $chartData['pending']  }};
     let rejected = {{ $chartData['rejected']  }};
-
-
-    createChart(approved, pending, rejected);
 
     function createChart($approved, $pending, $rejected)
     {

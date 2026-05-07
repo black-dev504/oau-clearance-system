@@ -11,14 +11,13 @@
 </main>
 
 @fluxScripts
-@livewireScripts
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-</body>
-</html>
+
+
 
 <script>
 
-    document.addEventListener('livewire:initialized', () => {
+    document.addEventListener('livewire:init', () => {
         Livewire.on('notification', (data) => {
             const eventData = Array.isArray(data) ? data[0] : data;
 
@@ -82,3 +81,6 @@
 
 
 </script>
+
+</body>
+</html>

@@ -5,25 +5,24 @@
     @include('partials.head')
 </head>
 
-<body>
+<body class="min-h-screen bg-background flex dark:bg-zinc-800 antialiased">
+
 <x-layouts.sidebar >
-    <flux:main>
 
         {{ $slot }}
-    </flux:main>
 </x-layouts.sidebar>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
 @fluxScripts
-</body>
 
-
-
-</html>
 
 <script>
 
-    document.addEventListener('livewire:initialized', () => {
+    document.addEventListener('livewire:init', () => {
+
+        if (window.notificationListenerRegistered) return;
+
+        window.notificationListenerRegistered = true;
+
         Livewire.on('notification', (data) => {
             const eventData = Array.isArray(data) ? data[0] : data;
 
@@ -54,6 +53,7 @@
     </svg>`
             };
 
+            let toastCount;
             const selectedIcon = icons[eventData.type] ?? icons.info;
             const message = eventData?.message ?? 'Something happened';
 
@@ -63,6 +63,13 @@
                 <div style="flex: 1;">${message}</div>
             </div>
         `;
+
+            toastCount++;
+
+            console.log('Toast fired:', toastCount);
+            console.log(data);
+            console.trace();
+
 
 
 
@@ -84,6 +91,8 @@
 
         })
     })
-
-
 </script>
+
+</body>
+
+</html>
