@@ -1,35 +1,35 @@
 <div     @approve-request.window=" $wire.approveRequest() "
          @reject-request.window=" $wire.rejectRequest($event.detail.remarks) "
 >
-    <div class="bg-background">
+    <div class="bg-background dark:text-zinc-400 dark:bg-zinc-800">
         <flux:heading size="xl" level="1">Good afternoon, {{$unit}} officer </flux:heading>
         <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
 
         <div class="flex gap-4 w-full">
 
-            <x-card title="Total Requests" :value="$data['total']"  class="border-l-blue-400">
+            <x-card title="Total Requests" :value="$data['total']"  class="!border-l-blue-400 ">
                 <x-icons.total />
             </x-card>
 
-            <x-card title="Approved Requests" :value="$data['approved']" class="border-l-green-500">
+            <x-card title="Approved Requests" :value="$data['approved']" class="!border-l-green-500 ">
                 <x-icons.approved />
             </x-card>
 
-            <x-card title="Pending Review" :value="$data['pending']"  icon="pending" class="border-l-yellow-500">
+            <x-card title="Pending Review" :value="$data['pending']"  icon="pending" class="!border-l-yellow-500 ">
                 <x-icons.pending />
             </x-card>
 
-            <x-card title="Queried Requests" :value="$data['rejected']"  icon="pending" class="border-l-red-500">
+            <x-card title="Queried Requests" :value="$data['rejected']"  icon="pending" class="!border-l-red-500">
                 <x-icons.rejected />
             </x-card>
 
         </div>
 
-        <div class="relative flex-1 overflow-hidden mt-8 ">
+        <div class="  relative flex-1 overflow-hidden mt-8 ">
             <div class="w-full gap-6 grid xl:grid-cols-4 lg:grid-cols-5 grid-cols-2 ">
                 <div
-                    class="w-full  xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
-                    <div class="w-full flex items-center justify-between text-xl dark:text-zinc-400 font-semibold">
+                    class="w-full dark:bg-zinc-800 xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
+                    <div class="w-full flex items-center justify-between text-xl dark:text-zinc-100 font-semibold">
                         <h3>Clearance Status</h3>
                         <span>{{$data['total']}}</span>
                     </div>
@@ -42,9 +42,9 @@
                     </div>
                 </div>
 
-                <div class="w-full bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
+                <div class="w-full dark:bg-zinc-800 bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
                     <div class="w-full flex justify-between items-center">
-                        <h3 class="font-semibold text-xl dark:text-zinc-400">Announcements</h3>
+                        <h3 class="font-semibold text-xl dark:text-zinc-100">Announcements</h3>
                         <button class="text-[#667085] dark:text-zinc-400">View all</button>
                     </div>
 
@@ -59,22 +59,22 @@
                 </div>
             </div>
 
-            <div class="bg-white border border-gray-100 rounded-2xl mt-8 shadow-sm">
-                <div class="px-8 py-6 border-b border-gray-100">
+            <div class="bg-white dark:bg-zinc-800 dark:border-white/10 border border-gray-100 rounded-2xl mt-8 shadow-sm dark:shadow-none">
+                <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-xl font-semibold text-gray-900">Recent Requests</h2>
-                            <p class="text-sm text-gray-500 mt-1">Manage and review student clearances</p>
+                            <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Recent Requests</h2>
+                            <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">Manage and review student clearances</p>
                         </div>
 
                     </div>
                 </div>
 
 
-                <div class="divide-y divide-gray-50">
+                <div class=" dark:bg-zinc-800 divide-y divide-gray-50 dark:divide-white/10">
 
                     @foreach($recentRequests as $request)
-                        <div wire:key="request-{{ $request->id }}" class="px-8 py-6 hover:bg-gray-50/50 transition-colors">
+                        <div wire:key="request-{{ $request->id }}" class="px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
                             <div class="flex items-center gap-6">
                                 <div
                                     class="bg-gradient-to-br from-primary to-secondary text-white font-bold rounded-full image-fit zoom-in mr-1 h-12 w-12 flex items-center justify-center">
@@ -85,31 +85,31 @@
                                 <div class="flex-1 min-w-0 grid grid-cols-4 gap-6">
                                     <div>
                                         <div class="flex items-center gap-2 mb-1">
-                                            <div class="font-medium text-gray-900">{{$request->name}}</div>
+                                            <div class="font-medium text-gray-900 dark:text-zinc-100">{{$request->name}}</div>
                                         </div>
-                                        <div class="text-sm text-gray-500">{{$request->matric_no}}</div>
+                                        <div class="text-sm text-gray-500 dark:text-zinc-400">{{$request->matric_no}}</div>
                                     </div>
 
                                     <div>
-                                        <div class="text-sm text-gray-500 mb-1">Course</div>
-                                        <div class="text-sm text-gray-900">{{$request->course}} </div>
+                                        <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Course</div>
+                                        <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request->course}} </div>
                                     </div>
 
                                     <div >
-                                        <div class="text-sm text-gray-500 mb-1 pl-3">Status</div>
+                                        <div class="text-sm text-gray-500 mb-1 pl-3 dark:text-zinc-400">Status</div>
                                         <div class="text-sm text-gray-900">
                                             <x-tag :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <div class="text-sm text-gray-500 mb-1">Submitted</div>
-                                        <div class="text-sm text-gray-900">{{ $request->created_at->diffForHumans()}}</div>
+                                        <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Submitted</div>
+                                        <div class="text-sm text-gray-900 dark:text-zinc-100">{{ $request->created_at->diffForHumans()}}</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-center gap-3 shrink-0">
-                                        <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
+                                        <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
                                             <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
@@ -133,7 +133,7 @@
     $unit = strtolower(user()->unit->name);
     @endphp
 
-    <div class="px-8 py-5 border-t border-gray-100 bg-gray-50/50">
+    <div class="px-8 py-5 border-t dark:bg-zinc-800 dark:border-white/10 border-gray-100 bg-gray-50/50">
         <a href="{{route($unit.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
             View all {{$data['total']}} requests →
         </a>

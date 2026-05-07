@@ -7,14 +7,14 @@
 )
 
 
-<div {{$attributes->merge(["class" => "relative w-full flex bg-white flex-col bg-white border border-gray-200 border-l-4  rounded-xl shadow-sm p-6"])}} >
+<div {{$attributes->merge(["class" => " dark:bg-zinc-800 dark:text-zinc-400 dark:border-white/10  relative w-full flex bg-white flex-col bg-white border border-gray-200 border-l-4  rounded-xl shadow-sm p-6"])}} >
     <div class="flex justify-between items-start">
 
         <div>
-            <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-zinc-100 uppercase tracking-wide">
                 {{$title}}
             </h3>
-            <p class="mt-2 text-3xl font-bold text-gray-900">
+            <p class="mt-2 text-3xl font-bold dark:text-zinc-100 text-gray-900">
                 {{$value}}
             </p>
         </div>

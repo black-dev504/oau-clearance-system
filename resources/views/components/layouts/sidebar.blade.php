@@ -66,7 +66,7 @@
     </flux:navbar>
 
     <flux:navbar >
-       <h1 class="text-2xl ">{{ config('units.' . $unit . '.heading') }}</h1>
+       <h1 class="text-2xl dark:text-zinc-400 ">{{ config('units.' . $unit . '.heading') }}</h1>
 
     </flux:navbar>
 </flux:header>

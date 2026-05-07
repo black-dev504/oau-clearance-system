@@ -8,6 +8,6 @@ class Announcements extends Component
 {
     public function render()
     {
-        return view('livewire.app.announcements')->layout('layouts.app');
+        return view('livewire.app.announcements');
     }
 }
