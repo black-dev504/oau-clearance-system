@@ -6,7 +6,7 @@ use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
 use Livewire\Component;
 
-class PendingRequests extends Component
+class ClearanceRequests extends Component
 {
 
     public $selectedRequest;
@@ -65,7 +65,9 @@ class PendingRequests extends Component
 
     public function setStatus($status)
     {
-        $this->currentStatus = $status === 'null' ? null : $status;
+        $this->currentStatus = $status == ''
+                               ? null
+                               : ClearanceStatus::stringToEnum($status);
     }
 
     public function getQuery()
@@ -73,7 +75,7 @@ class PendingRequests extends Component
         $query = ClearanceRequest::query()
             ->whereHas('clearances', function ($query) {
                 $query->where('unit_id', user()->unit_id)
-                    ->when($this->currentStatus !== null, fn($q) => $q->where('status', $this->currentStatus))
+                    ->when($this->currentStatus != null, fn($q) => $q->where('status', $this->currentStatus))
                     ->when(! empty($this->search),
                         fn ($query) => $query->where('name', 'like', '%'.$this->search.'%')
                             ->orWhere('matric_no', 'like', '%'.$this->search.'%')
@@ -91,7 +93,7 @@ class PendingRequests extends Component
     public function render()
     {
         $query = $this->getQuery();
-        return view('livewire.app.pending-requests', [
+        return view('livewire.app.clearance-requests', [
             'requests' => $query->paginate(10)
 
         ]);

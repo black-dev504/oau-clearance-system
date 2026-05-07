@@ -54,4 +54,15 @@ enum ClearanceStatus:int
 
     }
 
+    public static function stringToEnum(string $status): self
+    {
+        return match (strtolower($status)) {
+            'approved' => self::APPROVED,
+            'rejected' => self::REJECTED,
+            'pending' => self::PENDING,
+            'reapply' => self::REAPPLY,
+            default => throw new \InvalidArgumentException("Invalid status: $status"),
+        };
+    }
+
 }

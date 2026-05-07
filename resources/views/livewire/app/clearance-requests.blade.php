@@ -12,10 +12,10 @@
                     <div class="flex gap-2 mb-6">
                         @php
                             $tabs = [
-                                ['status' => null,                             'label' => 'All Requests'],
-                                ['status' => ClearanceStatus::PENDING->value,  'label' => 'Pending Review'],
-                                ['status' => ClearanceStatus::APPROVED->value, 'label' => 'Approved'],
-                                ['status' => ClearanceStatus::REAPPLY->value,  'label' => 'Reapplications'],
+                                ['status' => null,                      'label' => 'All Requests'],
+                                ['status' => 'Pending',  'label' => 'Pending Review'],
+                                ['status' => 'Reapply',  'label' => 'Reapplications'],
+                                ['status' => 'Approved', 'label' => 'Approved'],
                             ];
                         @endphp
 
@@ -24,11 +24,12 @@
                                 wire:click="setStatus('{{ $tab['status'] }}')"
                                 @class([
                                     'px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors',
-                                    'bg-gradient-to-r from-primary to-secondary text-white' => $currentStatus === $tab['status'],
-                                    'bg-white border border-gray-200 text-gray-700' => $currentStatus !== $tab['status'],
+                                    'bg-gradient-to-r from-primary to-secondary text-white' => $currentStatus?->label() == $tab['status'],
+                                    'bg-white border border-gray-200 text-gray-700' => $currentStatus?->label() != $tab['status'],
                                 ])>
                                 {{ $tab['label'] }}
                             </button>
+
                         @endforeach
 
                     </div>
@@ -52,7 +53,6 @@
                                 <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Name'})" class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">Name</li>
                                 <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Newest'})"  class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">Newest</li>
                                 <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Oldest'})" class="px-4 py-2 hover:bg-gray-100 cursor-pointer  border-b border-gray-300">Oldest</li>
-                                <li @click.prevent=" open = false; $dispatch('change-sort-value', {value: 'Course'})" class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">Course</li>
                             </ul>
                         </div>
 
@@ -67,13 +67,15 @@
                             <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Matric No.</th>
                             <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Course</th>
                             <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Submitted</th>
+                            @if($currentStatus == ClearanceStatus::REAPPLY) <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Rejected On</th>@endif
                             <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Status</th>
                             <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
+                        @if($requests->count() > 0)
                         @foreach($requests as $request)
-
+                        <div wire:key="request-{{ $request->id }}">
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-1">
@@ -99,8 +101,19 @@
                                 <div class="text-xs text-gray-500" >
                                     {{$request->created_at->format('g:i A')}}
                                 </div>
-
                             </td>
+{{--                        TODO: REVISIT THE REAPPLICATION AND REJECTION DATE --}}
+                            @if($currentStatus == ClearanceStatus::REAPPLY)
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-[#C10007]">
+                                        {{$request->clearanceForUnit(user()->unit_id)->updated_at->format('F j, Y') }}
+                                    </div>
+                                    <div class="text-xs text-gray-500">Latest Rejection</div>
+
+                                </td>
+
+                            @endif
+
                             <td class="px-6 py-4">
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs capitalize">
@@ -110,14 +123,14 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
 
-                                    <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class=" flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
+                                    <button id="contact-{{$request->id}}" wire:click="openModal('student-contact', {{ $request->id }})" class=" flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4]">
                                             <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                         </button>
 
 
-                                        <button  wire:click="openModal('view-request', {{ $request->id }})" class=" items-center justify-center gap-2 inline-flex px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm rounded-lg hover:bg-purple-700">
+                                        <button id="view-{{$request->id}}"  wire:click="openModal('view-request', {{ $request->id }})" class=" items-center justify-center gap-2 inline-flex px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm rounded-lg hover:bg-purple-700">
                                             <svg
                                                 class="w-4 h-4 text-gray-600"
                                                 fill="none"
@@ -142,7 +155,25 @@
                                 </div>
                             </td>
                         </tr>
+                        </div>
                         @endforeach
+
+                        @else
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                                    <div class="flex flex-col items-center justify-center space-y-2 w-full">
+                                        <x-icons.table-empty-state class="mx-auto mb-2" />
+                                        <h1 class="text-[18px] text-black">No clearance requests found.</h1>
+                                        <p class="text-base text-gray-400">There are no student clearance requests to display. <br>New requests will appear here once submitted.</p>
+
+                                        <button class="px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4" wire:click="fetchRequests">
+                                            Refresh
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
