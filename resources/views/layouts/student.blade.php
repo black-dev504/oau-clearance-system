@@ -6,7 +6,7 @@
 <body>
 <x-navbar :logo="'assets/images/oauLogo.svg'" :user="$user"/>
 
-<main class="min-h-screen bg-background dark:bg-zinc-800 px-20">
+<main class="min-h-screen bg-background dark:bg-zinc-800 px-4 sm:px-8 lg:px-20 ">
     {{ $slot }}
 </main>
 
