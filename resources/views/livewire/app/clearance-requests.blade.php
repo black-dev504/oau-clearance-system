@@ -9,7 +9,7 @@
         <div class="min-h-screen ">
             <div class=" mx-auto">
                 <div class="flex items-center justify-between mb-6">
-                    <div class="flex gap-2 mb-6">
+                    <div class="flex gap-2 mb-6 intro-y overflow-auto ">
                         @php
                             $tabs = [
                                 ['status' => null,       'label' => 'All Requests'],
@@ -24,7 +24,7 @@
                             <button
                                 wire:click="setStatus('{{ $tab['status'] }}')"
                                 @class([
-                                    'px-4  cursor-pointer py-2 rounded-lg text-sm flex items-center gap-2 transition-colors dark:text-zinc-400',
+                                    'px-4 whitespace-nowrap  cursor-pointer py-2 rounded-lg text-sm flex items-center gap-2 transition-colors dark:text-zinc-400',
                                     'bg-gradient-to-r from-primary to-secondary !text-white' => $currentStatus?->label() == $tab['status'],
                                     'bg-white border border-gray-200 text-gray-700 dark:bg-zinc-800 dark:border-white/10 ' => $currentStatus?->label() != $tab['status'],
                                 ])>
@@ -39,7 +39,7 @@
                 </div>
 
 
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex flex-col md:flex-row gap-2 justify-between mb-6">
                     <div class="relative w-64">
                         <x-search />
                     </div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:border-white/10 dark:bg-zinc-800 rounded-lg shadow dark:shadow-none overflow-hidden">
+                <div class="bg-white intro-y overflow-auto  dark:border-white/10 dark:bg-zinc-800 rounded-lg shadow dark:shadow-none ">
                     <table class="w-full dark:border-white/10 dark:border">
                         <thead class="bg-gradient-to-r from-[#2D2855] to-[#4A2A4F] text-white">
                         <tr>
@@ -167,7 +167,7 @@
                                         <h1 class="text-[18px] text-black dark:text-zinc-100">No clearance requests found.</h1>
                                         <p class="text-base text-gray-400 dark:text-zinc-400">There are no student clearance requests to display. <br>New requests will appear here once submitted.</p>
 
-                                        <button class=" cursor-pointer px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4" wire:click="fetchRequests">
+                                        <button class=" cursor-pointer px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4" >
                                             Refresh
                                         </button>
                                     </div>
