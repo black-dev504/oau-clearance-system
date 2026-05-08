@@ -159,6 +159,17 @@
                         </div>
                         @endforeach
 
+                        @if ($requests?->hasPages())
+                            <div class=" w-full px-4 py-4 border-t dark:border-white/10">
+                                <div class=" w-full items-center">
+
+                                    <div>
+                                        {{ $requests->links('vendor.pagination.tailwind') }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         @else
                             <tr class="dark:bg-zinc-800">
                                 <td colspan="8" class="px-6 py-4 text-center text-gray-500">

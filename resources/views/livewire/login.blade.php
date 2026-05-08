@@ -1,7 +1,7 @@
 <div class="">
     <div class="grid grid-cols-2 ">
 
-        <div class="w-full flex flex-col p-25 items-center  justify-center space-y-6 bg-white  shadow-md">
+        <div class="w-full flex flex-col p-25 items-center  justify-center space-y-6 bg-white dark:bg-zinc-800  shadow-md">
             <a href="#">
                 <img src="{{ asset('assets/images/oauLogo.svg') }}" alt="logo"
                      class=" w-50 h-50 ">

@@ -5,9 +5,12 @@ namespace App\Livewire;
 use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ClearanceRequests extends Component
 {
+    use WithPagination;
+ 
 
     public $selectedRequest;
     public $search;
