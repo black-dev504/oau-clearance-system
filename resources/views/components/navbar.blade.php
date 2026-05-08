@@ -5,7 +5,7 @@
 
 ])
 
-<header class="px-4 sm:px-8 lg:px-20 py-4 lg:py-6 flex items-center justify-between w-full border-b-1 border-[#EAECF0] transition-all duration-300 {{ $bgColor }}">
+<header class="px-4 sm:px-8 lg:px-20 py-4 lg:py-6 flex items-center justify-between w-full border-b-1 border-[#EAECF0] transition-all dark:bg-zinc-900 dark:border-white/10 duration-300 {{ $bgColor }}">
 
     <div class="flex gap-3 items-center">
         <a href="#">
@@ -14,14 +14,14 @@
         </a>
 
         <div class="flex flex-col">
-            <span class="font-heading text-base text-[#6A7282]">Welcome back,</span>
-            <span class="text-[16px] font-heading text-[#101828]">{{$user->fullName}}</span>
+            <span class="font-heading text-base text-[#6A7282] dark:text-zinc-100">Welcome back,</span>
+            <span class="text-[16px] font-heading text-[#101828] dark:text-zinc-400">{{$user->fullName}}</span>
         </div>
     </div>
 
     <div class="flex flex-col">
-        <span class="font-heading text-base text-[#6A7282]">Student ID</span>
-        <span class="text-[16px] font-heading text-[#101828]">
+{{--        <span class="font-heading text-base text-[#6A7282] dark:tz">Student ID</span>--}}
+        <span class="text-[16px] font-heading  text-red-400">
             <form action="{{route('logout')}}" method="POST">
                 @csrf
 
