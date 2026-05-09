@@ -71,6 +71,8 @@
                 <table class="w-full dark:border-white/10 dark:border">
                 <tbody class=" dark:bg-zinc-800 divide-y divide-gray-50 dark:divide-white/10">
 
+                @if($recentRequests->count() > 0)
+
                     @foreach($recentRequests as $request)
                         <tr wire:key="request-{{ $request->id }}" class="overflow-auto px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
 
@@ -132,6 +134,17 @@
 
                         </tr>
                     @endforeach
+                @else
+
+                    <div class="flex flex-col items-center justify-center py-12">
+                        <x-icons.table-empty-state />
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">No recent requests</h3>
+                        <p class="text-sm text-gray-500 dark:text-zinc-400 mt-1">You have not received any clearance requests recently.</p>
+                        <button class=" cursor-pointer px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4" >
+                            Refresh
+                        </button>
+                    </div>
+                @endif
                 </tbody>
                 </table>
             </div>

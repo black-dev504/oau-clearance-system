@@ -47,4 +47,15 @@ class ClearanceRequest extends Model
             ->where('unit_id', $unitId)
             ->first();
     }
+
+    public function cloudinaryUrl($field, $type = 'image')
+    {
+        if (!$this->$field) {
+            return null;
+        }
+
+        return $type === 'raw'
+            ? cloudinary()->raw($this->$field)->toUrl()
+            : cloudinary()->image($this->$field)->toUrl();
+    }
 }

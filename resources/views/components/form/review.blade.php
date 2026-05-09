@@ -1,102 +1,102 @@
     <div class="space-y-6">
         <div>
-            <h3 class="text-2xl text-gray-900 mb-2">Review Your Information</h3>
-            <p class="text-gray-600">Please review all details before submitting</p>
+            <h3 class="text-2xl  dark:text-zinc-100 text-gray-900 mb-2">Review Your Information</h3>
+            <p class="dark:text-zinc-400 text-gray-600">Please review all details before submitting</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6">
-                <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-purple-50 to-blue-50 rounded-xl p-6">
+                <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">👤</span>
                     Personal Details
                 </h4>
                 <div class="space-y-3">
                     <div>
-                        <p class="text-xs text-gray-600">Full Name</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['name'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Full Name</p>
+                        <p class="text-sm font-medium dark:text-zinc-100  text-gray-900"> {{ $this->info['name'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Matric Number</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['matric_no'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Matric Number</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['matric_no'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Course</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['course'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Course</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['course'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Faculty</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['faculty'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Faculty</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['faculty'] ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-6">
-                <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-green-50 to-teal-50 rounded-xl p-6">
+                <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">📞</span>
                     Contact Information
                 </h4>
                 <div class="space-y-3">
                     <div>
-                        <p class="text-xs text-gray-600">Email</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['email'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Email</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['email'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Phone</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['phone'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Phone</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['phone'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Address</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['address'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Address</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['address'] ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6">
-                <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-orange-50 to-yellow-50 rounded-xl p-6">
+                <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">🏠</span>
                     Hostel Details
                 </h4>
                 <div class="space-y-3">
                     <div>
-                        <p class="text-xs text-gray-600">Hall of Residence</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['hall'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Hall of Residence</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['hall'] ?? 'Not provided' }}</p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Block & Room</p>
-                        <p class="text-sm font-medium text-gray-900">
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Block & Room</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
                            Not Provided
                         </p>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-600">Bed Space</p>
-                        <p class="text-sm font-medium text-gray-900"> {{ $this->info['bed_space'] ?? 'Not provided' }}</p>
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Bed Space</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['bed_space'] ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl p-6">
-                <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-pink-50 to-purple-50 rounded-xl p-6">
+                <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">📚</span>
                     Library Status
                 </h4>
                 <div class="space-y-3">
                     <div>
-                        <p class="text-xs text-gray-600">Registration Status</p>
-                        <p class="text-sm font-medium text-gray-900">
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Registration Status</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
                             Not Registered
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-xs text-gray-600">Registration Number</p>
-                        <p class="text-sm font-medium text-gray-900">
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Registration Number</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
                           Not provided
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-xs text-gray-600">Borrowed Books</p>
-                        <p class="text-sm font-medium text-gray-900">
+                        <p class="text-xs dark:text-zinc-400 text-gray-600">Borrowed Books</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
                          ⚠️ Has Borrowed Books
                         </p>
                     </div>
@@ -104,8 +104,8 @@
             </div>
         </div>
 
-        <div class="bg-gray-50 rounded-xl p-6">
-            <h4 class="text-lg font-medium text-gray-900 mb-4">Uploaded Documents</h4>
+        <div class="bg-gray-50 dark:bg-zinc-600/20 dark:border dark:border-white/10 rounded-xl p-6">
+            <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4">Uploaded Documents</h4>
             <div class="space-y-3">
                 <div class="flex items-center justify-between p-3 bg-white rounded-lg">
                     <div class="flex items-center gap-3">
@@ -115,7 +115,7 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-900">Identification</p>
+                            <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">Identification</p>
                             <p class="text-xs font-medium text-gray-500"> {{ $this->info['means_of_identification'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
 
                         </div>
@@ -134,7 +134,7 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-900">DSA Payment Receipt</p>
+                            <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">DSA Payment Receipt</p>
                             <p class="text-xs font-medium text-gray-500"> {{ $this->info['clearance_receipt'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
 
                         </div>

@@ -9,12 +9,12 @@
 
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
 
-    <div class="bg-white rounded-2xl w-full max-w-5xl max-h-[95vh] flex flex-col shadow-2xl">
+    <div class="bg-white dark:bg-zinc-800 rounded-2xl w-full max-w-5xl max-h-[95vh] flex flex-col shadow-2xl">
 
         <div
             x-show="submitting"
             x-cloak
-            class="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-2xl z-50 flex flex-col items-center justify-center gap-4">
+            class="absolute inset-0 bg-white/80 dark:bg-zinc-600/5 backdrop-blur-sm rounded-2xl z-50 flex flex-col items-center justify-center gap-4">
             <svg class="animate-spin h-10 w-10 text-[#4b3be4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="border-t border-gray-200 px-8 py-6 bg-gray-50 flex-shrink-0">
+        <div class="border-t border-gray-200 dark:border-white/10 dark:text-zinc-100 dark:bg-zinc-800 px-8 py-6 bg-gray-50 flex-shrink-0">
             <div class="flex items-center justify-between">
                 <button
                     @click="$wire.prev()"

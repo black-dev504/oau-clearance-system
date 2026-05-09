@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class ClearanceRequests extends Component
 {
     use WithPagination;
- 
+
 
     public $selectedRequest;
     public $search;
@@ -94,6 +94,7 @@ class ClearanceRequests extends Component
             default => $query->latest()
         };
     }
+
 
     public function render()
     {

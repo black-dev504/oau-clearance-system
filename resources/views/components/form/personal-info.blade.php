@@ -5,7 +5,7 @@
 )
 
 
-    <h4 class="font-medium text-xl">Personal Information</h4>
+    <h4 class="font-medium dark:text-zinc-100 text-xl">Personal Information</h4>
     <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
         <x-upload
             label="Means of Identification*"
