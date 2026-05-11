@@ -190,8 +190,6 @@
                     </table>
                 </div>
 
-                {{--          TODO: PAGINATION--}}
-
             </div>
         </div>
 

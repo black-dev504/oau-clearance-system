@@ -9,7 +9,10 @@
 
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
 
-    <div class="bg-white dark:bg-zinc-800 rounded-2xl w-full max-w-5xl max-h-[95vh] flex flex-col shadow-2xl">
+    <div
+        x-init="$nextTick(() => $el.focus())"
+        tabindex="0"
+        class="bg-white dark:bg-zinc-800 rounded-2xl w-full max-w-5xl max-h-[95vh] flex flex-col overflow-hidden  shadow-2xl">
 
         <div
             x-show="submitting"

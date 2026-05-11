@@ -18,7 +18,7 @@
                         <p class="text-[18px] dark:text-zinc-400">You haven't submitted a clearance request yet. Start your clearance process to get approved by all university units.</p>
                     </div>
 
-                        <button wire:click="openModal" type="button" class="inline-flex items-center cursor-pointer bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-8 py-4.5 rounded-lg hover:bg-primary-700 transition-colors duration-200">
+                        <button wire:click="openModal('clearance-modal)" type="button" class="inline-flex items-center cursor-pointer bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-8 py-4.5 rounded-lg hover:bg-primary-700 transition-colors duration-200">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg> Start Clearance Request
@@ -123,8 +123,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
                 @foreach($stats['clearanceUnits'] as $clearance)
-                    <x-student-card :title="$clearance?->unit?->name" :status="$clearance->status" :reapply="$clearance->status->label() === 'Rejected'" submission_date="{{ $clearance->created_at->diffForHumans() }}" />
-
+                    <x-student-card :clearance="$clearance" />
                 @endforeach
             </div>
 
@@ -245,21 +244,22 @@
                         </button>
                     </div>
                 </div>
-                <div class="my-8 bg-white dark:bg-zinc-600/20">
-                    <div class="flex items-center gap-2 mb-4">
-                        <h2 class="text-2xl text-gray-900 dark:text-zinc-100">Actions Required</h2>
-                        <span class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded-full text-sm">
-              2
-              </span>
-                    </div>
-                </div>
+{{--                <div class="my-8 bg-white dark:bg-zinc-600/20">--}}
+{{--                    <div class="flex items-center gap-2 mb-4">--}}
+{{--                        <h2 class="text-2xl text-gray-900 dark:text-zinc-100">Actions Required</h2>--}}
+{{--                        <span class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded-full text-sm">--}}
+{{--              2--}}
+{{--              </span>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-            </div>
+{{--            </div>--}}
         @endif
     <div x-cloak>
 
     <livewire:clearance-modal />
     </div>
     <x-modals.student-confirmation />
+    <x-modals.rejection-reason />
 
 </div>

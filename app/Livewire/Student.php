@@ -10,12 +10,18 @@ use Livewire\Component;
 class Student extends Component
 {
 
-    public $registered;
+    public bool $registered;
+    public string $rejection_reason = 'jj';
 
 
-    public function openModal(): void
+    public function openModal($modal): void
     {
-        $this->dispatch('open-clearance-modal');
+        if ($modal === 'clearance-modal')
+        {
+            $this->dispatch('open-clearance-modal');
+        }
+
+        $this->dispatch('modal-show', name:$modal);
     }
 
 
