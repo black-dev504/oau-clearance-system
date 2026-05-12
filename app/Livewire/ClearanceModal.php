@@ -19,6 +19,8 @@ class ClearanceModal extends Component
 
     public string $meansOfIdentificationPreview = '';
     public string $clearanceReceiptPreview = '';
+    public string $libraryCardPreview = '';
+    public string $libraryReceiptPreview = '';
 
     public array $completedSteps = [
         'personalInfo' => true,
@@ -28,24 +30,30 @@ class ClearanceModal extends Component
     ];
 
     public array $info = [
-        'means_of_identification' => '',
-        'clearance_receipt' => '',
-        'name' =>'',
-        'email' => '',
-        'phone' => '',
-        'matric_no' => '',
-        'department' =>'',
-        'faculty' =>'',
-        'graduation_year' =>'',
-        'address' =>'',
-        'course' =>'',
-        'hall' =>'',
-        'block' =>'',
-        'bed_space' =>'',
+        'means_of_identification' =>  null,
+        'clearance_receipt' =>  null,
+        'library_card' =>  null,
+        'library_receipt' =>  null,
+        'library_reg_number' =>  null,
+        'name' => null,
+        'email' =>  null,
+        'phone' =>  null,
+        'matric_no' =>  null,
+        'department' => null,
+        'faculty' => null,
+        'graduation_year' => null,
+        'address' => null,
+        'course' => null,
+        'hall' => null,
+        'block' => null,
+        'bed_space' => null,
         'room_number' => null,
         'library_registration_status' => false,
         'user_id' => null,
+
     ];
+
+
 
 
     public function updated($name, $value)
@@ -77,6 +85,33 @@ class ClearanceModal extends Component
 
             }
         }
+
+
+        if ($name === 'info.library_card')
+        {
+            $this->validateOnly('library_card', [
+                'info.library_card' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
+            if ($value)
+            {
+                $this->libraryCardPreview = $value->temporaryUrl();
+
+            }
+        }
+
+        if ($name === 'info.library_receipt')
+        {
+            $this->validateOnly('library_receipt', [
+                'info.library_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
+            if ($value)
+            {
+                $this->libraryReceiptPreview = $value->temporaryUrl();
+
+            }
+        }
     }
 
 
@@ -86,13 +121,13 @@ class ClearanceModal extends Component
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
 
-            $this->validate(
-                $this->getRulesForForm($this->currentForm),
-                [
-                    'info.matric_no.unique' => 'Matric Number already applied',
-
-                ]
-            );
+//            $this->validate(
+//                $this->getRulesForForm($this->currentForm),
+//                [
+//                    'info.matric_no.unique' => 'Matric Number already applied',
+//
+//                ]
+//            );
 
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;

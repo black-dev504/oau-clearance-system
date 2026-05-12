@@ -7,7 +7,7 @@
     @confirm-submit.window="submitting = true; $wire.submit()"
     @submission-complete.window="submitting = false"
 
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-white/5 backdrop-blur-sm p-4">
 
     <div
         x-init="$nextTick(() => $el.focus())"
@@ -65,16 +65,24 @@
         <!-- CONTENT -->
         <div class="flex-1 overflow-y-auto p-6">
             <div class="flex-1 overflow-y-auto p-6">
-                <div x-show="form === 'personalInfo'">
+                <div x-show="form === 'personalInfo'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform translate-x-4"
+                     x-transition:enter-end="opacity-100 transform translate-x-0">
                     <x-form.personal-info :departments="$departments"/>
                 </div>
-                <div x-show="form === 'contact'">
+                <div x-show="form === 'contact'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform translate-x-4"
+                     x-transition:enter-end="opacity-100 transform translate-x-0">
                     <x-form.contact-hostel-info />
                 </div>
-                <div x-show="form === 'library'">
+                <div x-show="form === 'library'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform translate-x-4"
+                     x-transition:enter-end="opacity-100 transform translate-x-0">
                     <x-form.library-info />
                 </div>
-                <div x-show="form === 'review'">
+                <div x-show="form === 'review'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform translate-x-4"
+                     x-transition:enter-end="opacity-100 transform translate-x-0">
                     <x-form.review />
                 </div>
             </div>
@@ -85,7 +93,7 @@
                 <button
                     @click="$wire.prev()"
                     :disabled="$wire.currentForm === 'personalInfo'"
-                    class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                    class="px-6 py-3 border border-gray-300 text-gray-700 dark:border-white/10 dark:text-zinc-100 hover:dark:bg-zinc-600 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
                     Previous
                 </button>
 

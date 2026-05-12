@@ -1,6 +1,6 @@
 
 <flux:modal name="view-rejection-reason"  class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
-    <div x-data="{ remarks: '' }">
+    <div>
 
         <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#E7000B] to-[#c10007]">
             <div class="flex gap-3 items-center" >
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
+        <div class="grid grid-cols-2 gap-4 border-t dark:border-white/10 border-gray-200 p-6">
             <button type="button"
                     @click="$flux.modal('view-rejection-reason').close()"
                     class="px-13 py-3 bg-white dark:bg-zinc-800 dark:border-white/10 dark:text-zinc-400 border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">

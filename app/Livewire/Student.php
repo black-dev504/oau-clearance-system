@@ -11,13 +11,14 @@ class Student extends Component
 {
 
     public bool $registered;
-    public string $rejection_reason = 'jj';
+    public string $rejection_reason = '';
 
 
     public function openModal($modal): void
     {
         if ($modal === 'clearance-modal')
         {
+
             $this->dispatch('open-clearance-modal');
         }
 
@@ -40,6 +41,11 @@ class Student extends Component
     {
         $this->registered = user()?->clearanceRequests()->exists();
 
+    }
+
+    public function debug()
+    {
+        dd($this->getStats());
     }
 
     public function render()

@@ -5,7 +5,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-purple-50 to-blue-50 rounded-xl p-6">
+            <div class="light:bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-purple-50 to-blue-50 rounded-xl p-6">
                 <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">👤</span>
                     Personal Details
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-green-50 to-teal-50 rounded-xl p-6">
+            <div class="light:bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-green-50 to-teal-50 rounded-xl p-6">
                 <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">📞</span>
                     Contact Information
@@ -47,11 +47,12 @@
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Address</p>
                         <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['address'] ?? 'Not provided' }}</p>
+
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-orange-50 to-yellow-50 rounded-xl p-6">
+            <div class="light:bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-orange-50 to-yellow-50 rounded-xl p-6">
                 <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">🏠</span>
                     Hostel Details
@@ -74,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-pink-50 to-purple-50 rounded-xl p-6">
+            <div class="light:bg-gradient-to-br dark:bg-zinc-600/20 dark:border dark:border-white/10 from-pink-50 to-purple-50 rounded-xl p-6">
                 <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4 flex items-center gap-2">
                     <span class="text-2xl">📚</span>
                     Library Status

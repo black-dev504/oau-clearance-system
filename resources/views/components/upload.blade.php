@@ -2,7 +2,8 @@
     'label' => '',
     'model' => '',
     'preview' => false,
-    'id' => uniqid('upload_')
+    'id' => uniqid('upload_'),
+    'name' => 'ID',
 
 ])
 
@@ -23,7 +24,7 @@
                         <path d="M12 3V15" stroke="#4b3be4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </div>
-                <p class="text-sm font-medium text-gray-900 mb-1">Click to upload ID</p>
+                <p class="text-sm font-medium text-gray-900 mb-1 dark:text-zinc-400">Click to upload {{$name}}</p>
                 <p class="text-xs text-gray-500">PNG, JPG or PDF (max. 2MB)</p>
 
         @else
