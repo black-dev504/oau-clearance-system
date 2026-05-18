@@ -1,26 +1,23 @@
-@extends('layouts.student')
+<!doctype html>
+<html lang="en">
+<head>
+    @include('partials.head')
+</head>
+<body>
+<x-navbar :logo="'assets/images/oauLogo.svg'"  />
 
-@section('title', '0AU Clearance System')
-
-@section('logo', 'assets/images/oauLogo.svg')
-@section('navbar-bg', 'bg-white border-b border-white/20')
-@section('navbar-text', 'text-white/70')
-@section('textColor', 'text-white')
-
-{{-- @section('logo', 'assets/images/logo.svg') --}}
-
-@section('content')
-    <div class="grid grid-cols-3 gap-8 justify-between bg-[#F9FAFB] min-h-screen px-4 sm:px-8 lg:px-20 py-4 lg:py-6  items-center w-full border-b-1 border-[#EAECF0] transition-all duration-300 ">
+<main class="min-h-screen bg-background dark:bg-zinc-800 px-4 sm:px-8 lg:px-20 ">
+    <div class="grid grid-cols-3 gap-8 justify-between bg-[#F9FAFB] dark:bg-zinc-800 min-h-screen  py-4 lg:py-6  items-center w-full border-b-1 border-[#EAECF0] transition-all duration-300 ">
         <div class="col-span-2 flex flex-col gap-8 h-full">
             <div class="rounded-[20px]">
                 <img src="{{ asset('assets/images/hero.png') }}" alt="Hero Image" class="w-full h-auto rounded-[20px]">
             </div>
 
-            <div class="flex flex-col gap-4 border p-5 bg-white border-[#EAECF0] rounded-[20px]">
-                <h1 class="text-4xl font-bold text-gray-800">Welcome to OAU automated clearance system!</h1>
-                <p class="text-gray-600 text-base">This portal is designed to provide a centralized dashboard where you can submit documents, track the approval status of each unit (Library, Bursary, etc.) in real-time, and download your final certificate upon completion. No queues.</p>
-                <p class="text-gray-600 text-base">To get started and access your unique clearance checklist, please click the link below. Before you access the portal, take a moment to review the essential prerequisites on the right and ensure you have all needed documents ready.</p>
-                <p class="text-gray-600 text-base">To get started and access your unique clearance checklist, please click the link below. Before you access the portal, take a moment to review the essential prerequisites on the right and ensure you have all needed documents ready.</p>
+            <div class="flex flex-col gap-4 border p-5 bg-white border-[#EAECF0] dark:bg-zinc-600/20 dark:border-white/10 rounded-[20px]">
+                <h1 class="text-4xl font-bold dark:text-zinc-100 text-gray-800">Welcome to OAU automated clearance system!</h1>
+                <p class="text-gray-600 text-base dark:text-zinc-400">This portal is designed to provide a centralized dashboard where you can submit documents, track the approval status of each unit (Library, Bursary, etc.) in real-time, and download your final certificate upon completion. No queues.</p>
+                <p class="text-gray-600 text-base dark:text-zinc-400">To get started and access your unique clearance checklist, please click the link below. Before you access the portal, take a moment to review the essential prerequisites on the right and ensure you have all needed documents ready.</p>
+                <p class="text-gray-600 text-base dark:text-zinc-400">To get started and access your unique clearance checklist, please click the link below. Before you access the portal, take a moment to review the essential prerequisites on the right and ensure you have all needed documents ready.</p>
 
             </div>
 
@@ -29,9 +26,9 @@
             </a>
         </div>
         <div class="h-full">
-                <div class="flex flex-col gap-4 border p-5 h-full bg-white border-[#EAECF0] rounded-[20px]">
+                <div class="flex flex-col gap-4 border p-5 h-full bg-white dark:bg-zinc-600/20 dark:border-white/10 border-[#EAECF0] rounded-[20px]">
                     <div>
-                        <h2 class="text-xl font-bold text-gray-900">Criteria</h2>
+                        <h2 class="text-xl font-bold text-gray-900  dark:text-zinc-100">Criteria</h2>
                         <p class="text-red-500 text-sm">For a seamless and automated clearance journey, please provide the following prerequisites.</p>
                     </div>
 
@@ -60,11 +57,11 @@
                      }">
                         <template x-for="criterion in criteria" :key="criterion.id" >
                             <div class="flex gap-4 mb-6">
-                                <div class="rounded-full w-12 h-12 items-center flex px-4.5 py-3.5 bg-[#F4F4F4]">
-                                    <h1 class="text-xl" x-text="criterion.id"></h1>
+                                <div class="rounded-full w-12 h-12 items-center flex px-4.5 py-3.5 bg-[#F4F4F4] dark:bg-zinc-800">
+                                    <h1 class="text-xl dark:text-zinc-100" x-text="criterion.id"></h1>
                                 </div>
 
-                                <h1 class="text-gray-900 text-base" x-text="criterion.text"></h1>
+                                <h1 class="text-gray-900 text-base dark:text-zinc-400" x-text="criterion.text"></h1>
                             </div>
                         </template>
                     </div>
@@ -73,4 +70,7 @@
                 </div>
         </div>
     </div>
-@endsection
+</main>
+
+</body>
+</html>

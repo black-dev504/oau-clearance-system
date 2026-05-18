@@ -21,14 +21,19 @@
 
         <flux:input wire:model="info.name" label="Student Name*" placeholder="Enter Full Name"  />
         <flux:input wire:model="info.graduation_year" label="Year of Graduation*" placeholder="eg.2023/24" type="text"  />
-        <flux:input wire:model="info.matric_no" label="Matric Number" type="text" placeholder="CSC/2000/001"  />
-        <flux:input wire:model="info.course" label="Course of Study" placeholder="Software Engineering"  />
+        <flux:input wire:model="info.matric_no" label="Matric Number" type="text" placeholder="eg.CSC/2000/001"  />
+        <flux:input wire:model="info.course" label="Course of Study" placeholder="eg.Software Engineering"  />
         <flux:select wire:model="info.department" label="Department"  placeholder="Choose your department...">
+
             @foreach($departments as $department)
                 <flux:select.option>{{$department->name}}</flux:select.option>
-
             @endforeach
         </flux:select>
-        <flux:input wire:model="info.faculty" label="Faculty" placeholder="Technology" type="text" />
 
+        <flux:input
+            wire:model="info.faculty"
+            label="Faculty"
+            placeholder="e.g Technology"
+            type="text"
+        />
     </div>

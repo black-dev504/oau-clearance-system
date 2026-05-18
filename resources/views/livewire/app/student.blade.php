@@ -84,6 +84,7 @@
                             <ul class="text-gray-700 dark:text-zinc-400 space-y-1">
                                 <li>• Valid Student ID Card</li>
                                 <li>• Any outstanding fee receipts (if applicable)</li>
+                                <li>• Library Registration card</li>
                             </ul>
                         </div>
                     </div>

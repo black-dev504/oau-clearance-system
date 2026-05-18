@@ -21,6 +21,7 @@ class ClearanceModal extends Component
     public string $clearanceReceiptPreview = '';
     public string $libraryCardPreview = '';
     public string $libraryReceiptPreview = '';
+    public bool $reapplication = false;
 
     public array $completedSteps = [
         'personalInfo' => true,
@@ -120,14 +121,15 @@ class ClearanceModal extends Component
 
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
+            if (!$this->reapplication) {
+                $this->validate(
+                    $this->getRulesForForm($this->currentForm),
+                    [
+                        'info.matric_no.unique' => 'Matric Number already applied',
 
-//            $this->validate(
-//                $this->getRulesForForm($this->currentForm),
-//                [
-//                    'info.matric_no.unique' => 'Matric Number already applied',
-//
-//                ]
-//            );
+                    ]
+                );
+            }
 
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;
@@ -204,6 +206,20 @@ class ClearanceModal extends Component
          ],
      };
   }
+
+//    #[On('open-reapply-modal')]
+    public function loadForReapplication(int $clearanceRequestId): void
+    {
+        $clearance_requests = ClearanceRequest::findOrFail($clearanceRequestId);
+
+
+//        $this->clearanceId = $clearanceId;
+
+        $this->info = $clearance_requests->toArray();
+        $this->reapplication = true;
+
+        $this->dispatch('open-clearance-modal');
+    }
 
   public function submit()
   {

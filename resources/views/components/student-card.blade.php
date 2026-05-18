@@ -9,8 +9,8 @@
 
     @if($clearance->status->label() === 'Rejected')
         <button
-            wire:click="openModal('view-rejection-reason'); $wire.set('rejection_reason', '{{$clearance->remark}}')"
-             class="mt-3 w-full bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity">
+            @click=" window.dispatchEvent(new CustomEvent('open-reapply-modal', { detail: { clearanceRequestId: {{ $clearance->clearance_request_id }} } })) "
+           class="mt-3 w-full bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity">
              View Reason
         </button>
     @endif

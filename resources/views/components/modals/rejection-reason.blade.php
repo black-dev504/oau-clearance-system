@@ -25,8 +25,9 @@
                 <flux:input
                     disabled
                     label="REASON FOR REJECTION"
-                    :value="$this->rejection_reason"
+                    :value="$this->rejection_reason ?? 'No reason provided.'"
                 />
+
 
             </div>
         </div>
@@ -38,8 +39,10 @@
                 Cancel
             </button>
             <button type="button"
-                    @click="$flux.modal('view-rejection-reason').close()"
-                    wire:click="openModal('clearance-modal')"
+                    @click="
+                            $flux.modal('view-rejection-reason').close();
+                           window.dispatchEvent(new CustomEvent('open-clearance-modal'));
+                        "
                     class="px-13 py-3 bg-gradient-to-r from-primary to-secondary text-white  rounded-[10px]">
                 Reapply
             </button>

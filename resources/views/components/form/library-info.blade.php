@@ -41,8 +41,6 @@
                     <x-upload name="Payment Receipt" label="Registration Fee Receipt" :preview="$this->libraryReceiptPreview" model="info.library_receipt"/>
                 </div>
 
-
-
             </div>
         </div>
         </div>

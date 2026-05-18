@@ -1,4 +1,4 @@
-<div x-data="{'schoolHostel':false}">
+<div x-data="{'schoolHostel': false}">
     <div>
         <h3 class="text-2xl dark:text-zinc-100 text-gray-900 mb-2">Contact & Hostel Information</h3>
         <p class="text-gray-600 dark:text-zinc-400">Tell us how to reach you and your residence details</p>
@@ -17,7 +17,7 @@
             <flux:input wire:model="info.phone" label="Phone Number" type="number" placeholder="234 0000 0000"  />
         </div>
 
-        <flux:switch @click="schoolHostel = !schoolHostel" checked="schoolHostel" label="Did you stay in any of the school hostels" align="left" />
+        <flux:switch @click="schoolHostel = !schoolHostel"  label="Did you stay in any of the school hostels" align="left" />
 
 
     </div>
@@ -25,7 +25,6 @@
     <div x-show="schoolHostel">
 
         <div class="bg-gray-50 dark:bg-zinc-800 rounded-xl p-6 space-y-6 mt-6 " >
-
 
             <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 flex items-center gap-2">
                     <span class="text-2xl">🏠</span>

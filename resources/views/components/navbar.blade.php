@@ -1,7 +1,7 @@
 @props([
     'logo' => 'assets/images/oauLogo.svg',
     'bgColor' => 'bg-white backdrop-blur-sm shadow-md',
-    'user' => '',
+    'user' => null,
 
 ])
 
@@ -14,19 +14,22 @@
         </a>
 
         <div class="flex flex-col">
-            <span class="font-heading text-base text-[#6A7282] dark:text-zinc-100">Welcome back,</span>
-            <span class="text-[16px] font-heading text-[#101828] dark:text-zinc-400">{{$user->fullName}}</span>
+
+            @if($user) <span class="font-heading text-base text-[#6A7282] dark:text-zinc-100">Welcome back,</span>  @endif
+            <span class="text-[16px] font-heading text-[#101828] dark:text-zinc-400">{{$user?->fullName}}</span>
         </div>
     </div>
 
     <div class="flex flex-col">
 {{--        <span class="font-heading text-base text-[#6A7282] dark:tz">Student ID</span>--}}
         <span class="text-[16px] font-heading  text-red-400">
+            @if ($user)
             <form action="{{route('logout')}}" method="POST">
                 @csrf
 
                 <button type="submit">Log out</button>
             </form>
+            @endif
         </span>
     </div>
 

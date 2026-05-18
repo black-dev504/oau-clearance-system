@@ -12,13 +12,14 @@ class Student extends Component
 
     public bool $registered;
     public string $rejection_reason = '';
+    public string $rejectedClearance = '';
 
 
     public function openModal($modal): void
     {
+
         if ($modal === 'clearance-modal')
         {
-
             $this->dispatch('open-clearance-modal');
         }
 
