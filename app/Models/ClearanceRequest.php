@@ -59,3 +59,6 @@ class ClearanceRequest extends Model
             : cloudinary()->image($this->$field)->toUrl();
     }
 }
+
+
+

@@ -84,21 +84,21 @@
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Registration Status</p>
                         <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
-                            Not Registered
+                            {{$this->info['library_reg_number'] ? 'Registered ':' Not Registered'}}
                         </p>
                     </div>
 
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Registration Number</p>
                         <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
-                          Not provided
+                            {{$this->info['library_reg_number'] ?: ' Not Registered'}}
                         </p>
                     </div>
 
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Borrowed Books</p>
                         <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
-                         ⚠️ Has Borrowed Books
+                       Nil
                         </p>
                     </div>
                 </div>
@@ -142,6 +142,36 @@
                     </div>
 
 {{--                   TODO: UI FOR WHEN IMAGES NOT UPLOADED --}}
+
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 6L9 17L4 12" stroke="#027a48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="#027a48"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium dark:text-zinc-100 text-gray-900">
+                                {{ !empty($this->info['library_card'] ?? null)
+                                    ? 'Library Card'
+                                    : (!empty($this->info['library_receipt'] ?? null)
+                                        ? 'Library Registration Receipt'
+                                        : 'No Document Uploaded') }}
+                            </p>
+
+                            <p class="text-xs font-medium text-gray-500">
+                                {{ (!empty($this->info['library_card'] ?? null) || !empty($this->info['library_receipt'] ?? null))
+                                    ? 'Uploaded Successfully'
+                                    : 'Not Uploaded' }}
+                            </p>
+                        </div>
+                    </div>
 
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M20 6L9 17L4 12" stroke="#027a48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

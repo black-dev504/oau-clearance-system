@@ -124,17 +124,17 @@ class ClearanceModal extends Component
 
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
-            if (!$this->reapplication) {
-                $this->validate(
-                    $this->getRulesForForm($this->currentForm),
-                    [
-                        'info.matric_no.unique' => 'Matric Number already applied',
-                        'info.library_receipt.required_without' => 'Library receipt is required if no library card is provided.',
-                        'info.library_reg_number.required_without' => 'Registration number is required if you are registered.',
-
-                    ]
-                );
-            }
+//            if (!$this->reapplication) {
+//                $this->validate(
+//                    $this->getRulesForForm($this->currentForm),
+//                    [
+//                        'info.matric_no.unique' => 'Matric Number already applied',
+//                        'info.library_receipt.required_without' => 'Library receipt is required if no library card is provided.',
+//                        'info.library_reg_number.required_without' => 'Registration number is required if you are registered.',
+//
+//                    ]
+//                );
+//            }
 
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;

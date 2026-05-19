@@ -63,6 +63,16 @@ class User extends Authenticatable
         return $this->belongsTo(Unit::class);
     }
 
+    public function hasUnit($id)
+    {
+        return $this->unit_id === $id;
+    }
+
+    public function isUnit($name)
+    {
+        return strtolower($this->unit?->name) === strtolower($name);
+    }
+
     public function clearanceRequests()
     {
         return $this->hasMany(ClearanceRequest::class);

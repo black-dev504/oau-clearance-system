@@ -23,38 +23,51 @@
         <div class="bg-white dark:bg-zinc-800 p-6 gap-4 flex w-full">
             <div class="w-full grid lg:grid-cols-2 gap-8">
                 <div class="flex flex-col gap-6">
-                    <div class="flex flex-col gap-4 w-full">
-                        <div class="flex flex-col w-full gap-2">
-                            <h1 class="font-semibold font-serif text-[20px] dark:text-zinc-100">Academic Details</h1>
-                            <div class="w-full h-[2px] bg-gradient-to-r from-primary to-secondary"></div>
-                        </div>
 
-                        <div class="flex flex-col gap-3">
+                    <x-unit-details title="Academic Details" >
                             <flux:input disabled :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER"/>
                             <flux:input disabled :value="$this->selectedRequest?->course" label="COURSE OF STUDY"/>
                             <flux:input disabled :value="$this->selectedRequest?->department" label="DEPARTMENT"/>
                             <flux:input disabled :value="$this->selectedRequest?->department" label="FACULTY"/>
                             <flux:input disabled :value="$this->selectedRequest?->graduation_year"
                                         label="YEAR OF GRADUATION"/>
-                        </div>
-                    </div>
 
-                    <div class="flex flex-col gap-4 w-full">
-                        <div class="flex flex-col w-full gap-2">
-                            <h1 class="font-semibold font-serif text-[20px] dark:text-zinc-100">Library Details</h1>
-                            <div class="w-full h-[2px] bg-gradient-to-r from-primary to-secondary"></div>
-                        </div>
+                    </x-unit-details>
 
-                        <div class="flex flex-col gap-3">
-                            <flux:input disabled :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER"
-                                        value="CSC/20/100"/>
-                            <flux:input disabled :value="$this->selectedRequest?->course" label="COURSE OF STUDY"
-                                        value="Computer Science"/>
-                            <flux:input disabled :value="$this->selectedRequest?->department" label="DEPARTMENT"
-                                        value="Computer Science and Engineering"/>
-                        </div>
-                    </div>
+                    @if(user()?->isUnit('library'))
+                        <x-unit-details title="Library Details">
+                                <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
+                                                                'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
+                                <flux:input disabled :value="$this->selectedRequest?->library_reg_number" label="REGISTRATION NUMBER"/>
+                                <flux:input disabled label="DEPARTMENT" value=""/>
+
+                       </x-unit-details>
+
+                    @elseif(user()?->isUnit('hostel'))
+                        <x-unit-details title="Hostel Details">
+                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
+                                                                'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
+                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number" label="REGISTRATION NUMBER"/>
+                            <flux:input disabled label="DEPARTMENT" value=""/>
+
+                        </x-unit-details>
+
+                    @elseif(user()?->isUnit('dsa'))
+                        <x-unit-details title="Hostel Details">
+                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
+                                                                'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
+                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number" label="REGISTRATION NUMBER"/>
+                            <flux:input disabled label="DEPARTMENT" value=""/>
+
+                        </x-unit-details>
+
+                    @endif
+
+
+
                 </div>
+
+
                 <div>
                     <div class="flex flex-col gap-4 w-full">
                         <div class="flex flex-col w-full gap-2">
@@ -65,8 +78,31 @@
                         <div class="flex flex-col gap-3">
                             <x-view-image label="means of identification"
                                           :path="$this->selectedRequest?->cloudinaryUrl('means_of_identification')"/>
+
+                            @if(user()?->isUnit('dsa'))
+
                             <x-view-image label="DSA payment receipt"
                                           :path="$this->selectedRequest?->cloudinaryUrl('clearance_receipt')"/>
+                            @endif
+
+
+                            @if(user()?->isUnit('library'))
+
+                                @if($this->selectedRequest?->library_card)
+                                    <x-view-image
+                                        label="Library Card"
+                                        :path="$this->selectedRequest?->cloudinaryUrl('library_card')"
+                                    />
+
+                                @elseif($this->selectedRequest?->library_receipt)
+                                    <x-view-image
+                                        label="Library Registration Receipt"
+                                        :path="$this->selectedRequest?->cloudinaryUrl('library_receipt')"
+                                    />
+                                @endif
+
+                            @endif
+
                         </div>
 
                         @if($clearance?->status === ClearanceStatus::REAPPLY)
