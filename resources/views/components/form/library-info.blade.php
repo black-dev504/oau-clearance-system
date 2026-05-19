@@ -27,10 +27,10 @@
 
                 <div x-show="libraryRegistration">
                     <div class="my-4">
-                        <label class="block text-sm font-medium text-gray-700  dark:text-zinc-100 mb-2">
-                            Library Registration Number
-                        </label>
-                        <flux:input wire:model="info.library_reg_number" placeholder="LIB/121/V3" type="text"  />
+{{--                        <label class="block text-sm font-medium text-gray-700  dark:text-zinc-100 mb-2">--}}
+{{--                            Library Registration Number--}}
+{{--                        </label>--}}
+                        <flux:input label=" Library Registration Number" wire:model="info.library_reg_number" placeholder="LIB/121/V3" type="text"  />
                     </div>
 
                     <x-upload name="Library card" label="Library Identification Card"  :preview="$this->libraryCardPreview" model="info.library_card"/>

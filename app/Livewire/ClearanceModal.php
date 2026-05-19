@@ -11,6 +11,7 @@ use Livewire\WithFileUploads;
 
 class ClearanceModal extends Component
 {
+
     use WithFileUploads;
 
     public bool $showModal = false;
@@ -91,12 +92,13 @@ class ClearanceModal extends Component
         if ($name === 'info.library_card')
         {
             $this->validateOnly('library_card', [
-                'info.library_card' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'info.library_card' =>'required|image|mimes:jpeg,png,jpg|max:2048',
             ]);
 
             if ($value)
             {
                 $this->libraryCardPreview = $value->temporaryUrl();
+                $this->reset('info.library_receipt', 'libraryReceiptPreview');
 
             }
         }
@@ -110,6 +112,7 @@ class ClearanceModal extends Component
             if ($value)
             {
                 $this->libraryReceiptPreview = $value->temporaryUrl();
+                $this->reset('info.library_card' , 'libraryCardPreview');
 
             }
         }
@@ -126,6 +129,8 @@ class ClearanceModal extends Component
                     $this->getRulesForForm($this->currentForm),
                     [
                         'info.matric_no.unique' => 'Matric Number already applied',
+                        'info.library_receipt.required_without' => 'Library receipt is required if no library card is provided.',
+                        'info.library_reg_number.required_without' => 'Registration number is required if you are registered.',
 
                     ]
                 );
@@ -171,6 +176,9 @@ class ClearanceModal extends Component
             'info.bed_space' => 'Bed Space',
             'info.room_number' => 'Room Number',
             'info.library_registration_status' => 'Library Registration Status',
+            'info.library_card' => 'Library Card',
+            'info.library_receipt' => 'Library Receipt',
+            'info.library_reg_number' => ' Registration Number',
 
         ];
     }
@@ -203,6 +211,9 @@ class ClearanceModal extends Component
 
          'library' => [
              'info.library_registration_status' => 'nullable|boolean',
+             'info.library_receipt' => 'nullable|sometimes|required_without:info.library_card|image|mimes:jpeg,png,jpg|max:2048',
+             'info.library_card' => 'nullable|sometimes|required_without:info.library_receipt|image|mimes:jpeg,png,jpg|max:2048',
+             'info.library_reg_number' => 'nullable|required_without:info.library_receipt|string|max:15',
          ],
      };
   }
@@ -227,9 +238,14 @@ class ClearanceModal extends Component
       {
           $means_of_identification = $this->info['means_of_identification']->storeOnCloudinary('means_of_identification');
           $clearance_receipt = $this->info['clearance_receipt']->storeOnCloudinary('payment_receipts');
+          $library_receipt = $this->info['library_receipt']?->storeOnCloudinary('library_receipts');
+          $library_card = $this->info['library_card']?->storeOnCloudinary('library_cards');
 
           $this->info['means_of_identification'] = $means_of_identification['public_id'];
           $this->info['clearance_receipt'] = $clearance_receipt['public_id'];
+          $this->info['library_receipt'] = $library_receipt['public_id'] ?? null;
+          $this->info['library_card'] = $library_card['public_id'] ?? null;
+
           $this->info['user_id'] = user()->id;
 
           ClearanceRequest::create($this->info);
@@ -243,8 +259,7 @@ class ClearanceModal extends Component
               'type' => 'success',
               'message' => 'Successfully Submitted Clearance Request'
           ]);
-          $this->dispatch('$refresh');
-
+          $this->dispatch('dataUpdated');
 
 //          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 

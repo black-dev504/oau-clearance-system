@@ -9,6 +9,8 @@ use Livewire\Component;
 
 class Student extends Component
 {
+    protected $listeners = ['dataUpdated' => '$refresh'];
+
 
     public bool $registered;
     public string $rejection_reason = '';
@@ -29,6 +31,12 @@ class Student extends Component
 
     public function getStats()
     {
+        $this->registered = user()?->clearanceRequests()->exists();
+
+        if (!$this->registered)
+        {
+            return null;
+        }
         $clearances = user()?->clearances ?? collect();
 
         return [
@@ -38,16 +46,6 @@ class Student extends Component
         ];
     }
 
-    public function mount()
-    {
-        $this->registered = user()?->clearanceRequests()->exists();
-
-    }
-
-    public function debug()
-    {
-        dd($this->getStats());
-    }
 
     public function render()
     {
