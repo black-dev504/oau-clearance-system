@@ -34,7 +34,7 @@ return [
     'cloud_url' => env('CLOUDINARY_URL', 'cloudinary://'.env('CLOUDINARY_KEY').':'.env('CLOUDINARY_SECRET').'@'.env('CLOUDINARY_CLOUD_NAME')),
 
     /**
-     * Upload Preset From Cloudinary Dashboard
+     * Upload Preset From Cloudinary OfficerDashboard
      */
     'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
 

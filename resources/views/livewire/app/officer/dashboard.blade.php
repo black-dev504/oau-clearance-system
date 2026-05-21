@@ -1,24 +1,24 @@
 <div     @approve-request.window=" $wire.approveRequest() "
          @reject-request.window=" $wire.rejectRequest($event.detail.remarks) ">
     <div class="bg-background dark:text-zinc-400 dark:bg-zinc-800 rounded-xl overscroll-y-contain">
-        <flux:heading size="xl" level="1">Good afternoon, {{$unit}} officer </flux:heading>
+        <flux:heading size="xl" level="1">Good afternoon, {{$unit->name}} officer </flux:heading>
         <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
 
         <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">
 
-            <x-card title="Total Requests" :value="$data['total']"  class="!border-l-blue-400 ">
+            <x-card title="Total Requests" :value="$total"  class="!border-l-blue-400 ">
                 <x-icons.total />
             </x-card>
 
-            <x-card title="Approved Requests" :value="$data['approved']" class="!border-l-green-500 ">
+            <x-card title="Approved Requests" :value="$approved" class="!border-l-green-500 ">
                 <x-icons.approved />
             </x-card>
 
-            <x-card title="Pending Review" :value="$data['pending']"  icon="pending" class="!border-l-yellow-500 ">
+            <x-card title="Pending Review" :value="$pending"  icon="pending" class="!border-l-yellow-500 ">
                 <x-icons.pending />
             </x-card>
 
-            <x-card title="Queried Requests" :value="$data['rejected']"  icon="pending" class="!border-l-red-500">
+            <x-card title="Queried Requests" :value="$rejected"  icon="pending" class="!border-l-red-500">
                 <x-icons.rejected />
             </x-card>
 
@@ -29,7 +29,7 @@
                 <div class="w-full dark:bg-zinc-800 xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
                     <div class="w-full flex items-center justify-between text-xl dark:text-zinc-100 font-semibold">
                         <h3>Clearance Status</h3>
-                        <span>{{$data['total']}}</span>
+                        <span>{{$total}}</span>
                     </div>
                     <div class="w-full flex justify-center items-center">
                         <div
@@ -157,7 +157,7 @@
 
     <div class="px-8 py-5 border-t dark:bg-zinc-800 dark:border-white/10 border-gray-100 bg-gray-50/50">
         <a href="{{route($unit.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
-            View all {{$data['total']}} requests →
+            View all {{$total}} requests →
         </a>
     </div>
 
@@ -182,9 +182,11 @@
     })
 
     let statusChart;
-    let approved = {{ $chartData['approved'] }};
-    let pending = {{ $chartData['pending']  }};
-    let rejected = {{ $chartData['rejected']  }};
+    let approved = {{ $approved }};
+    let pending = {{ $pending }};
+    let rejected = {{ $rejected  }};
+
+    createChart(approved, pending, rejected);
 
     function createChart($approved, $pending, $rejected)
     {

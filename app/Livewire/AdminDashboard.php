@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class Announcements extends Component
+class AdminDashboard extends Component
 {
     public function render()
     {
-        return view('livewire.app.officer.announcements');
+        return view('livewire.app.admin.dashboard');
     }
 }

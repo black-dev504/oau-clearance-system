@@ -43,13 +43,14 @@ class Login extends Component
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        if (Auth::user()->isStudent()) {
+        if (Auth::user()->hasRole('student')) {
 
             return $this->redirect(route('student.dashboard'));
         }
 
-        $redirectRoute = Auth::user()->isAdmin()
-            ? route('admin-dashboard')
+
+        $redirectRoute = Auth::user()->hasRole('admin')
+            ? route('admin.dashboard')
             : route(Auth::user()->unit?->slug . '.dashboard');
 
         /**  TODO: Handle situation where officer is not assigned unit **/

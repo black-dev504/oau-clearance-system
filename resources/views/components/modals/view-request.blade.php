@@ -34,7 +34,7 @@
 
                     </x-unit-details>
 
-                    @if(user()?->isUnit('library'))
+                    @if(user()?->isUnitOfficer('library'))
                         <x-unit-details title="Library Details">
                                 <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
                                                                 'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
@@ -43,7 +43,7 @@
 
                        </x-unit-details>
 
-                    @elseif(user()?->isUnit('hostel'))
+                    @elseif(user()?->isUnitOfficer('hostel'))
                         <x-unit-details title="Hostel Details">
                             <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
                                                                 'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
@@ -52,7 +52,7 @@
 
                         </x-unit-details>
 
-                    @elseif(user()?->isUnit('dsa'))
+                    @elseif(user()?->isUnitOfficer('dsa'))
                         <x-unit-details title="Hostel Details">
                             <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
                                                                 'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
@@ -79,14 +79,14 @@
                             <x-view-image label="means of identification"
                                           :path="$this->selectedRequest?->cloudinaryUrl('means_of_identification')"/>
 
-                            @if(user()?->isUnit('dsa'))
+                            @if(user()?->isUnitOfficer('dsa'))
 
                             <x-view-image label="DSA payment receipt"
                                           :path="$this->selectedRequest?->cloudinaryUrl('clearance_receipt')"/>
                             @endif
 
 
-                            @if(user()?->isUnit('library'))
+                            @if(user()?->isUnitOfficer('library'))
 
                                 @if($this->selectedRequest?->library_card)
                                     <x-view-image

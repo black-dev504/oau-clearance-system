@@ -99,7 +99,7 @@ class ClearanceRequests extends Component
     public function render()
     {
         $query = $this->getQuery();
-        return view('livewire.app.clearance-requests', [
+        return view('livewire.app.officer.clearance-requests', [
             'requests' => $query->paginate(10)
 
         ]);

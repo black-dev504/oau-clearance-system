@@ -32,14 +32,16 @@ class DashboardRequest extends FormRequest
     public function data($key = null, $default = null)
     {
         return match (user()->role) {
-            'admin' => $this->adminDashboard,
+            'admin' => $this->adminDashboard(),
             'officer' => $this->officerDashboard(user()?->unit),
+            'student' => $this->studentDashboard(),
         };
     }
 
     public function adminDashboard()
     {
         return [
+
         ];
 
     }
@@ -54,5 +56,9 @@ class DashboardRequest extends FormRequest
         ];
     }
 
+    public function studentDashboard()
+    {
+        return [];
+    }
 
 }

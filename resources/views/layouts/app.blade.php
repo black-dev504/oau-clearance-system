@@ -7,10 +7,16 @@
 
 <body class="min-h-screen bg-background flex dark:bg-zinc-800 antialiased">
 
-<x-layouts.sidebar >
-
+@if(user()?->hasRole('admin'))
+    <x-layouts.sidebar.superadmin>
         {{ $slot }}
-</x-layouts.sidebar>
+    </x-layouts.sidebar.superadmin>
+@else
+    <x-layouts.sidebar.unit>
+        {{ $slot }}
+    </x-layouts.sidebar.unit>
+@endif
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @fluxScripts
 

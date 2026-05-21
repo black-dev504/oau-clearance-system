@@ -43,19 +43,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function isOfficer(): bool
+    public function hasRole(string $role): bool
     {
-        return $this->role == 'officer';
-    }
-
-    public function isAdmin():bool
-    {
-        return $this->role == 'admin';
-    }
-
-    public function isStudent():bool
-    {
-        return $this->role == 'student';
+        return $this->role === $role;
     }
 
     public function unit()
@@ -63,12 +53,13 @@ class User extends Authenticatable
         return $this->belongsTo(Unit::class);
     }
 
+    // TODO: handle current user unit using id not name
     public function hasUnit($id)
     {
         return $this->unit_id === $id;
     }
 
-    public function isUnit($name)
+    public function isUnitOfficer($name)
     {
         return strtolower($this->unit?->name) === strtolower($name);
     }

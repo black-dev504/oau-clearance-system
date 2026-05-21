@@ -5,10 +5,11 @@ namespace App\Livewire;
 use App\Enums\ClearanceStatus;
 use App\Http\Requests\DashboardRequest;
 use App\Models\ClearanceRequest;
+use App\Services\DashboardService;
 use http\Env\Request;
 use Livewire\Component;
 
-class Dashboard extends Component
+class OfficerDashboard extends Component
 {
 
     public $unit;
@@ -31,18 +32,8 @@ class Dashboard extends Component
 //        $this->reset(['activeModal', 'selectedRequest']);
     }
 
-   public function getUpdatedDataProperty(DashboardRequest $request)
-   {
-       $data = $request->data();
-       $this->dispatch('updateChart',
-           approved : $data['approved'] ?? 0,
-           pending : $data['pending'] ?? 0,
-           rejected : $data['rejected'] ?? 0,
-       );
-         return $data;
-   }
 
-   public function approveRequest()
+   public function approveRequest(DashboardService $service)
    {
          $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
          $current_unit->update(['status' => ClearanceStatus::APPROVED]);
@@ -50,10 +41,12 @@ class Dashboard extends Component
              'type' => 'success',
              'message'=>'Request approved successfully!'
          ]);
+       $this->refreshDashboard($service);
+
          $this->closeModal();
    }
 
-   public function rejectRequest($remark)
+   public function rejectRequest(DashboardService $service,$remark)
    {
          $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
          $current_unit->update([
@@ -64,26 +57,31 @@ class Dashboard extends Component
               'type' => 'success',
               'message'=>'Request rejected successfully!'
          ]);
-         $this->closeModal();
+       $this->refreshDashboard($service);
+
+       $this->closeModal();
    }
+
+    public function refreshDashboard(DashboardService $service)
+    {
+        $data = $service->officerDashboard($this->unit);
+
+        $this->dispatch('updateChart',
+            approved: $data['approved'],
+            pending: $data['pending'],
+            rejected: $data['rejected'],
+        );
+    }
+
 
     public function mount()
     {
-        $this->unit = request()->segment(1);
+        $this->unit = auth()->user()?->unit;
     }
 
-    public function render()
+    public function render(DashboardService $service)
     {
-        $data = $this->updatedData;
-        return view('livewire.app.dashboard', [
-            'data' => $data,
-            'chartData' => [
-                'approved' => $data['approved'] ?? 0,
-                'pending' => $data['pending'] ?? 0,
-                'rejected' => $data['rejected'] ?? 0,
-            ],
-            'recentRequests' => user()->unit->clearanceRequests()->latest()->take(5)->get(),
-
-        ]);
+        $data = $service->officerDashboard($this->unit);
+        return view('livewire.app.officer.dashboard', $data);
     }
 }

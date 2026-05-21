@@ -54,7 +54,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'domain' => env('APP_DOMAIN', 'oauife'),
+    'admin_prefix' => env('ADMIN_PREFIX', 'admin.'),
+
+    'domain' => env('APP_DOMAIN', 'oau-clearance-system.test'),
 
 
     /*
