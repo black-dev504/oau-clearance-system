@@ -1,5 +1,4 @@
 
-
 <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
     <flux:sidebar.header>
         <flux:sidebar.brand
@@ -13,12 +12,11 @@
         <flux:sidebar.collapse class="lg:hidden" />
     </flux:sidebar.header>
 
-
     <flux:sidebar.nav>
-        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('dashboard')" icon="home" :href="route('admin.dashboard')">Dashboard</flux:sidebar.item>
-{{--        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('requests')"  icon="calendar" badge="12" :href="route('admin.requests')"> Requests</flux:sidebar.item>--}}
-{{--        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('officers')"  icon="inbox" :href="route('admin.emails')">Officers</flux:sidebar.item>--}}
-{{--        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('announcements')" icon="document-text" :href="route('admin.announcements')">Announcements</flux:sidebar.item>--}}
+        <flux:sidebar.item class="mt-2 data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.dashboard')" icon="home" :href="route('admin.dashboard')">Dashboard</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('requests')"  icon="calendar" badge="12" > Requests</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('officers')"  icon="inbox" >Officers</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('announcements')" icon="document-text" >Announcements</flux:sidebar.item>
     </flux:sidebar.nav>
 
     <flux:sidebar.spacer />

@@ -8,6 +8,8 @@ class AdminDashboard extends Component
 {
     public function render()
     {
-        return view('livewire.app.admin.dashboard');
+        return view('livewire.app.admin.dashboard', [
+            'recentRequests' => []
+        ]);
     }
 }
