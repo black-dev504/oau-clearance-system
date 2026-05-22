@@ -115,10 +115,17 @@
 
                             @endif
 
+
                             <td class="px-6 py-4">
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs capitalize">
-                        <x-tag :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
+                        @if(user()->hasRole('officer'))
+{{--                            show individual clearance status--}}
+                        <x-tag :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
+                        @else
+{{--                            show overall clearance status--}}
+                            <x-tag :status="$request->status->label()" :classes="$request->status->classes()" />
+                        @endif
                     </span>
                             </td>
                             <td class="px-6 py-4">
