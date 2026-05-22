@@ -209,7 +209,7 @@
                                     </div>
                                     <div>
                                         <p class="text-sm text-gray-900 dark:text-zinc-100">Means of Identification</p>
-                                        TODO: IMAGE FORMAT AND PREVIEW
+                                        {{--TODO: IMAGE FORMAT AND PREVIEW --}}
                                         <p class="text-xs text-gray-500 dark:text-zinc-400">2.4 MB • PDF</p>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                                     </div>
                                     <div>
                                         <p class="text-sm text-gray-900 dark:text-zinc-100">Payment Receipt</p>
-                                        TODO: IMAGE FORMAT AND PREVIEW
+                                        {{--TODO: IMAGE FORMAT AND PREVIEW --}}
                                         <p class="text-xs text-gray-500 dark:text-zinc-400">2.4 MB • PDF</p>
                                     </div>
                                 </div>

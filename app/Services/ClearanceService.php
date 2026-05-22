@@ -2,33 +2,77 @@
 
 namespace App\Services;
 
+use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
+use App\Models\User;
 
 class ClearanceService
 {
-    public function requests($status = null, $searchValue= '')
+    public function requests(User $user,  $status = null, $searchValue= '', $sort = 'Oldest')
     {
-        if (auth()->user()->hasRole('admin')) {
+        $query = ClearanceRequest::query();
+
+        if ($user->hasRole('officer')) {
+            $query->whereHas('clearances', function ($q) use ($user, $status) {
+                $q->where('unit_id', $user->unit_id)
+                    ->when($status, fn ($q) => $q->where('status', $status)
+                    );
+
+            });
+        }
+
+        if ($user->hasRole('admin')) {
+            $query->when($status, fn ($q) => $q->where('status', $status));
+        }
+
+        if (!empty($searchValue)) {
+            $query->where(function ($q) use ($searchValue) {
+                $q->where('name', 'like', '%'.$searchValue.'%')
+                    ->orWhere('matric_no', 'like', '%'.$searchValue.'%');
+            });
 
         }
 
-        if (auth()->user()->hasRole('officer')) {
-            $query = ClearanceRequest::query()
-                ->whereHas('clearances', function ($query) {
-                    $query->where('unit_id', user()->unit_id)
-                        ->when($status != null, fn($q) => $q->where('status', $status))
-                        ->when(! empty($this->search),
-                            fn ($query) => $query->where('name', 'like', '%'.$searchValue.'%')
-                                ->orWhere('matric_no', 'like', '%'.$searchValue.'%')
-                        );
-                });
+        $query = match ($sort) {
+            'Newest' => $query->latest(),
+            'Oldest' => $query->oldest(),
+            'Name'   => $query->orderBy('name'),
+            default  => $query->latest(),
+        };
 
-            return  $query = match ($this->sortValue) {
-                'Newest' => $query->latest(),
-                'Oldest' => $query->oldest(),
-                'Name' => $query->orderBy('name'),
-                default => $query->latest()
-            };
-        }
+        return $query->paginate(10);
+
     }
+
+    public function approveClearance(ClearanceRequest $request, User $user)
+    {
+        $clearance = $request->clearanceForUnit($user->unit_id);
+
+        if (!$clearance) {
+            throw new \Exception('Clearance not found for this unit');
+        }
+
+        $clearance->update([
+            'status' => ClearanceStatus::APPROVED
+        ]);
+
+        return $clearance;
+    }
+
+    public function rejectClearance(ClearanceRequest $request, User $user, string $remark)
+    {
+        $clearance = $request->clearanceForUnit($user->unit_id);
+
+        if (!$clearance) {
+            throw new \Exception('Clearance not found for this unit');
+        }
+
+        $clearance->update([
+            'status' => ClearanceStatus::REJECTED,
+            'remark' => $remark
+        ]);
+
+        return $clearance;
+    }
+
 }

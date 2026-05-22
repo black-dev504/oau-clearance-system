@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
+use App\Services\ClearanceService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -30,36 +31,36 @@ class ClearanceRequests extends Component
     {
         $this->reset(['activeModal', 'selectedRequest']);
     }
-    public function approveRequest()
+
+
+    public function approveRequest(ClearanceService $service)
     {
-        $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
-        $current_unit->update(['status' => ClearanceStatus::APPROVED]);
-        $this->dispatch('notification',  [
+        $service->approveClearance($this->selectedRequest, user());
+
+        $this->dispatch('notification', [
             'type' => 'success',
-            'message'=>'Request approved successfully!'
+            'message' => 'Request approved successfully!'
         ]);
+
+        $this->closeModal();
+    }
+
+
+    public function rejectRequest(ClearanceService $service, $remark)
+    {
+        $service->rejectClearance($this->selectedRequest, auth()->user(), $remark);
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Request rejected successfully!'
+        ]);
+
         $this->closeModal();
     }
 
     public function openReapplications()
     {
-       $this->currentStatus = ClearanceStatus::REAPPLY;
-    }
-
-    public function rejectRequest($remark)
-    {
-
-//        TODO: add validation for remark
-        $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
-        $current_unit->update([
-            'status' => ClearanceStatus::REJECTED,
-            'remark' => $remark
-        ]);
-        $this->dispatch('notification',  [
-            'type' => 'success',
-            'message'=>'Request rejected successfully!'
-        ]);
-        $this->closeModal();
+        $this->currentStatus = ClearanceStatus::REAPPLY;
     }
 
     #[On('change-sort-value')]
@@ -75,32 +76,22 @@ class ClearanceRequests extends Component
                                : ClearanceStatus::stringToEnum($status);
     }
 
-    public function getQuery()
+    public function getRequestsProperty(ClearanceService $service)
     {
-        $query = ClearanceRequest::query()
-            ->whereHas('clearances', function ($query) {
-                $query->where('unit_id', user()->unit_id)
-                    ->when($this->currentStatus != null, fn($q) => $q->where('status', $this->currentStatus))
-                    ->when(! empty($this->search),
-                        fn ($query) => $query->where('name', 'like', '%'.$this->search.'%')
-                            ->orWhere('matric_no', 'like', '%'.$this->search.'%')
-                    );
-            });
-
-        return  $query = match ($this->sortValue) {
-            'Newest' => $query->latest(),
-            'Oldest' => $query->oldest(),
-            'Name' => $query->orderBy('name'),
-            default => $query->latest()
-        };
+        return $service->requests(
+            user(),
+            $this->currentStatus,
+            $this->search,
+            $this->sortValue
+        );
     }
 
 
     public function render()
     {
-        $query = $this->getQuery();
+
         return view('livewire.app.officer.clearance-requests', [
-            'requests' => $query->paginate(10)
+            'requests' => $this->requests
 
         ]);
     }
