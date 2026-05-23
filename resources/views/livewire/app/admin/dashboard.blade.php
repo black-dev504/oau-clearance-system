@@ -4,15 +4,15 @@
 
     <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">
 
-        <x-card title="Total Requests"   class=" ">
+        <x-card title="Total Requests" :value="$total_requests"   class=" ">
             <x-icons.total />
         </x-card>
 
-        <x-card title="Active Units" value="6" class=" ">
+        <x-card title="Active Units" :value="$total_units" class=" ">
             <x-icons.approved />
         </x-card>
 
-        <x-card title="Total Officers" value="42"   class="">
+        <x-card title="Total Officers" :value="$total_officers"   class="">
             <x-icons.pending />
         </x-card>
 
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
-                   <x-unit-performance-card />
+                   <x-unit-performance-card unit="Library" :processed_requests="$library_metrics['processed']" :approval_rate="$library_metrics['approval_rate']"/>
                    <x-unit-performance-card />
                    <x-unit-performance-card />
                    <x-unit-performance-card />
@@ -59,8 +59,8 @@
             <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">System Activity</h2>
-                        <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">Recent activities across all units</p>
+                        <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Recent Requests</h2>
+                        <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">Recent requests across all units</p>
                     </div>
 
                 </div>
@@ -69,7 +69,7 @@
             <table class="w-full dark:border-white/10 dark:border">
                 <tbody class=" dark:bg-zinc-800 divide-y divide-gray-50 dark:divide-white/10">
 
-                @if(!empty($recentRequests))
+                @if($recentRequests->count() > 0)
 
                     @foreach($recentRequests as $request)
                         <tr wire:key="request-{{ $request->id }}" class="overflow-auto px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
@@ -98,12 +98,18 @@
                                 </div>
                             </td>
 
+
                             <td class=" w-auto px-6 py-4">
                                 <div >
                                     <div class="text-sm text-gray-500 mb-1 pl-3 dark:text-zinc-400">Status</div>
                                     <div class="text-sm text-gray-900">
-                                        <x-tag :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
-                                    </div>
+                                        @if(user()->hasRole('officer'))
+                                            {{--                            show individual clearance status--}}
+                                            <x-tag :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
+                                        @else
+                                            {{--                            show overall clearance status--}}
+                                            <x-tag :status="$request->status->label()" :classes="$request->status->classes()" />
+                                        @endif                                    </div>
                                 </div>
                             </td>
 

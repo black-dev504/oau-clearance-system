@@ -36,6 +36,11 @@ class Clearance extends Model
         return $query->where('status', ClearanceStatus::REJECTED);
     }
 
+    public function scopeProcessed($query)
+    {
+        return $query->whereIn('status', [ClearanceStatus::APPROVED, ClearanceStatus::REAPPLY, ClearanceStatus::REJECTED]);
+    }
+
     public function unit()
     {
         return $this->belongsTo(Unit::class);

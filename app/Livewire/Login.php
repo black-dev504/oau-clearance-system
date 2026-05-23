@@ -46,11 +46,11 @@ class Login extends Component
         $user = Auth::user();
 
 
-        if ($user->hasRole('admin') && $user->unit_id) {
+        if (!$user->hasRole('officer') && $user->unit_id) {
             Auth::logout();
 
             throw ValidationException::withMessages([
-                'email' => 'Admin users should not be assigned to a unit.',
+                'email' => 'Only officers should be assigned to units.',
             ]);
         }
 

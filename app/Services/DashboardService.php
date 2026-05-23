@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\ClearanceStatus;
+use App\Models\Activity;
+use App\Models\Clearance;
+use App\Models\ClearanceRequest;
 use App\Models\User;
 use App\Models\Unit;
 
@@ -23,9 +27,58 @@ class DashboardService
     protected function adminDashboard(User $user): array
     {
         return [
-            'total_users' => User::count(),
+            'total_requests' => ClearanceRequest::count(),
+            'total_officers' => User::where('role', 'officer')->count(),
             'total_units' => Unit::count(),
+            'recentRequests' => ClearanceRequest::latest()->take(8)->get(),
+            'library_metrics' => $this->unitMetrics(Unit::where('name', 'Library')->first()),
         ];
+    }
+
+    protected function unitMetrics(Unit $unit): array
+    {
+       return [
+              'total' => $unit->clearances()->count(),
+              'processed' => $unit->clearances()->processed()->count(),
+              'avg_processing_time' => $this->avgProcessingTime($unit),
+              'approval_rate' => $this->approvalRate($unit),
+       ];
+    }
+
+    protected function avgProcessingTime($unit)
+    {
+        $time_in_sec = $unit->clearances()
+            ->processed()
+            ->selectRaw('AVG(TIMESTAMPDIFF(SECOND, created_at, updated_at)) as avg_time')
+            ->value('avg_time');
+
+        return $this->formatTime($time_in_sec);
+    }
+
+    protected function approvalRate($unit)
+    {
+        $total = $unit->clearances()
+            ->whereIn('status', [ClearanceStatus::APPROVED, ClearanceStatus::REJECTED])
+            ->count();
+
+        $approved = $unit->clearances()
+            ->where('status', ClearanceStatus::APPROVED)
+            ->count();
+
+        return $total > 0 ? ($approved / $total) * 100 : 0;
+    }
+
+    function formatTime($seconds)
+    {
+        if ($seconds >= 86400) {
+            return round($seconds / 86400, 1) . ' days';
+        }
+
+        if ($seconds >= 3600) {
+            return round($seconds / 3600, 1) . ' hours';
+        }
+
+        return round($seconds / 60, 1) . ' minutes';
     }
 
     /**
