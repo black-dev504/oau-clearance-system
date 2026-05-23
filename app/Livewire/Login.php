@@ -43,23 +43,34 @@ class Login extends Component
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        if (Auth::user()->hasRole('student')) {
+        $user = Auth::user();
 
-            return $this->redirect(route('student.dashboard'));
+
+        if ($user->hasRole('admin') && $user->unit_id) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'email' => 'Admin users should not be assigned to a unit.',
+            ]);
         }
 
+        $redirectRoute = $this->resolveDashboardRoute($user);
 
-        $redirectRoute = Auth::user()->hasRole('admin')
-            ? route('admin.dashboard')
-            : route(Auth::user()->unit?->slug . '.dashboard');
+        return $this->redirect($redirectRoute);
 
-        /**  TODO: Handle situation where officer is not assigned unit **/
-
-
-        $this->redirect($redirectRoute);
-
-      /**  TODO: NAVIGATE **/
+      /**  TODO:: NAVIGATE **/
 //        $this->redirect($redirectRoute, navigate: true);
+    }
+
+
+    protected function resolveDashboardRoute($user): string
+    {
+        return match (true) {
+            $user->hasRole('student') => route('student.dashboard'),
+            $user->hasRole('admin')   => route('admin.dashboard'),
+            $user->hasRole('officer') => route($user->unit?->slug . '.dashboard'),
+            default            => abort(403),
+        };
     }
 
 
