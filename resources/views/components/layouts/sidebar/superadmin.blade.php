@@ -15,8 +15,8 @@
     <flux:sidebar.nav>
         <flux:sidebar.item class="mt-2 data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.dashboard')" icon="home" :href="route('admin.dashboard')">Dashboard</flux:sidebar.item>
         <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.clearance-requests')" :href="route('admin.clearance-requests')"  icon="calendar" badge="12" > Requests</flux:sidebar.item>
-        <flux:sidebar.item class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.officers-management')"  icon="inbox" :href="route('admin.officers')">Officers</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('announcements')" icon="document-text" >Announcements</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.officers')"  icon="inbox" :href="route('admin.officers')">Officers</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.announcements')" :href="route('admin.announcements')" icon="document-text" >Announcements</flux:sidebar.item>
     </flux:sidebar.nav>
 
     <flux:sidebar.spacer />

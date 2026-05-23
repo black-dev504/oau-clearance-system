@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Actions\Logout;
+use App\Livewire\AdminAnnouncement;
 use App\Livewire\AdminDashboard;
 use App\Livewire\Announcements;
 use App\Livewire\OfficerDashboard;
@@ -39,6 +40,6 @@ Route::domain(config('app.admin_prefix').config('app.domain'))->name('admin.')->
     Route::get('dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
     Route::get('officers-management', OfficerManagement::class)->name('officers');
-    Route::get('announcements', Announcements::class)->name('announcements');
+    Route::get('announcements', AdminAnnouncement::class)->name('announcements');
 
 });
