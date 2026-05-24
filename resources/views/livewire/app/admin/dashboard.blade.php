@@ -45,11 +45,10 @@
                 </div>
 
                 <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
-                   <x-unit-performance-card unit="Library" :processed_requests="$library_metrics['processed']" :approval_rate="$library_metrics['approval_rate']"/>
-                   <x-unit-performance-card />
-                   <x-unit-performance-card />
-                   <x-unit-performance-card />
-                   <x-unit-performance-card />
+
+                    @foreach($units_metrics as $unit)
+                        <x-unit-performance-card :unitName="$unit['name']" :processed_requests="$unit['metric']['processed']" :approval_rate="$unit['metric']['approval_rate']"/>
+                    @endforeach
 
                 </div>
             </div>
@@ -59,8 +58,8 @@
             <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Recent Requests</h2>
-                        <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">Recent requests across all units</p>
+                        <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Pending Requests by Unit</h2>
+                        <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">pending requests across all units</p>
                     </div>
 
                 </div>
@@ -154,4 +153,90 @@
         </div>
     </div>
 </div>
+
+{{--@dd($units_metrics)--}}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    window.addEventListener('updateChart', (event) => {
+        const {
+            approved,
+            pending,
+            rejected
+        } = event.detail;
+        updateChart(approved, pending, rejected);
+    })
+
+    let pendingRequests = @json($pending_requests);
+    let statusChart;
+
+    let unitCounts = {};
+
+    pendingRequests.forEach(item => {
+        unitCounts[item.unit_name] = item.count;
+    });
+
+
+
+    createChart(pendingRequests);
+
+    function createChart($data)
+    {
+        statusChart = new Chart(document.getElementById('status-chart'), {
+            type: "doughnut",
+            data: {
+                labels:  $data.map(item => item.unit_name),
+                datasets: [{
+                    data:  $data.map(item => item.count),
+                    backgroundColor:[
+                        '#8B5CF6', // purple
+                        '#3B82F6', // blue
+                        '#10B981', // green
+                        '#F59E0B', // amber
+                        '#EF4444', // red
+                        '#EC4899'  // pink
+                    ],
+                    // hoverBackgroundColor: ['#039855', '#EEA23E', '#F59E0B','#8B5CF6','#3B82F6','#10B981'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: "50%",
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            padding: 12,
+                            font: {
+                                size: 14
+                            },
+                            color: '#666',
+                            boxWidth: 6,
+                            boxHeight: 6
+                        }
+                    }
+                }
+
+            }
+        });
+    }
+
+    function updateChart($approved, $pending, $rejected)
+    {
+        if (statusChart) {
+            statusChart.destroy();
+        }
+        createChart($approved, $pending, $rejected);
+
+    }
+</script>
+
+
 

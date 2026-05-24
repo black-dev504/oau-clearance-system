@@ -26,12 +26,21 @@ class DashboardService
      */
     protected function adminDashboard(User $user): array
     {
+
+
         return [
             'total_requests' => ClearanceRequest::count(),
             'total_officers' => User::where('role', 'officer')->count(),
             'total_units' => Unit::count(),
             'recentRequests' => ClearanceRequest::latest()->take(8)->get(),
-            'library_metrics' => $this->unitMetrics(Unit::where('name', 'Library')->first()),
+            'units_metrics' => Unit::all()->map(fn ($unit) => [
+                'name' => $unit->name,
+                'metric' => $this->unitMetrics($unit)
+            ]),
+            'pending_requests' =>  Unit::all()->map(fn ($unit) => [
+               'unit_name' => strtolower($unit->name),
+               'count' => $unit->clearances()->pending()->count()
+            ]),
         ];
     }
 

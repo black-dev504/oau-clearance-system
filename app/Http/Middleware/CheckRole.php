@@ -21,8 +21,6 @@ class CheckRole
             return redirect()->route('login');
         }
 
-        logger(user());
-
         if (!in_array(auth()->user()->role, $roles))
         {
             abort(403, 'Unauthorized action..');
