@@ -8,6 +8,7 @@ use App\Models\Clearance;
 use App\Models\ClearanceRequest;
 use App\Models\User;
 use App\Models\Unit;
+use Illuminate\Support\Str;
 
 class DashboardService
 {
@@ -38,7 +39,7 @@ class DashboardService
                 'metric' => $this->unitMetrics($unit)
             ]),
             'pending_requests' =>  Unit::all()->map(fn ($unit) => [
-               'unit_name' => strtolower($unit->name),
+               'unit_name' => Str::title($unit->name),
                'count' => $unit->clearances()->pending()->count()
             ]),
         ];

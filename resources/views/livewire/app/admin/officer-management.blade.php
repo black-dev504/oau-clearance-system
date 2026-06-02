@@ -15,9 +15,9 @@
                     <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1 whitespace-nowrap">Recent activities across all units</p>
                 </div>
 
-                <flux:modal.trigger name="add-officer">
-                <button class="px-3 py-2 bg-primary text-white rounded-xl whitespace-nowrap"> Add Officer</button>
-                </flux:modal.trigger>
+               <div>
+                   <x-modals.add-officer />
+               </div>
 
             </div>
         </div>
@@ -81,9 +81,11 @@
                         <td class=" w-auto pl-6 py-4">
 
                             <div class="flex items-center gap-3 shrink-0">
+                                <button wire:click="deleteOfficer({{$officer->id}})">
+                                    <x-icons.delete />
+                                </button>
 
-
-                                <button type="button"  wire:click="openModal('view-request', {{ $officer->id }})" class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
+                                <button type="button"  wire:click="openEditMode({{$officer->id}})" class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
                                     Edit
                                 </button>
                             </div>
@@ -106,6 +108,5 @@
         </table>
     </div>
 
-    <x-modals.add-officer />
 
 </div>

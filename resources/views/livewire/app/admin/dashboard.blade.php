@@ -26,8 +26,8 @@
         <div class="w-full gap-6 grid xl:grid-cols-4 lg:grid-cols-5 grid-cols-1 ">
             <div class="w-full dark:bg-zinc-800 xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl flex flex-col justify-between">
                 <div class="w-ful border-b  p-4 border-b-gray-200 dark:border-white/10 flex  flex-col  text-xl dark:text-zinc-100 font-semibold">
-                    <h3 class="dark:text-zinc-100">Request by Unit </h3>
-                    <span class="text-sm text-gray-400 dark:text-zinc-400">Distribution across all units</span>
+                    <h3 class="dark:text-zinc-100">Pending Requests by Unit</h3>
+                    <span class="text-sm text-gray-400 dark:text-zinc-400">pending requests across all units</span>
                 </div>
                 <div class="w-full flex  pb-4 justify-center items-center">
                     <div
@@ -174,9 +174,9 @@
 
     let unitCounts = {};
 
-    pendingRequests.forEach(item => {
-        unitCounts[item.unit_name] = item.count;
-    });
+    // pendingRequests.forEach(item => {
+    //     unitCounts[item.unit_name] = item.count;
+    // });
 
 
 
@@ -187,7 +187,7 @@
         statusChart = new Chart(document.getElementById('status-chart'), {
             type: "doughnut",
             data: {
-                labels:  $data.map(item => item.unit_name),
+                labels:   $data.map(item => item.unit_name),
                 datasets: [{
                     data:  $data.map(item => item.count),
                     backgroundColor:[
