@@ -41,7 +41,7 @@ $units = \App\Models\Unit::all();
 
         <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
             <button type="button"
-                    class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
+                    class="px-13 py-2 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
                 Cancel
             </button>
 
