@@ -29,9 +29,20 @@ document.querySelectorAll(".tom-select").forEach((el) => {
 });
 
 document.addEventListener('livewire:init', () => {
-    Livewire.on('announcement-created', () => {
+    Livewire.on('clear-recipients', () => {
         document.querySelectorAll('.tom-select').forEach((select) => {
             select.tomselect?.clear();
         });
     });
+});
+
+Livewire.on('populate-recipients', ({ recipients }) => {
+
+    const ts = document.querySelector('.tom-select')?.tomselect;
+
+    if (!ts) return;
+
+    ts.clear();
+
+    ts.setValue(recipients);
 });

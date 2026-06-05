@@ -71,12 +71,6 @@
             </div>
         `;
 
-            toastCount++;
-
-            console.log('Toast fired:', toastCount);
-            console.log(data);
-            console.trace();
-
 
 
 

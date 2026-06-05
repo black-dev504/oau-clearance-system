@@ -2,7 +2,7 @@
     $units = \App\Models\Unit::all();
 @endphp
 
-<flux:modal name="add-announcement" wire:key="add-announcement" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
+<flux:modal name="add-announcement" x-on:close="$wire.resetModal()" wire:key="add-announcement" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
     <div x-data="{ remarks: '' }">
 
         <div class="w-full  rounded-t-2xl p-6 flex bg-primary">
@@ -61,10 +61,18 @@
                     class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
                 Cancel
             </button>
+
+            @if(!$this->editing)
             <button wire:click="submit" type="submit"
                     class="px-13 py-3 bg-primary text-white  rounded-[10px]">
                 Send Announcement
             </button>
+            @else
+                <button wire:click="editAnnouncement" type="submit"
+                        class="px-13 py-3 bg-primary text-white  rounded-[10px]">
+                    Update Announcement
+                </button>
+            @endif
         </div>
     </div>
 
