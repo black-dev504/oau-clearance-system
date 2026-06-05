@@ -25,11 +25,15 @@
 
             <table class="w-full dark:border-white/10 dark:border">
                 <tbody class=" dark:bg-zinc-800 divide-y divide-gray-100 dark:divide-white/10">
-                <tr wire:key="" class="overflow-auto  px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
 
-                    <td class=" w-auto  px-6 py-4">
-                       <x-announcement-card />
-                    </td>
+                @foreach($announcements as $announcement)
+                    <tr wire:key="{{$announcement->id}}" class="overflow-auto  px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
+
+                        <td class=" w-auto  px-6 py-4">
+                           <x-announcement-card :title="$announcement->title" :description="$announcement->content" :priority="$announcement->priority" :announcement="$announcement" />
+                        </td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>

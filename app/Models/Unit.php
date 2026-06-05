@@ -28,4 +28,9 @@ class Unit extends Model
         return $this->hasMany(Clearance::class);
     }
 
+    public function announcements()
+    {
+        return $this->belongsToMany(Announcement::class);
+    }
+
 }

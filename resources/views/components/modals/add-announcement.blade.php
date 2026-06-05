@@ -16,19 +16,35 @@
         </div>
         <div class="bg-white p-6 gap-4 flex w-full">
             <div class="w-full flex flex-col gap-4">
-                <flux:input label="Title *" placeholder="Announcement Title" />
-                <flux:textarea label="Message *" placeholder="Enter your announcement message..." />
+                <flux:input wire:model="title" label="Title *" placeholder="Announcement Title" />
+                <flux:textarea wire:model="content" label="Message *" placeholder="Enter your announcement message..." />
 
                 <div class="grid grid-cols-2 gap-4">
-                    <flux:select label="Unit" >
-                        <flux:select.option >Select unit...</flux:select.option>
-                        <flux:select.option >All</flux:select.option>
-                        @foreach($units as $unit)
-                            <flux:select.option value="{{$unit->id}}">{{$unit->name}}</flux:select.option>
-                        @endforeach
-                    </flux:select>
+                    <div class=" w-full flex flex-col" x-data="{ units: @js($units) }">
+                        <label class="text-[#666666] text-sm" for="units"  >Select target units. </label>
+                        <div @class([
+                                    'border rounded-md',
+                                    'border-red-500' => $errors->has('recipients'),
+                                    'border-gray-300' => !$errors->has('recipients'),
+                                ])>
+                        <div wire:ignore class="w-full flex flex-col space-y-2">
+                            <select wire:model="recipients" name="units[]" class="tom-select w-full" data-placeholder="Select your units"
+                                    multiple x-model="units">
+                                @foreach ($units as $unit)
+                                    <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                @endforeach
+                            </select>
 
-                    <flux:select label="Priority" >
+                        </div>
+                        </div>
+                        @error('recipients')
+                            <span class="text-red-500 text-sm mt-1 font-medium">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+
+                    <flux:select wire:model="priority" label="Priority" >
                         <flux:select.option >Select priority...</flux:select.option>
                         <flux:select.option value="low">Low</flux:select.option>
                         <flux:select.option value="medium">Medium</flux:select.option>
@@ -45,10 +61,12 @@
                     class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
                 Cancel
             </button>
-            <button type="submit"
+            <button wire:click="submit" type="submit"
                     class="px-13 py-3 bg-primary text-white  rounded-[10px]">
                 Send Announcement
             </button>
         </div>
     </div>
+
+
 </flux:modal>

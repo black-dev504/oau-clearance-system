@@ -17,6 +17,7 @@
     </x-layouts.sidebar.unit>
 @endif
 
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @fluxScripts
 
