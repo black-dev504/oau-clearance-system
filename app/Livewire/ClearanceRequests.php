@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
 use App\Services\ClearanceService;
+use Illuminate\Support\Arr;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,8 +28,11 @@ class ClearanceRequests extends Component
         $this->dispatch('modal-show', name: $modal);
     }
 
-    public function closeModal()
+    public function closeModal(string|array $modals)
     {
+        foreach (Arr::wrap($modals) as $modal) {
+            $this->js("\$flux.modal('{$modal}').close()");
+        }
         $this->reset(['activeModal', 'selectedRequest']);
     }
 
@@ -42,7 +46,7 @@ class ClearanceRequests extends Component
             'message' => 'Request approved successfully!'
         ]);
 
-        $this->closeModal();
+        $this->closeModal(['approval-confirmation', 'view-request']);
     }
 
 
@@ -55,7 +59,7 @@ class ClearanceRequests extends Component
             'message' => 'Request rejected successfully!'
         ]);
 
-        $this->closeModal();
+        $this->closeModal(['rejection-confirmation', 'view-request']);
     }
 
     public function openReapplications()

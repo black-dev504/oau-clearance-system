@@ -164,8 +164,6 @@
 
     <x-modals.student-contact />
     <x-modals.view-request />
-    <x-modals.rejection-confirmation  />
-    <x-modals.officer-confirmation />
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

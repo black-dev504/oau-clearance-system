@@ -1,3 +1,11 @@
+<flux:modal.trigger name="rejection-confirmation">
+
+    <button
+        class="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+        Reject Application
+    </button>
+</flux:modal.trigger>
+
 
 <flux:modal name="rejection-confirmation" wire:key="rejection-modal" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
     <div x-data="{ remarks: '' }">
@@ -38,7 +46,8 @@
             Cancel
         </button>
         <button type="submit"
-                @click="window.dispatchEvent(new CustomEvent('reject-request', { detail: { remarks: remarks } })); $flux.modal('rejection-confirmation').close() "
+                wire:click="rejectRequest(remarks)"
+{{--                @click="window.dispatchEvent(new CustomEvent('reject-request', { detail: { remarks: remarks } })); $flux.modal('rejection-confirmation').close() "--}}
                 class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
             Confirm Rejection
         </button>

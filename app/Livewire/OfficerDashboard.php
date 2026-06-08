@@ -5,8 +5,10 @@ namespace App\Livewire;
 use App\Enums\ClearanceStatus;
 use App\Http\Requests\DashboardRequest;
 use App\Models\ClearanceRequest;
+use App\Services\ClearanceService;
 use App\Services\DashboardService;
 use http\Env\Request;
+use Illuminate\Support\Arr;
 use Livewire\Component;
 
 class OfficerDashboard extends Component
@@ -26,41 +28,42 @@ class OfficerDashboard extends Component
         $this->dispatch('modal-show', name: $modal);
     }
 
-    public function closeModal()
+    public function closeModal(string|array $modals)
     {
-//        $this->js('$flux.modal("'.$this->activeModal.'").close()');
-//        $this->reset(['activeModal', 'selectedRequest']);
+        foreach (Arr::wrap($modals) as $modal) {
+            $this->js("\$flux.modal('{$modal}').close()");
+        }
+        $this->reset(['activeModal', 'selectedRequest']);
+    }
+
+    public function approveRequest(ClearanceService $clearanceService, DashboardService $dashboardService)
+    {
+        $clearanceService->approveClearance($this->selectedRequest, user());
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Request approved successfully!'
+        ]);
+
+        $this->refreshDashboard($dashboardService);
+
+        $this->closeModal(['approval-confirmation', 'view-request']);
     }
 
 
-   public function approveRequest(DashboardService $service)
-   {
-         $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
-         $current_unit->update(['status' => ClearanceStatus::APPROVED]);
-         $this->dispatch('notification',  [
-             'type' => 'success',
-             'message'=>'Request approved successfully!'
-         ]);
-       $this->refreshDashboard($service);
+    public function rejectRequest(ClearanceService $clearanceService, DashboardService $dashboardService, $remark)
+    {
+        $clearanceService->rejectClearance($this->selectedRequest, auth()->user(), $remark);
 
-         $this->closeModal();
-   }
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Request rejected successfully!'
+        ]);
 
-   public function rejectRequest(DashboardService $service,$remark)
-   {
-         $current_unit = $this->selectedRequest->clearanceForUnit(user()->unit_id);
-         $current_unit->update([
-             'status' => ClearanceStatus::REJECTED,
-             'remark' => $remark
-         ]);
-         $this->dispatch('notification',  [
-              'type' => 'success',
-              'message'=>'Request rejected successfully!'
-         ]);
-       $this->refreshDashboard($service);
+        $this->refreshDashboard($dashboardService);
 
-       $this->closeModal();
-   }
+        $this->closeModal(['rejection-confirmation', 'view-request']);
+    }
 
     public function refreshDashboard(DashboardService $service)
     {

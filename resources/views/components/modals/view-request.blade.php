@@ -124,20 +124,8 @@
 
                     {{--            TODO: RENDER BUTTONS BASED ON CURRENT STATUS--}}
 
-                    <flux:modal.trigger name="confirm-officer-submission">
-                        <button
-                            class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
-                            Approve Application
-                        </button>
-                    </flux:modal.trigger>
-
-                    <flux:modal.trigger name="rejection-confirmation">
-
-                        <button
-                            class="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
-                            Reject Application
-                        </button>
-                    </flux:modal.trigger>
+                    <x-modals.officer-confirmation />
+                    <x-modals.rejection-confirmation />
                 </div>
             </div>
         @endif

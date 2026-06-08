@@ -34,10 +34,13 @@ class DashboardService
             'total_officers' => User::where('role', 'officer')->count(),
             'total_units' => Unit::count(),
             'recentRequests' => ClearanceRequest::latest()->take(8)->get(),
-            'units_metrics' => Unit::all()->map(fn ($unit) => [
-                'name' => $unit->name,
-                'metric' => $this->unitMetrics($unit)
-            ]),
+            'units_metrics' => Unit::all()
+                ->map(fn ($unit) => [
+                    'name' => $unit->name,
+                    'metric' => $this->unitMetrics($unit),
+                ])
+                ->sortByDesc('metric')
+                ->values(),
             'pending_requests' =>  Unit::all()->map(fn ($unit) => [
                'unit_name' => Str::title($unit->name),
                'count' => $unit->clearances()->pending()->count()
