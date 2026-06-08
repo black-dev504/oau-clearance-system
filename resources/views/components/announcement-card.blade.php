@@ -85,7 +85,7 @@
 
     </div>
 
-    <div class="flex gap-4">
+    <div class="flex gap-4 items-center">
         <button wire:click="openEditMode({{$announcement->id}})">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -97,22 +97,9 @@
             </svg>
 
         </button>
-        <button wire:click="deleteAnnouncement({{$announcement->id}})">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 4H14" stroke="#E7000B" stroke-width="1.33333" stroke-linecap="round"
-                      stroke-linejoin="round"/>
-                <path
-                    d="M12.6668 4V13.3333C12.6668 14 12.0002 14.6667 11.3335 14.6667H4.66683C4.00016 14.6667 3.3335 14 3.3335 13.3333V4"
-                    stroke="#E7000B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                <path
-                    d="M5.3335 4.00001V2.66668C5.3335 2.00001 6.00016 1.33334 6.66683 1.33334H9.3335C10.0002 1.33334 10.6668 2.00001 10.6668 2.66668V4.00001"
-                    stroke="#E7000B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.6665 7.33334V11.3333" stroke="#E7000B" stroke-width="1.33333" stroke-linecap="round"
-                      stroke-linejoin="round"/>
-                <path d="M9.3335 7.33334V11.3333" stroke="#E7000B" stroke-width="1.33333" stroke-linecap="round"
-                      stroke-linejoin="round"/>
-            </svg>
-        </button>
+
+        <x-modals.delete-confirmation :id="$announcement->id" fn="deleteAnnouncement"/>
+
 
     </div>
 

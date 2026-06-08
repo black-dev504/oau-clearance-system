@@ -90,9 +90,8 @@
                                     </svg>
 
                                 </div>
-                                <button wire:click="deleteOfficer({{$officer->id}})">
-                                    <x-icons.delete />
-                                </button>
+
+                               <x-modals.delete-confirmation :id="$officer->id" fn="deleteOfficer"/>
 
                                 @if($officer->status === 'suspended')
                                  <button type="button" wire:click="changeStatus({{$officer->id}},'reactivate')"  class="cursor-pointer px-4 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-700 transition-colors">

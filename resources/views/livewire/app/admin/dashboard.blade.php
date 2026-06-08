@@ -9,14 +9,39 @@
         </x-card>
 
         <x-card title="Active Units" :value="$total_units" class=" ">
-            <x-icons.approved />
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-6 w-6 text-emerald-500"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1">
+                <rect x="4" y="2" width="18" height="20" rx="0.5"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="9" y="5" width="2" height="3" rx="0.5"/>
+                <rect x="16" y="5" width="2" height="3" rx="0.5"/>
+                <rect x="9" y="10" width="2" height="3" rx="0.5"/>
+                <rect x="16" y="10" width="2" height="3" rx="0.5"/>
+                <rect x="12" y="18" width="4" height="4" rx="0.5"/>
+            </svg>
         </x-card>
 
         <x-card title="Total Officers" :value="$total_officers"   class="">
-            <x-icons.pending />
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-6 w-6 text-yellow-700"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 20a8 8 0 0116 0" />
+            </svg>
         </x-card>
 
-        <x-card title="System efficiency"  value="98%" class="!bg-primary !text-white">
+        <x-card title="Overall Approval Rate"  value="98%" class="!bg-green-200 !text-white">
             <x-icons.rejected />
         </x-card>
 
@@ -58,8 +83,8 @@
             <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Pending Requests by Unit</h2>
-                        <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">pending requests across all units</p>
+                        <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Recent Clearance Requests</h2>
+                        <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">clearance requests across all units</p>
                     </div>
 
                 </div>

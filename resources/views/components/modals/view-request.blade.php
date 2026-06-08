@@ -24,49 +24,32 @@
             <div class="w-full grid lg:grid-cols-2 gap-8">
                 <div class="flex flex-col gap-6">
 
-                    <x-unit-details title="Academic Details" >
-                            <flux:input disabled :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER"/>
-                            <flux:input disabled :value="$this->selectedRequest?->course" label="COURSE OF STUDY"/>
-                            <flux:input disabled :value="$this->selectedRequest?->department" label="DEPARTMENT"/>
-                            <flux:input disabled :value="$this->selectedRequest?->department" label="FACULTY"/>
-                            <flux:input disabled :value="$this->selectedRequest?->graduation_year"
-                                        label="YEAR OF GRADUATION"/>
-
+                    <x-unit-details title="Academic Details">
+                        <flux:input disabled :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER"/>
+                        <flux:input disabled :value="$this->selectedRequest?->course" label="COURSE OF STUDY"/>
+                        <flux:input disabled :value="$this->selectedRequest?->department" label="DEPARTMENT"/>
+                        <flux:input disabled :value="$this->selectedRequest?->department" label="FACULTY"/>
+                        <flux:input disabled :value="$this->selectedRequest?->graduation_year" label="YEAR OF GRADUATION"/>
                     </x-unit-details>
 
-                    @if(user()?->isUnitOfficer('library'))
+                    @if(user()->hasRole('admin') || user()?->isUnitOfficer('library'))
                         <x-unit-details title="Library Details">
-                                <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
-                                                                'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
-                                <flux:input disabled :value="$this->selectedRequest?->library_reg_number" label="REGISTRATION NUMBER"/>
-                                <flux:input disabled label="DEPARTMENT" value=""/>
-
-                       </x-unit-details>
-
-                    @elseif(user()?->isUnitOfficer('hostel'))
-                        <x-unit-details title="Hostel Details">
-                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
-                                                                'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
+                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number ? 'REGISTERED' : 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
                             <flux:input disabled :value="$this->selectedRequest?->library_reg_number" label="REGISTRATION NUMBER"/>
                             <flux:input disabled label="DEPARTMENT" value=""/>
-
                         </x-unit-details>
-
-                    @elseif(user()?->isUnitOfficer('dsa'))
-                        <x-unit-details title="Hostel Details">
-                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number ?
-                                                                'REGISTERED': 'NOT REGISTERED'" label="REGISTRATION STATUS"/>
-                            <flux:input disabled :value="$this->selectedRequest?->library_reg_number" label="REGISTRATION NUMBER"/>
-                            <flux:input disabled label="DEPARTMENT" value=""/>
-
-                        </x-unit-details>
-
                     @endif
 
-
+                    @if(user()->hasRole('admin') || user()?->isUnitOfficer('hostel'))
+                        <x-unit-details title="Hostel Details">
+                            <flux:input disabled :value="$this->selectedRequest?->hall ?? 'Nil'" label="HALL OF RESIDENCE"/>
+                            <flux:input disabled :value="$this->selectedRequest?->block ?? 'Nil'" label="BLOCK"/>
+                            <flux:input disabled :value="$this->selectedRequest?->room_number ?? 'Nil'" label="ROOM NUMBER"/>
+                            <flux:input disabled :value="$this->selectedRequest?->bed_space ?? 'Nil'" label="BED SPACE"/>
+                        </x-unit-details>
+                    @endif
 
                 </div>
-
 
                 <div>
                     <div class="flex flex-col gap-4 w-full">
@@ -79,14 +62,14 @@
                             <x-view-image label="means of identification"
                                           :path="$this->selectedRequest?->cloudinaryUrl('means_of_identification')"/>
 
-                            @if(user()?->isUnitOfficer('dsa'))
+                            @if(user()?->isUnitOfficer('dsa') || user()?->hasRole('admin'))
 
                             <x-view-image label="DSA payment receipt"
                                           :path="$this->selectedRequest?->cloudinaryUrl('clearance_receipt')"/>
                             @endif
 
 
-                            @if(user()?->isUnitOfficer('library'))
+                            @if(user()?->isUnitOfficer('library') || user()?->hasRole('admin'))
 
                                 @if($this->selectedRequest?->library_card)
                                     <x-view-image
@@ -101,6 +84,17 @@
                                     />
                                 @endif
 
+                            @endif
+
+                            @if(user()?->hasRole('admin'))
+                                <x-unit-details title="Clearance Status per Unit">
+                                    @foreach($this->selectedRequest?->clearances ?? [] as $clearance)
+                                        <div class="flex items-center gap-2 justify-between ">
+                                            <span class="capitalize">{{$clearance->unit?->name}}</span>
+                                            <x-tag :status="$clearance->status->label()" :classes="$clearance->status->classes()"/>
+                                        </div>
+                                    @endforeach
+                                </x-unit-details>
                             @endif
 
                         </div>
@@ -122,26 +116,29 @@
             </div>
         </div>
 
-        <div class="border-t border-gray-200 dark:border-white/10 px-8 py-6 dark:bg-zinc-800 bg-gray-50 flex-shrink-0">
-            <div class="flex items-center flex-row-reverse gap-4">
+        @if(user()->hasRole('officer'))
+
+            <div class="border-t border-gray-200 dark:border-white/10 px-8 py-6 dark:bg-zinc-800 bg-gray-50 flex-shrink-0">
+                <div class="flex items-center flex-row-reverse gap-4">
 
 
-                {{--            TODO: RENDER BUTTONS BASED ON CURRENT STATUS--}}
+                    {{--            TODO: RENDER BUTTONS BASED ON CURRENT STATUS--}}
 
-                <flux:modal.trigger name="confirm-officer-submission">
-                    <button
-                        class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
-                        Approve Application
-                    </button>
-                </flux:modal.trigger>
+                    <flux:modal.trigger name="confirm-officer-submission">
+                        <button
+                            class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
+                            Approve Application
+                        </button>
+                    </flux:modal.trigger>
 
-                <flux:modal.trigger name="rejection-confirmation">
+                    <flux:modal.trigger name="rejection-confirmation">
 
-                    <button
-                        class="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
-                        Reject Application
-                    </button>
-                </flux:modal.trigger>
+                        <button
+                            class="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                            Reject Application
+                        </button>
+                    </flux:modal.trigger>
+                </div>
             </div>
-        </div>
+        @endif
 </flux:modal>
