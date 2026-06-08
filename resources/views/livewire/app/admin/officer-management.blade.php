@@ -94,9 +94,16 @@
                                     <x-icons.delete />
                                 </button>
 
-                                <button type="button"   class="cursor-pointer px-4 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-700 transition-colors">
+                                @if($officer->status === 'suspended')
+                                 <button type="button" wire:click="changeStatus({{$officer->id}},'reactivate')"  class="cursor-pointer px-4 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-700 transition-colors">
+                                    Reactivate
+                                </button>
+                                @else
+
+                                <button type="button" wire:click="changeStatus({{$officer->id}},'suspend')"  class="cursor-pointer px-4 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-700 transition-colors">
                                     Suspend
                                 </button>
+                                @endif
                             </div>
                         </td>
 

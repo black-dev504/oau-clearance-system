@@ -97,6 +97,31 @@ class OfficerManagement extends Component
         }
         $this->password = $randomPassword;
     }
+
+    public function changeStatus($id, $actionType)
+    {
+        $officer = User::findOrFail($id);
+
+        if ($actionType == 'suspend')
+        {
+            $officer->update(['status' => 'suspended']);
+            $this->dispatch('notification', [
+                'type' => 'success',
+                'message' => 'Officer Suspended Successfully.'
+            ]);
+        }
+        elseif ($actionType == 'reactivate')
+        {
+            $officer->update(['status' => 'active']);
+            $this->dispatch('notification', [
+                'type' => 'success',
+                'message' => 'Officer Reactivated Successfully.'
+            ]);
+        }
+
+
+    }
+
     public function deleteOfficer($id)
     {
         $officer = User::findOrFail($id);
@@ -104,7 +129,8 @@ class OfficerManagement extends Component
         $this->dispatch('notification', [
             'type' => 'success',
             'message' => 'Officer Deleted Successfully.'
-        ]);    }
+        ]);
+    }
 
     public function render()
     {

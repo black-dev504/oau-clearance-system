@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     @include('partials.head')
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 <body>
 <x-navbar :logo="'assets/images/oauLogo.svg'"  />
@@ -46,7 +48,7 @@
 
                          {
                             id: '3',
-                            text: 'An active university issued email account for  communication.'
+                            text: 'An active university-issued email account for  communication.'
                         },
 
                          {
