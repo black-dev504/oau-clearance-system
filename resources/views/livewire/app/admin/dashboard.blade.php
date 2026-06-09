@@ -41,7 +41,7 @@
             </svg>
         </x-card>
 
-        <x-card title="Overall Approval Rate"  value="98%" class="!bg-green-200 !text-white">
+        <x-card title="Overall Approval Rate"  value="98%" class="">
             <x-icons.rejected />
         </x-card>
 

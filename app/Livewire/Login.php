@@ -40,10 +40,18 @@ class Login extends Component
             ]);
         }
 
+
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
         $user = Auth::user();
+
+        if ($user->status != 'active') {
+            Auth::logout();
+
+            abort(403, "Your account is {$user->status}. Please contact Support.");
+
+        }
 
 
         if (!$user->hasRole('officer') && $user->unit_id) {
