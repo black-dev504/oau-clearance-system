@@ -40,7 +40,7 @@
                         <div class="flex flex-col items-center justify-center space-y-2 w-full">
                             <x-icons.table-empty-state class="mx-auto mb-2" />
                             <h1 class="text-[18px] text-black dark:text-zinc-100">No Announcement found.</h1>
-                            <p class="text-base text-gray-400 dark:text-zinc-400">There are no announcement to display. <br>New announcements will appear here once created.</p>
+                            <p class="text-base text-gray-400 dark:text-zinc-400">There are no announcement to display. <br>Click on 'New Announcement' to create announcements.</p>
 
                             <button class=" cursor-pointer px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4" >
                                 Refresh

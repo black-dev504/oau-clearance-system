@@ -1,7 +1,11 @@
-<div     @approve-request.window=" $wire.approveRequest() "
-         @reject-request.window=" $wire.rejectRequest($event.detail.remarks) ">
+
+@php
+    $unitName = strtolower($this->unit->name);
+@endphp
+
+<div>
     <div class="bg-background dark:text-zinc-400 dark:bg-zinc-800 rounded-xl overscroll-y-contain">
-        <flux:heading size="xl" level="1">Good afternoon, {{$unit->name}} officer </flux:heading>
+        <flux:heading size="xl" level="1">Good afternoon, {{$unitName}} officer </flux:heading>
         <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
 
         <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">
@@ -42,18 +46,29 @@
 
                 <div class="w-full dark:bg-zinc-800 bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
                     <div class="w-full flex justify-between items-center">
-                        <h3 class="font-semibold text-xl dark:text-zinc-100">Announcements</h3>
-                        <button class="text-[#667085] dark:text-zinc-400">View all</button>
+                        <h3 class="font-semibold text-xl dark:text-zinc-100">Recent Announcements</h3>
+                        <a href="{{route(strtolower($unitName).'.announcements')}}" class="text-primary">View all</a>
                     </div>
 
+                    @if($recentAnnouncements->count() > 0)
+
+
+
                     <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
-                        <x-action-card title="Global Marketing" description="Subscription expires in 3 days" size="High"
-                                       sizeBg="bg-[#E33B32]" />
-                        <x-action-card title="Product Launch" description="Subscription expires in 5 days" size="Medium"
-                                       sizeBg="bg-[#EEA23E]" />
-                        <x-action-card title="Customer Support" description="Subscription expires in 10 days" size="Low"
-                                       sizeBg="bg-[#039855]" />
+
+                        @foreach($recentAnnouncements as $announcement)
+
+                        <x-action-card :announcement="$announcement" />
+
+                        @endforeach
                     </div>
+                    @else
+                        <div class="flex flex-col items-center justify-center ">
+                            <x-icons.table-empty-state />
+                        </div>
+
+
+                    @endif
                 </div>
             </div>
 
@@ -151,12 +166,9 @@
         </div>
     </div>
 
-    @php
-    $unit = strtolower(user()->unit->name);
-    @endphp
 
     <div class="px-8 py-5 border-t dark:bg-zinc-800 dark:border-white/10 border-gray-100 bg-gray-50/50">
-        <a href="{{route($unit.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
+        <a href="{{route($unitName.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
             View all {{$total}} requests →
         </a>
     </div>

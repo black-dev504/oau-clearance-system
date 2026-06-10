@@ -109,8 +109,8 @@ class DashboardService
                 'pending' => $unit->clearances()->pending()->count(),
                 'approved' => $unit->clearances()->approved()->count(),
                 'rejected' => $unit->clearances()->rejected()->count(),
-
-            'recentRequests' => user()->unit->clearanceRequests()->latest()->take(5)->get(),
+                'recentAnnouncements' => $unit->announcements()->latest()->take(5)->get(),
+                'recentRequests' => user()->unit->clearanceRequests()->latest()->take(5)->get(),
 
         ];
     }

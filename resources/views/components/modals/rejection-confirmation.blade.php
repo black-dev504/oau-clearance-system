@@ -47,7 +47,6 @@
         </button>
         <button type="submit"
                 wire:click="rejectRequest(remarks)"
-{{--                @click="window.dispatchEvent(new CustomEvent('reject-request', { detail: { remarks: remarks } })); $flux.modal('rejection-confirmation').close() "--}}
                 class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
             Confirm Rejection
         </button>
