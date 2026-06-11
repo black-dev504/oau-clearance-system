@@ -126,9 +126,9 @@
         <x-tag :status="$announcement?->priority. ' Priority'"
                :classes="$priorityClasses ?? []"/>
 
-        <h1 class="font-bold text-2xl dark:text-zinc-100">{{$announcement?->title}}</h1>
+        <h1 class="font-bold text-2xl dark:text-zinc-100">{{Str::title($announcement?->title)}}</h1>
         <p class="text-base text-[#666666] dark:text-zinc-400">  {{ Str::limit($announcement?->content, 400) }}</p>
-        <div class="border-t border-[#E0DCD4] mt-1 flex justify-between pt-4">
+        <div class="border-t border-[#E0DCD4] dark:border-white/10 mt-1 flex justify-between pt-4">
             <div class="bg-gradient-to-r text-white from-primary to-secondary font-bold rounded-full image-fit zoom-in mr-3 h-10 w-10 flex items-center justify-center">
                 <span>{{get_initials($announcement?->creator->full_name)}}</span>
             </div>
