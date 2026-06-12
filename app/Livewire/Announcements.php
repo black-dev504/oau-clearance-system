@@ -13,6 +13,7 @@ class Announcements extends Component
 
     public string $search = '';
     public string $priority = 'all';
+    public $selectedAnnouncement;
 
 
     public function getAnnouncementsProperty(AnnouncementService $service)
@@ -23,6 +24,20 @@ class Announcements extends Component
            $this->priority
        );
     }
+
+    public function viewAnnouncement($id)
+    {
+
+        $this->selectedAnnouncement = Announcement::findOrFail($id);
+        $this->dispatch('modal-show', name: 'view-announcement');
+    }
+
+    public function resetModal()
+    {
+
+        $this->selectedAnnouncement = null;
+    }
+
 
 
     public function render()

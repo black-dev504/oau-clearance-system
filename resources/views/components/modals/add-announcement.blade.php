@@ -3,7 +3,7 @@
 @endphp
 
 <flux:modal name="add-announcement" x-on:close="$wire.resetModal()" wire:key="add-announcement" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
-    <div x-data="{ remarks: '' }">
+    <div>
 
         <div class="w-full  rounded-t-2xl p-6 flex bg-primary">
             <div class="flex gap-3 items-center" >

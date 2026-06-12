@@ -10,7 +10,7 @@
 
                         @class([
                             'px-4 py-2 w-fit rounded-[10px]',
-                            'bg-gradient-to-r from-primary to-secondary' => $this->priority === $priority,
+                            'bg-gradient-to-r text-white from-primary to-secondary' => $this->priority === $priority,
                             'bg-white dark:bg-zinc-800 dark:text-zinc-100 dark:border-white/10 border border-gray-200 text-gray-700' => $this->priority !== $priority,
                         ])>
 
@@ -40,7 +40,8 @@
             </button>
         </div>
 
-
     @endif
+
+    <x-modals.view-announcement />
 
 </div>

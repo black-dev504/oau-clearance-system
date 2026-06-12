@@ -30,7 +30,7 @@
                     <tr wire:key="{{$announcement->id}}" class="overflow-auto  px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
 
                         <td class=" w-auto  px-6 py-4">
-                           <x-announcement-card :announcement="$announcement" />
+                                 <x-announcement-card :announcement="$announcement" />
                         </td>
                     </tr>
                 @endforeach
@@ -59,4 +59,5 @@
 
     </div>
     <x-modals.add-announcement />
+    <x-modals.view-announcement />
 </div>

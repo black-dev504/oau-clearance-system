@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Announcement;
+use App\Services\AnnouncementService;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -15,7 +16,7 @@ class AdminAnnouncement extends Component
     public bool $editing = false;
     public  $selectedAnnouncement;
 
-    public function submit()
+    public function submit(AnnouncementService $service)
     {
         $validated = $this->validate([
             'title' => 'required|string|max:255',
@@ -26,13 +27,7 @@ class AdminAnnouncement extends Component
 
         ]);
 
-        $announcement = Announcement::create(
-            [
-                ...$validated,
-                'created_by' => auth()->id(),
-            ]
-        );
-        $announcement->units()->attach($this->recipients);
+        $service->makeAnnouncement($validated, $this->recipients);
 
         $this->dispatch('notification', [
             'type' => 'success',
@@ -41,6 +36,13 @@ class AdminAnnouncement extends Component
         $this->js('$flux.modal("add-announcement").close()');
         $this->dispatch('clear-recipients');
         $this->reset(['title', 'content', 'priority', 'recipients']);
+    }
+
+    public function viewAnnouncement($id)
+    {
+
+        $this->selectedAnnouncement = Announcement::findOrFail($id);
+        $this->dispatch('modal-show', name: 'view-announcement');
     }
 
     public function openEditMode($announcement_id)
@@ -55,7 +57,7 @@ class AdminAnnouncement extends Component
         $this->dispatch('modal-show', name: 'add-announcement');
     }
 
-    public function editAnnouncement()
+    public function editAnnouncement(AnnouncementService $service)
     {
 
         $validated = $this->validate([
@@ -66,10 +68,7 @@ class AdminAnnouncement extends Component
             'recipients.*' => 'exists:units,id',
         ]);
 
-
-        $this->selectedAnnouncement->update($validated);
-
-        $this->selectedAnnouncement->units()->sync($this->recipients);
+        $service->editAnnouncement($this->selectedAnnouncement, $validated, $this->recipients);
 
         $this->dispatch('notification', [
             'type' => 'success',
@@ -89,10 +88,9 @@ class AdminAnnouncement extends Component
     }
 
 
-    public function deleteAnnouncement($id)
+    public function deleteAnnouncement($id, AnnouncementService $service)
     {
-        $announcement = Announcement::findOrFail($id);
-        $announcement->delete();
+        $service->deleteAnnouncement($id);
         $this->dispatch('notification', [
             'type' => 'success',
             'message' => 'Announcement Deleted Successfully.'

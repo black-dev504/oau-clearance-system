@@ -45,31 +45,33 @@
 
 @if(user()->hasRole('admin'))
 
-<div class=" w-auto flex justify-between">
-    <div class="flex gap-6">
-        <svg class="{{$priorityClasses['icon']}}" width="44" height="44" viewBox="0 0 44 44" fill="none"
-             xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M0 14C0 6.26801 6.26801 0 14 0H30C37.732 0 44 6.26801 44 14V30C44 37.732 37.732 44 30 44H14C6.26801 44 0 37.732 0 30V14Z"
-                fill="currentColor" fill-opacity="0.125"/>
-            <path
-                d="M20.5566 29.5C20.7029 29.7533 20.9133 29.9637 21.1667 30.11C21.42 30.2563 21.7074 30.3333 22 30.3333C22.2925 30.3333 22.5799 30.2563 22.8333 30.11C23.0866 29.9637 23.297 29.7533 23.4433 29.5"
-                stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-            <path
-                d="M14.7182 24.7717C14.6093 24.891 14.5375 25.0394 14.5114 25.1988C14.4853 25.3582 14.5061 25.5217
-                14.5713 25.6695C14.6365 25.8173 14.7432 25.943 14.8784 26.0312C15.0137 26.1195 15.1717 26.1665 15.3332
-                26.1667H28.6665C28.828 26.1667 28.9861 26.1198 29.1214 26.0317C29.2568 25.9436 29.3636 25.8181 29.429
-                25.6704C29.4943 25.5227 29.5153 25.3592 29.4894 25.1998C29.4635 25.0404 29.3919 24.8919 29.2832 24.7725C28.1749 23.63 26.9999 22.4158 26.9999 18.6667C26.9999 17.3406 26.4731 16.0688 25.5354 15.1311C24.5977 14.1934 23.326 13.6667 21.9999 13.6667C20.6738 13.6667 19.402 14.1934 18.4643 15.1311C17.5267 16.0688 16.9999 17.3406 16.9999 18.6667C16.9999 22.4158 15.824 23.63 14.7182 24.7717Z"
-                stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+<div class=" w-auto flex justify-between" >
+    <div class="flex gap-6  cursor-pointer" wire:click="viewAnnouncement({{ $announcement->id }})">
+        <div class=" flex ">
+            <svg class="{{$priorityClasses['icon']}}" width="44" height="44" viewBox="0 0 44 44" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M0 14C0 6.26801 6.26801 0 14 0H30C37.732 0 44 6.26801 44 14V30C44 37.732 37.732 44 30 44H14C6.26801 44 0 37.732 0 30V14Z"
+                    fill="currentColor" fill-opacity="0.125"/>
+                <path
+                    d="M20.5566 29.5C20.7029 29.7533 20.9133 29.9637 21.1667 30.11C21.42 30.2563 21.7074 30.3333 22 30.3333C22.2925 30.3333 22.5799 30.2563 22.8333 30.11C23.0866 29.9637 23.297 29.7533 23.4433 29.5"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                    d="M14.7182 24.7717C14.6093 24.891 14.5375 25.0394 14.5114 25.1988C14.4853 25.3582 14.5061 25.5217
+                    14.5713 25.6695C14.6365 25.8173 14.7432 25.943 14.8784 26.0312C15.0137 26.1195 15.1717 26.1665 15.3332
+                    26.1667H28.6665C28.828 26.1667 28.9861 26.1198 29.1214 26.0317C29.2568 25.9436 29.3636 25.8181 29.429
+                    25.6704C29.4943 25.5227 29.5153 25.3592 29.4894 25.1998C29.4635 25.0404 29.3919 24.8919 29.2832 24.7725C28.1749 23.63 26.9999 22.4158 26.9999 18.6667C26.9999 17.3406 26.4731 16.0688 25.5354 15.1311C24.5977 14.1934 23.326 13.6667 21.9999 13.6667C20.6738 13.6667 19.402 14.1934 18.4643 15.1311C17.5267 16.0688 16.9999 17.3406 16.9999 18.6667C16.9999 22.4158 15.824 23.63 14.7182 24.7717Z"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
 
         <div class="flex flex-col">
             <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">{{$announcement?->title}} <span
                     class="ml-2"> <x-tag :status="$announcement->priority. ' Priority'"
                                          :classes="$priorityClasses"/> </span></h3>
-            <a href="#"  class="hover:text-blue-600 hover:underline text-sm text-gray-500 dark:text-zinc-400 mt-2">
+            <p class=" text-sm text-gray-500 dark:text-zinc-400 mt-2">
                 {{ Str::limit($announcement?->content, 400) }}
-            </a>
+            </p>
             <div class="flex gap-4 mt-2">
                                     <span
                                         class="text-sm inline-flex items-center gap-2 text-gray-500 dark:text-zinc-400 mt-2"><svg
@@ -122,7 +124,7 @@
 
 @else
 
-    <div class="flex flex-col gap-2 p-6 mt-8 rounded-[14px] border {{$priorityClasses['border']}} bg-white dark:bg-zinc-800">
+    <div wire:click="viewAnnouncement({{ $announcement->id }})" class=" cursor-pointer flex flex-col gap-2 p-6 mt-8 rounded-[14px] border {{$priorityClasses['border']}} bg-white dark:bg-zinc-800">
         <x-tag :status="$announcement?->priority. ' Priority'"
                :classes="$priorityClasses ?? []"/>
 

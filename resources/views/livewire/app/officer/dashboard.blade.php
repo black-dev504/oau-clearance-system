@@ -176,6 +176,7 @@
 
     <x-modals.student-contact />
     <x-modals.view-request />
+    <x-modals.view-announcement />
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -190,6 +191,8 @@
         } = event.detail;
         updateChart(approved, pending, rejected);
     })
+
+
 
     let statusChart;
     let approved = {{ $approved }};

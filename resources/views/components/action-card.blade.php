@@ -52,7 +52,7 @@
         <p class="text-base text-[#666666] dark:text-zinc-400">  {{ Str::limit($announcement?->content, 150) }}</p>
     </div>
 
-    <div class="w-fit rounded-full border bg-white  shadow-sm border-gray-200  dark:bg-gray-500 flex items-center gap-x-3 px-3 py-1.5">
+    <div  wire:click="viewAnnouncement({{ $announcement?->id }})" class="cursor-pointer w-fit rounded-full border bg-white  shadow-sm border-gray-200  dark:bg-gray-500 flex items-center gap-x-3 px-3 py-1.5">
         <x-icons.eye class="w-6 h-6 text-primary-600 dark:text-white" />
         <span class="font-medium text-sm text-primary-600 dark:text-white">View</span>
     </div>

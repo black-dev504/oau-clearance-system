@@ -177,15 +177,16 @@
             </table>
         </div>
     </div>
+    <x-modals.student-contact />
+    <x-modals.view-request />
 </div>
 
-{{--@dd($units_metrics)--}}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
-    window.addEventListener('updateChart', (event) => {
+    window.addEventListener('updateAdminChart', (event) => {
         const {
             approved,
             pending,
@@ -258,9 +259,17 @@
         if (statusChart) {
             statusChart.destroy();
         }
-        createChart($approved, $pending, $rejected);
+        createChart([$approved, $pending, $rejected]);
 
     }
+
+    Livewire.hook('message.processed', () => {
+        const canvas = document.getElementById('status-chart');
+
+        if (canvas && !statusChart) {
+            createChart(pendingRequests);
+        }
+    });
 </script>
 
 

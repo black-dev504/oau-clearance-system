@@ -14,7 +14,8 @@
                     <h1 class="font-semibold text-[20px] text-white mb-1">{{$this->selectedRequest?->name}}<span
                             class="ml-1">  <x-tag :status="$clearance?->status->label()" :classes="$clearance?->status->classes()"/></span></h1>
                     <p class="text-[14px] text-white/70">Submitted on
-                        <span>{{$this->selectedRequest?->created_at->format('F j, Y \a\t g:i A')}}</span></p>
+                        <span>{{$this->selectedRequest?->created_at->format('F j, Y \a\t g:i A')}}</span>
+                    </p>
                 </div>
             </div>
         </div>

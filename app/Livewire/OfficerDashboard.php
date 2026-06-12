@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\ClearanceStatus;
 use App\Http\Requests\DashboardRequest;
+use App\Models\Announcement;
 use App\Models\ClearanceRequest;
 use App\Services\ClearanceService;
 use App\Services\DashboardService;
@@ -16,6 +17,7 @@ class OfficerDashboard extends Component
 
     public $unit;
     public $selectedRequest;
+    public $selectedAnnouncement;
     public $activeModal = null;
 
     public $remarks = '';
@@ -34,6 +36,17 @@ class OfficerDashboard extends Component
             $this->js("\$flux.modal('{$modal}').close()");
         }
         $this->reset(['activeModal', 'selectedRequest']);
+    }
+
+    public function viewAnnouncement($id)
+    {
+        $this->selectedAnnouncement = Announcement::findOrFail($id);
+        $this->dispatch('modal-show', name: 'view-announcement');
+    }
+
+    public function resetModal()
+    {
+        $this->selectedAnnouncement = null;
     }
 
     public function approveRequest(ClearanceService $clearanceService, DashboardService $dashboardService)

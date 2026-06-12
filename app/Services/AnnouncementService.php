@@ -27,8 +27,26 @@ class AnnouncementService
         return $query->paginate();
     }
 
-    public function makeAnnouncement(array $data)
+    public function makeAnnouncement(array $data, array $recipients)
     {
+        $announcement = Announcement::create(
+            [
+                ...$data,
+                'created_by' => auth()->id(),
+            ]
+        );
+        $announcement->units()->attach($recipients);
+    }
 
+        public function editAnnouncement(Announcement $announcement, array $data, array $recipients)
+        {
+            $announcement->update($data);
+            $announcement->units()->sync($recipients);
+        }
+
+    public function deleteAnnouncement($id)
+    {
+        $announcement = Announcement::findOrFail($id);
+        $announcement->delete();
     }
 }
