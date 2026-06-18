@@ -29,6 +29,11 @@ class Student extends Component
         $this->dispatch('modal-show', name: $modal);
     }
 
+    public function openReapplyModal($clearanceId): void
+    {
+        $this->dispatch('open-reapply-modal', id: $clearanceId);
+    }
+
 
     public function render(DashboardService $service)
     {

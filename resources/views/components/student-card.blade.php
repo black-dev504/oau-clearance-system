@@ -8,11 +8,8 @@
     <p class="text-base text-gray-500 dark:text-zinc-400">Submitted: {{ $clearance->created_at->diffForHumans()}}</p>
 
     @if($clearance->status->label() === 'Rejected')
-        <button
-            @click=" window.dispatchEvent(new CustomEvent('open-reapply-modal', { detail: { clearanceRequestId: {{ $clearance->clearance_request_id }} } })) "
-           class="mt-3 w-full bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity">
-             View Reason
-        </button>
+
+       <x-modals.rejection-reason :reason="$clearance->remark" :clearanceId="$clearance->id" />
     @endif
 
 </div>

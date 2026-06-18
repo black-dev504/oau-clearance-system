@@ -11,10 +11,10 @@
         </h4>
         <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 border border-gray-200 shadow-sm dark:border-white/10 rounded-xl p-4 mt-4">
             <div class="col-span-2">
-                <flux:input wire:model="info.address" label="Contact address*" placeholder="1st ave"  />
+                <flux:input wire:model="form.address" label="Contact address*" placeholder="1st ave"  />
             </div>
-            <flux:input wire:model="info.email" label="Email Address" placeholder="johndoe@gmail.com" type="email"  />
-            <flux:input wire:model="info.phone" label="Phone Number" type="number" placeholder="234 0000 0000"  />
+            <flux:input wire:model="form.email" label="Email Address" placeholder="johndoe@gmail.com" type="email"  />
+            <flux:input wire:model="form.phone" label="Phone Number" type="number" placeholder="234 0000 0000"  />
         </div>
 
         <flux:switch @click="schoolHostel = !schoolHostel"  label="Did you stay in any of the school hostels" align="left" />
@@ -31,10 +31,10 @@
                     Hostel Information
                 </h4>        <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 border border-gray-200  shadow-sm dark:border-white/10 rounded-xl p-4 mt-2">
 
-                    <flux:input wire:model="info.hall" label="Hall of Residence*" placeholder="Awo Hall"  />
-                    <flux:input wire:model="info.block" label="Block*" placeholder="F" type="text"  />
-                    <flux:input wire:model="info.room_number" label="Room Number" type="number" placeholder="303"  />
-                    <flux:input wire:model="info.bed_space" label="Bedspace" placeholder="corner 2"  />
+                    <flux:input wire:model="form.hall" label="Hall of Residence*" placeholder="Awo Hall"  />
+                    <flux:input wire:model="form.block" label="Block*" placeholder="F" type="text"  />
+                    <flux:input wire:model="form.room_number" label="Room Number" type="number" placeholder="303"  />
+                    <flux:input wire:model="form.bed_space" label="Bedspace" placeholder="corner 2"  />
 
                 </div>
         </div>

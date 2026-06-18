@@ -41,9 +41,16 @@
     p{
         color: var(--color-textSecondary);
     }
+    .Toastify__toast-container {
+        z-index: 2147483647 !important;
+    }
 
 }
 
 [data-flux-label] {
     @apply  !mb-0 !leading-tight !text-[#666666];
+}
+
+.Toastify__toast-container {
+    z-index: 2147483647 !important;
 }

@@ -30,15 +30,15 @@
 {{--                        <label class="block text-sm font-medium text-gray-700  dark:text-zinc-100 mb-2">--}}
 {{--                            Library Registration Number--}}
 {{--                        </label>--}}
-                        <flux:input label=" Library Registration Number" wire:model="info.library_reg_number" placeholder="LIB/121/V3" type="text"  />
+                        <flux:input label=" Library Registration Number" wire:model="form.library_reg_number" placeholder="LIB/121/V3" type="text"  />
                     </div>
 
-                    <x-upload name="Library card" label="Library Identification Card"  :preview="$this->libraryCardPreview" model="info.library_card"/>
+                    <x-upload name="Library card" label="Library Identification Card"  :preview="$this->libraryCardPreview" model="form.library_card"/>
                 </div>
 
                 <div x-show="!libraryRegistration" class="mt-4">
 
-                    <x-upload name="Payment Receipt" label="Registration Fee Receipt" :preview="$this->libraryReceiptPreview" model="info.library_receipt"/>
+                    <x-upload name="Payment Receipt" label="Registration Fee Receipt" :preview="$this->libraryReceiptPreview" model="form.library_receipt"/>
                 </div>
 
             </div>

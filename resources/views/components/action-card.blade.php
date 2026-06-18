@@ -4,41 +4,7 @@
 ])
 
 @php
-    $priorityClasses =  match ($announcement?->priority) {
-         'high' => [
-             'bg' => 'bg-red-100',
-             'dot' => 'bg-red-500',
-             'text' => 'text-red-800',
-             'icon' => 'text-red-500',
-             'border' => 'border-red-500'
-             ],
-
-          'medium' => [
-             'bg' => 'bg-yellow-100',
-             'dot' => 'bg-yellow-500',
-             'text' => 'text-yellow-800',
-                 'icon' => 'text-yellow-500',
-                 'border' => 'border-yellow-500'
-             ],
-          'low' => [
-             'bg' => 'bg-green-100',
-             'dot' => 'bg-green-500',
-             'text' => 'text-green-800',
-              'icon' => 'text-green-500',
-              'border' => 'border-green-500'
-             ],
-         default => [
-                'bg' => 'bg-gray-100',
-                'dot' => 'bg-gray-500',
-                'text' => 'text-gray-800',
-                'icon' => 'text-gray-500',
-                'border' => 'border-gray-500'
-
-         ],
-     };
-
-
-
+    $priorityClasses =  $announcement->priority_classes;
 @endphp
 
 

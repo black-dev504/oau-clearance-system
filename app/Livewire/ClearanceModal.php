@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\ClearanceForm;
+use App\Models\Clearance;
 use App\Models\ClearanceRequest;
 use App\Models\Department;
 use http\Env\Request;
@@ -15,6 +17,7 @@ class ClearanceModal extends Component
     use WithFileUploads;
 
     public bool $showModal = false;
+    public ClearanceForm $form;
     public string $currentForm = 'personalInfo';
     protected array $steps = ['personalInfo', 'contact', 'library', 'review'];
 
@@ -31,43 +34,18 @@ class ClearanceModal extends Component
         'review' => false,
     ];
 
-    public array $info = [
-        'means_of_identification' =>  null,
-        'clearance_receipt' =>  null,
-        'library_card' =>  null,
-        'library_receipt' =>  null,
-        'library_reg_number' =>  null,
-        'name' => null,
-        'email' =>  null,
-        'phone' =>  null,
-        'matric_no' =>  null,
-        'department' => null,
-        'faculty' => null,
-        'graduation_year' => null,
-        'address' => null,
-        'course' => null,
-        'hall' => null,
-        'block' => null,
-        'bed_space' => null,
-        'room_number' => null,
-        'library_registration_status' => false,
-        'user_id' => null,
-
-    ];
-
-
-
 
     public function updated($name, $value)
     {
-        if ($name === 'info.means_of_identification') {
+        if ($name === 'form.means_of_identification')
+        {
 
-            $this->validateOnly('info.means_of_identification',
-                [
-                    'info.means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-
-                ]
-            );
+//          $this->validateOnly('form.means_of_identification',
+//                [
+//                    'form.means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+//
+//                ]
+//            );
 
             if ($value)
             {
@@ -75,11 +53,11 @@ class ClearanceModal extends Component
             }
         }
 
-        if ($name === 'info.clearance_receipt')
+        if ($name === 'form.clearance_receipt')
         {
-            $this->validateOnly('clearance_receipt', [
-                'info.clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
+//            $this->validateOnly('form.clearance_receipt', [
+//                'form.clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+//            ]);
 
             if ($value)
             {
@@ -89,30 +67,30 @@ class ClearanceModal extends Component
         }
 
 
-        if ($name === 'info.library_card')
+        if ($name === 'form.library_card')
         {
-            $this->validateOnly('library_card', [
-                'info.library_card' =>'required|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
+//            $this->validateOnly('library_card', [
+//                'form.library_card' =>'required|image|mimes:jpeg,png,jpg|max:2048',
+//            ]);
 
             if ($value)
             {
                 $this->libraryCardPreview = $value->temporaryUrl();
-                $this->reset('info.library_receipt', 'libraryReceiptPreview');
+                $this->reset('form.library_receipt', 'libraryReceiptPreview');
 
             }
         }
 
-        if ($name === 'info.library_receipt')
+        if ($name === 'form.library_receipt')
         {
-            $this->validateOnly('library_receipt', [
-                'info.library_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
+//            $this->validateOnly('library_receipt', [
+//                'form.library_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+//            ]);
 
             if ($value)
             {
                 $this->libraryReceiptPreview = $value->temporaryUrl();
-                $this->reset('info.library_card' , 'libraryCardPreview');
+                $this->reset('form.library_card' , 'libraryCardPreview');
 
             }
         }
@@ -124,17 +102,16 @@ class ClearanceModal extends Component
 
         $index = array_search($this->currentForm, $this->steps);
         if ($index < count($this->steps) - 1) {
-//            if (!$this->reapplication) {
-//                $this->validate(
-//                    $this->getRulesForForm($this->currentForm),
-//                    [
-//                        'info.matric_no.unique' => 'Matric Number already applied',
-//                        'info.library_receipt.required_without' => 'Library receipt is required if no library card is provided.',
-//                        'info.library_reg_number.required_without' => 'Registration number is required if you are registered.',
-//
-//                    ]
-//                );
-//            }
+                $this->validate(
+                    $this->form->getRulesForForm($this->currentForm),
+                    [
+                        'form.matric_no.unique' => 'Matric Number already applied',
+                        'form.library_receipt.required_without' => 'Library receipt is required if no library card is provided.',
+                        'form.library_reg_number.required_without' => 'Registration number is required if you are registered.',
+
+                    ]
+                );
+
 
             $this->currentForm = $this->steps[$index + 1];
             $this->completedSteps[$this->steps[$index + 1 ]]= true;
@@ -142,6 +119,11 @@ class ClearanceModal extends Component
         }
         $this->dispatch('form-changed', form: $this->currentForm);
 
+    }
+
+    protected function validationAttributes()
+    {
+        return $this->form->validationAttributes();
     }
 
     public function prev(): void
@@ -157,109 +139,69 @@ class ClearanceModal extends Component
 
     }
 
-    protected function validationAttributes()
+
+    #[On('open-reapply-modal')]
+    public function loadForReapplication(int $id): void
     {
-        return [
-            'info.means_of_identification' => 'Means of Identification',
-            'info.clearance_receipt' => 'DSA Payment Receipt',
-            'info.name' => 'Name',
-            'info.email' => 'Email',
-            'info.phone' => 'Phone',
-            'info.matric_no' => 'Matric Number',
-            'info.department' => 'Department',
-            'info.faculty' => 'Faculty',
-            'info.graduation_year' => 'Graduation Year',
-            'info.address' => 'Address',
-            'info.course' => 'Course',
-            'info.hall' => 'Hall',
-            'info.block' => 'Block',
-            'info.bed_space' => 'Bed Space',
-            'info.room_number' => 'Room Number',
-            'info.library_registration_status' => 'Library Registration Status',
-            'info.library_card' => 'Library Card',
-            'info.library_receipt' => 'Library Receipt',
-            'info.library_reg_number' => ' Registration Number',
+        $clearance = Clearance::findOrFail($id);
+        $clearance_request = $clearance->clearanceRequests;
+        $this->form->selectedClearanceRequestId = $clearance_request->id;
 
-        ];
-    }
-
-
-  public function getRulesForForm($form): array
-  {
-     return match ($form) {
-         'personalInfo' => [
-             'info.means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-             'info.clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-             'info.name' => 'required|string|max:255',
-             'info.matric_no' => 'required|string|unique:clearance_requests,matric_no|max:12',
-             'info.department' => 'required|string|exists:departments,name|max:50',
-             'info.faculty' => 'required|string|exists:faculties,name|max:50',
-             'info.graduation_year' => 'required|string|date_format:Y',
-             'info.course' => 'required|string|max:50',
-
-         ],
-
-         'contact' => [
-             'info.address' => 'required|string|max:255',
-             'info.email' => 'required|email|max:255',
-             'info.phone' => 'required|digits_between:10,15',
-             'info.hall' => 'nullable|string|max:255',
-             'info.block' => 'nullable|string|max:255',
-             'info.bed_space' => 'nullable|string|max:255',
-             'info.room_number' => 'nullable|digits_between:1,4',
-         ],
-
-         'library' => [
-             'info.library_registration_status' => 'nullable|boolean',
-             'info.library_receipt' => 'nullable|sometimes|required_without:info.library_card|image|mimes:jpeg,png,jpg|max:2048',
-             'info.library_card' => 'nullable|sometimes|required_without:info.library_receipt|image|mimes:jpeg,png,jpg|max:2048',
-             'info.library_reg_number' => 'nullable|required_without:info.library_receipt|string|max:15',
-         ],
-     };
-  }
-
-//    #[On('open-reapply-modal')]
-    public function loadForReapplication(int $clearanceRequestId): void
-    {
-        $clearance_requests = ClearanceRequest::findOrFail($clearanceRequestId);
-
-
-//        $this->clearanceId = $clearanceId;
-
-        $this->info = $clearance_requests->toArray();
         $this->reapplication = true;
+        $this->form->fill(
+            $clearance_request->only([
+                'name',
+                'email',
+                'phone',
+                'matric_no',
+                'department',
+                'faculty',
+                'graduation_year',
+                'address',
+                'course',
+                'hall',
+                'block',
+                'bed_space',
+                'room_number',
+//              'library_registration_status',
+                'library_reg_number',
+            ])
+        );
 
-        $this->dispatch('open-clearance-modal');
+        $this->meansOfIdentificationPreview = $clearance_request->cloudinaryUrl('means_of_identification');
+        $this->clearanceReceiptPreview = $clearance_request->cloudinaryUrl('clearance_receipt');
+        $this->libraryCardPreview = $clearance_request->library_card && $clearance_request->cloudinaryUrl('library_card');
+        $this->libraryReceiptPreview = $clearance_request->library_receipt && $clearance_request->cloudinaryUrl('library_receipt');
+        $this->dispatch('modal-show', name: 'clearance-modal');
     }
 
   public function submit()
   {
       try
       {
-          $means_of_identification = $this->info['means_of_identification']->storeOnCloudinary('means_of_identification');
-          $clearance_receipt = $this->info['clearance_receipt']->storeOnCloudinary('payment_receipts');
-          $library_receipt = $this->info['library_receipt']?->storeOnCloudinary('library_receipts');
-          $library_card = $this->info['library_card']?->storeOnCloudinary('library_cards');
+          $means_of_identification = $this->form->means_of_identification->storeOnCloudinary('means_of_identification');
+          $clearance_receipt = $this->form->clearance_receipt->storeOnCloudinary('payment_receipts');
+          $library_receipt = $this->form->library_receipt?->storeOnCloudinary('library_receipts');
+          $library_card = $this->form->library_card?->storeOnCloudinary('library_cards');
 
-          $this->info['means_of_identification'] = $means_of_identification['public_id'];
-          $this->info['clearance_receipt'] = $clearance_receipt['public_id'];
-          $this->info['library_receipt'] = $library_receipt['public_id'] ?? null;
-          $this->info['library_card'] = $library_card['public_id'] ?? null;
+          $this->form->means_of_identification = $means_of_identification['public_id'];
+          $this->form->clearance_receipt = $clearance_receipt['public_id'];
+          $this->form->library_receipt= $library_receipt['public_id'] ?? null;
+          $this->form->library_card = $library_card['public_id'] ?? null;
 
-          $this->info['user_id'] = user()->id;
+          $this->form->user_id = user()->id;
 
-          ClearanceRequest::create($this->info);
+          $data = $this->form->all();
+          ClearanceRequest::create($data);
 
           $this->dispatch('form-submitted');
-          $this->dispatch('submission-complete');
           $this->dispatch('close-clearance-modal');
-
-
           $this->dispatch('notification', [
               'type' => 'success',
               'message' => 'Successfully Submitted Clearance Request'
           ]);
           $this->dispatch('dataUpdated');
+
 
 //          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 
@@ -269,8 +211,9 @@ class ClearanceModal extends Component
               'type' => 'error',
               'message' => 'Upload failed: ' . $e->getMessage()
           ]);
-          $this->dispatch('submission-complete');
       }
+
+
   }
 
     public function render()

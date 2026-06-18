@@ -4,14 +4,9 @@
 
 <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
     <flux:sidebar.header>
-        <flux:sidebar.brand
-            href="#"
-            logo="assets/images/oauLogo.svg"
-            logo:dark="assets/images/oauLogo.svg"
-            class="text-lg font-bold text-gray-800 dark:text-gray-200"
-            :name="config('units.' . $unit . '.short')"
-        />
-
+       <div class="w-full items-center flex justify-center">
+        <img src="{{asset('assets/images/oauLogo.svg')}}"/>
+       </div>
         <flux:sidebar.collapse class="lg:hidden" />
     </flux:sidebar.header>
 
@@ -26,18 +21,19 @@
     <flux:sidebar.spacer />
 
     <flux:sidebar.nav>
-        <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
-        <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
     </flux:sidebar.nav>
 
     <flux:dropdown position="top" align="start" class="max-lg:hidden">
         <flux:sidebar.profile avatar="https://fluxui.dev/img/demo/user.png" name="{{strtoupper( user()->full_name)}}" />
 
         <flux:menu>
+            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>
+
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <flux:menu.item class="w-full inline-flex" as="button" type="submit" icon="arrow-right-start-on-rectangle"> Log out</flux:menu.item>
+                <flux:menu.item class="w-full inline-flex text-red-500" as="button" type="submit" icon="arrow-right-start-on-rectangle"> Log out</flux:menu.item>
             </form>
+
         </flux:menu>
     </flux:dropdown>
 </flux:sidebar>
@@ -59,6 +55,7 @@
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
+                    <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>
 
                     <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
                 </flux:menu>

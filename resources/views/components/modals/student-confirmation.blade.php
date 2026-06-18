@@ -1,17 +1,28 @@
+<flux:modal.trigger name="confirm-submission">
+    <button
+        x-show="$wire.currentForm === 'review'"
+        class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
+        Submit
+    </button>
+</flux:modal.trigger>
+
+
 <flux:modal name="confirm-submission">
     <div class=" flex flex-col items-center p-6 ">
-        <x-icons.caution />
+        <x-icons.caution/>
         <h2 class="text-lg font-semibold mb-4 dark:text-zinc-100">Proceed?</h2>
         <p class="mb-4 dark:text-zinc-400">Are you sure you want to submit this form?</p>
         <div class="flex justify-end space-x-2">
             <button
                 @click="$flux.modal('confirm-submission').close()"
                 type="button"
-                class="px-13 py-3 bg-white dark:text-zinc-400 dark:border-white/10 dark:bg-zinc-800 border text-gray-700 rounded-full" data-tw-dismiss="modal">
+                class="px-13 py-3 bg-white dark:text-zinc-400 dark:border-white/10 dark:bg-zinc-800 border text-gray-700 rounded-full"
+                data-tw-dismiss="modal">
                 Cancel
             </button>
             <button
-                @click="window.dispatchEvent(new CustomEvent('confirm-submit')); $flux.modal('confirm-submission').close()"
+                wire:click="submit"
+                @click="$flux.modal('confirm-submission').close() ; $flux.modal('clearance-modal').close()"
                 type="button"
                 class="px-13 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full">
                 Confirm

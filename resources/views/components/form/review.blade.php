@@ -13,19 +13,19 @@
                 <div class="space-y-3">
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Full Name</p>
-                        <p class="text-sm font-medium dark:text-zinc-100  text-gray-900"> {{ $this->info['name'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium dark:text-zinc-100  text-gray-900"> {{ $this->form->name ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Matric Number</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['matric_no'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->matric_no ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Course</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['course'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->course ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Faculty</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['faculty'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->faculty ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
@@ -38,15 +38,15 @@
                 <div class="space-y-3">
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Email</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['email'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->email ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Phone</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['phone'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->phone ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Address</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['address'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->address ?? 'Not provided' }}</p>
 
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 <div class="space-y-3">
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Hall of Residence</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['hall'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->hall ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Block & Room</p>
@@ -70,7 +70,7 @@
                     </div>
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Bed Space</p>
-                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->info['bed_space'] ?? 'Not provided' }}</p>
+                        <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900"> {{ $this->form->bed_space ?? 'Not provided' }}</p>
                     </div>
                 </div>
             </div>
@@ -84,14 +84,14 @@
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Registration Status</p>
                         <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
-                            {{$this->info['library_reg_number'] ? 'Registered ':' Not Registered'}}
+                            {{$this->form->library_reg_number ? 'Registered ':' Not Registered'}}
                         </p>
                     </div>
 
                     <div>
                         <p class="text-xs dark:text-zinc-400 text-gray-600">Registration Number</p>
                         <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">
-                            {{$this->info['library_reg_number'] ?: ' Not Registered'}}
+                            {{$this->form->library_reg_number ?: ' Not Registered'}}
                         </p>
                     </div>
 
@@ -117,7 +117,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">Identification</p>
-                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['means_of_identification'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
+                            <p class="text-xs font-medium text-gray-500"> {{ $this->form->means_of_identification ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
 
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium  dark:text-zinc-100 text-gray-900">DSA Payment Receipt</p>
-                            <p class="text-xs font-medium text-gray-500"> {{ $this->info['clearance_receipt'] ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
+                            <p class="text-xs font-medium text-gray-500"> {{ $this->form->clearance_receipt ? 'Uploaded Successfully' : 'Not Uploaded' }}</p>
 
                         </div>
                     </div>
@@ -158,15 +158,15 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium dark:text-zinc-100 text-gray-900">
-                                {{ !empty($this->info['library_card'] ?? null)
+                                {{ !empty($this->form->library_card ?? null)
                                     ? 'Library Card'
-                                    : (!empty($this->info['library_receipt'] ?? null)
+                                    : (!empty($this->form->library_receipt ?? null)
                                         ? 'Library Registration Receipt'
                                         : 'No Document Uploaded') }}
                             </p>
 
                             <p class="text-xs font-medium text-gray-500">
-                                {{ (!empty($this->info['library_card'] ?? null) || !empty($this->info['library_receipt'] ?? null))
+                                {{ (!empty($this->form->library_card ?? null) || !empty($this->form->library_receipt ?? null))
                                     ? 'Uploaded Successfully'
                                     : 'Not Uploaded' }}
                             </p>

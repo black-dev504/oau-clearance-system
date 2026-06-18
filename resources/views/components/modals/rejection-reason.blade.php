@@ -1,3 +1,10 @@
+@props(['reason' => null,
+'clearanceId' => null])
+
+<flux:modal.trigger name="view-rejection-reason"  >
+   <button class="mt-3 w-full bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"> View Reason </button>
+</flux:modal.trigger>
+
 
 <flux:modal name="view-rejection-reason"  class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
     <div>
@@ -22,12 +29,12 @@
 
                 <p class="text-base dark:text-zinc-400 text-[#2D2D2D]">Below is the reason for application rejection</p>
 
-                <flux:input
+                <flux:textarea
                     disabled
                     label="REASON FOR REJECTION"
-                    :value="$this->rejection_reason ?? 'No reason provided.'"
-                />
-
+                >
+                    {{ $reason ?? 'No reason provided.' }}
+                </flux:textarea>
 
             </div>
         </div>
@@ -39,10 +46,8 @@
                 Cancel
             </button>
             <button type="button"
-                    @click="
-                            $flux.modal('view-rejection-reason').close();
-                           window.dispatchEvent(new CustomEvent('open-clearance-modal'));
-                        "
+                    wire:click="openReapplyModal({{ $clearanceId }})"
+                    @click="$flux.modal('view-rejection-reason').close()"
                     class="px-13 py-3 bg-gradient-to-r from-primary to-secondary text-white  rounded-[10px]">
                 Reapply
             </button>
