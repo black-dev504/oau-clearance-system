@@ -108,7 +108,13 @@
                                 </div>
 
                                 <div class="flex flex-col gap-3">
-                                    <flux:textarea disabled :value="$clearance->remark" label="REJECTION REASON"/>
+
+                                    <flux:textarea
+                                        disabled
+                                        label="REASON FOR REJECTION"
+                                    >
+                                        {{$clearance->remark ?? 'No reason provided.' }}
+                                    </flux:textarea>
                                 </div>
                             </div>
                         @endif

@@ -16,6 +16,10 @@ class ClearanceRequest extends Model
 
     /** @use HasFactory<ClearanceRequestFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * @var mixed|\Psr\Http\Message\UriInterface|null
+     */
     protected $guarded = ['id'];
 
     protected $casts = [

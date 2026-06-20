@@ -15,9 +15,6 @@ class Student extends Component
 
     public array $data = [];
 
-    public string $rejection_reason = '';
-    public string $rejectedClearance = '';
-
 
     public function openModal($modal): void
     {

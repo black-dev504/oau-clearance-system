@@ -1,6 +1,7 @@
 <?php
 
 
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Auth;
 
 if (! function_exists('user')) {
@@ -37,6 +38,35 @@ if (! function_exists('get_full_name')) {
                 }
           }
                 return $initials ?: strtoupper(substr($word, 0, 1));
+        }
+    }
+
+
+    if (! function_exists('deleteFromCloudinary')) {
+        function deleteFromCloudinary(string $publicId)
+        {
+            return Cloudinary::uploadApi()->destroy($publicId);
+        }
+    }
+
+    if (!function_exists('replaceCloudinaryFile')) {
+        function replaceCloudinaryFile($model, $field, $folder, $originalData)
+        {
+            $newFile = $model->$field;
+
+            if (!$newFile || !is_object($newFile)) {
+                return null;
+            }
+
+            if (!empty($originalData[$field])) {
+                deleteFromCloudinary($originalData[$field]);
+            }
+
+            $uploaded = $newFile->storeOnCloudinary($folder);
+
+            return $uploaded['public_id'];
+
+
         }
     }
 }

@@ -1,6 +1,6 @@
 <div class="">
     <div wire:loading.flex
-         wire:target="submit"
+         wire:target="{{$this->reapplication ? 'update': 'submit'}}"
          x-cloak
          class="absolute inset-0 bg-white/80 dark:bg-zinc-600/5 backdrop-blur-sm rounded-2xl z-50 flex flex-col items-center justify-center gap-4">
         <svg class="animate-spin h-10 w-10 text-[#4b3be4]" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -100,7 +100,7 @@
                         <button
                             x-show="$wire.currentForm === 'review'"
                             class="px-6 py-3 bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg">
-                            Submit
+                            {{$this->reapplication? 'Update': 'Submit'}}
                         </button>
                     </flux:modal.trigger>
 

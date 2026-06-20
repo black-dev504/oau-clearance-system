@@ -86,6 +86,7 @@ class OfficerDashboard extends Component
             approved: $data['approved'],
             pending: $data['pending'],
             rejected: $data['rejected'],
+            reapplied: $data['reapplied'],
         );
     }
 

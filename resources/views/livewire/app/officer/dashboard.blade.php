@@ -187,9 +187,10 @@
         const {
             approved,
             pending,
-            rejected
+            rejected,
+            reapplied
         } = event.detail;
-        updateChart(approved, pending, rejected);
+        updateChart(approved, pending, rejected, reapplied);
     })
 
 
@@ -198,19 +199,20 @@
     let approved = {{ $approved }};
     let pending = {{ $pending }};
     let rejected = {{ $rejected  }};
+    let reapplied = {{ $reapplied }};
 
-    createChart(approved, pending, rejected);
+    createChart(approved, pending, rejected, reapplied);
 
-    function createChart($approved, $pending, $rejected)
+    function createChart($approved, $pending, $rejected, $reapplied)
     {
         statusChart = new Chart(document.getElementById('status-chart'), {
             type: "doughnut",
             data: {
-                labels: ['Approved', 'Pending', 'Rejected'],
+                labels: ['Approved', 'Pending', 'Rejected', 'Reapplied'],
                 datasets: [{
-                    data: [$approved, $pending, $rejected],
-                    backgroundColor: ['#039855', '#EEA23E', '#E33B32'],
-                    hoverBackgroundColor: ['#039855', '#EEA23E', '#E33B32'],
+                    data: [$approved, $pending, $rejected, $reapplied],
+                    backgroundColor: ['#039855', '#EEA23E', '#E33B32', '#A855F7'],
+                    hoverBackgroundColor: ['#039855', '#EEA23E', '#E33B32', '#C084FC'],
                     borderWidth: 0
                 }]
             },

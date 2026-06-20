@@ -12,6 +12,7 @@
         <x-icons.caution/>
         <h2 class="text-lg font-semibold mb-4 dark:text-zinc-100">Proceed?</h2>
         <p class="mb-4 dark:text-zinc-400">Are you sure you want to submit this form?</p>
+
         <div class="flex justify-end space-x-2">
             <button
                 @click="$flux.modal('confirm-submission').close()"
@@ -21,7 +22,7 @@
                 Cancel
             </button>
             <button
-                wire:click="submit"
+                wire:click=" {{$this->reapplication? 'update': 'submit'}}"
                 @click="$flux.modal('confirm-submission').close() ; $flux.modal('clearance-modal').close()"
                 type="button"
                 class="px-13 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full">
