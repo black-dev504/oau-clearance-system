@@ -1,6 +1,7 @@
 
 @php
     $unitName = strtolower($this->unit->name);
+    $unitSlug = strtolower($this->unit->slug);
 @endphp
 
 <div>
@@ -47,7 +48,7 @@
                 <div class="w-full dark:bg-zinc-800 bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
                     <div class="w-full flex justify-between items-center">
                         <h3 class="font-semibold text-xl dark:text-zinc-100">Recent Announcements</h3>
-                        <a href="{{route(strtolower($unitName).'.announcements')}}" class="text-primary">View all</a>
+                        <a href="{{route(strtolower($unitSlug).'.announcements')}}" class="text-primary">View all</a>
                     </div>
 
                     @if($recentAnnouncements->count() > 0)
@@ -168,7 +169,7 @@
 
 
     <div class="px-8 py-5 border-t dark:bg-zinc-800 dark:border-white/10 border-gray-100 bg-gray-50/50">
-        <a href="{{route($unitName.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
+        <a href="{{route($unitSlug.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
             View all {{$total}} requests →
         </a>
     </div>

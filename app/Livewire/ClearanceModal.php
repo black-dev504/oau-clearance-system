@@ -6,6 +6,7 @@ use App\Livewire\Forms\ClearanceForm;
 use App\Models\Clearance;
 use App\Models\ClearanceRequest;
 use App\Models\Department;
+use App\Models\Unit;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -137,7 +138,7 @@ class ClearanceModal extends Component
     public function loadForReapplication(int $id): void
     {
         $clearance = Clearance::findOrFail($id);
-        $this->selectedRequest = $clearance->clearanceRequests;
+        $this->selectedRequest = $clearance->clearanceRequest;
         $this->form->selectedClearanceRequestId = $this->selectedRequest->id;
 
         $this->reapplication = true;
@@ -220,7 +221,10 @@ class ClearanceModal extends Component
             $this->form->user_id = user()->id;
 
             $data = $this->form->all();
-            ClearanceRequest::create($data);
+            ClearanceRequest::create([
+                ...$data,
+                'required_units_count' => Unit::count(),
+                ]);
 
             $this->dispatch('form-submitted');
             $this->dispatch('close-clearance-modal');

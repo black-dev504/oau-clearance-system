@@ -28,8 +28,5 @@ class ClearanceRequestObserver
         $request->clearances()->where('status', ClearanceStatus::REJECTED)
             ->update(['status' => ClearanceStatus::REAPPLY]);
 
-        if ($request->clearances()->where('status', ClearanceStatus::APPROVED)->count() == Unit::all()->count()) {
-            $request->update(['status' => ClearanceStatus::APPROVED]);
-        }
     }
 }

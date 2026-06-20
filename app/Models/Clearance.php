@@ -51,7 +51,7 @@ class Clearance extends Model
         return $this->morphMany(Activity::class, 'subject');
     }
 
-    public function clearanceRequests()
+    public function clearanceRequest()
     {
         return $this->belongsTo(ClearanceRequest::class, 'clearance_request_id');
     }
