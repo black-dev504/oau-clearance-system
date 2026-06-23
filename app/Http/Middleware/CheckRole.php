@@ -30,9 +30,9 @@ class CheckRole
             abort(403, 'Unauthorized action. Officer must be assigned to a unit.');
         }
 
-//        if (user()->unit->slug !== $request->segment(1) && !auth()->user()->isAdmin()) {
-//            abort(403, 'Unauthorized action. Officer can only access their assigned unit dashboard.');
-//        }
+        if (user()?->unit?->slug !== $request->segment(1) && auth()->user()->hasRole('officer')) {
+            abort(403, 'Unauthorized action. Officer can only access their assigned unit dashboard.');
+        }
 
         return $next($request);
     }

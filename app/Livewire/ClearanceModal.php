@@ -28,6 +28,7 @@ class ClearanceModal extends Component
     public bool $reapplication = false;
     public ?ClearanceRequest $selectedRequest;
 
+
     public array $completedSteps = [
         'personalInfo' => true,
         'contact' => false,
@@ -89,6 +90,17 @@ class ClearanceModal extends Component
         }
     }
 
+    public function getFacultyNameProperty()
+    {
+        if (!$this->form->department_id) {
+            return '';
+        }
+
+        return Department::with('faculty')
+            ->find($this->form->department_id)
+            ?->faculty
+            ?->name;
+    }
 
     public function next(): void
     {

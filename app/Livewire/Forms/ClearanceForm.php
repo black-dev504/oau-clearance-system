@@ -17,7 +17,7 @@ class ClearanceForm extends Form
     public ?string $email = null;
     public ?string $phone = null;
     public ?string $matric_no = null;
-    public ?string $department = null;
+    public ?int $department_id = null;
     public ?string $faculty = null;
     public ?string $graduation_year = null;
     public ?string $address = null;
@@ -25,7 +25,7 @@ class ClearanceForm extends Form
     public ?string $hall = null;
     public ?string $block = null;
     public ?string $bed_space = null;
-    public ?string $room_number = null;
+    public ?int $room_number = null;
 
     public bool $library_registration_status = false;
 
@@ -41,7 +41,7 @@ class ClearanceForm extends Form
             'form.email' => 'Email',
             'form.phone' => 'Phone',
             'form.matric_no' => 'Matric Number',
-            'form.department' => 'Department',
+            'form.department_id' => 'Department',
             'form.faculty' => 'Faculty',
             'form.graduation_year' => 'Graduation Year',
             'form.address' => 'Address',
@@ -72,8 +72,9 @@ class ClearanceForm extends Form
                     'max:12',
                     Rule::unique('clearance_requests', 'matric_no')
                         ->ignore($this->selectedClearanceRequestId),
-                ],                'form.department' => 'required|string|exists:departments,name|max:50',
-                'form.faculty' => 'required|string|exists:faculties,name|max:50',
+                ],
+                'form.department_id' => 'required|integer|exists:departments,id',
+                'form.faculty' => 'nullable|string|exists:faculties,name|max:50',
                 'form.graduation_year' => 'required|string|date_format:Y',
                 'form.course' => 'required|string|max:50',
 

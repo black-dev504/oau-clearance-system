@@ -8,6 +8,7 @@ use Database\Factories\ClearanceRequestFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 #[ObservedBy(ClearanceRequestObserver::class)]
@@ -61,6 +62,11 @@ class ClearanceRequest extends Model
         return $type === 'raw'
             ? cloudinary()->raw($this->$field)->toUrl()
             : cloudinary()->image($this->$field)->toUrl();
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 }
 

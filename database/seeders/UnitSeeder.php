@@ -14,14 +14,20 @@ class UnitSeeder extends Seeder
      */
     public function run(): void
     {
-        $units = ['Library', 'Hostel', 'Division of Student Affairs', 'Department', 'Faculty', 'Senate'];
-
+        $units = [
+            ['name' => 'Library',                     'type' => 'library'],
+            ['name' => 'Hostel',                      'type' => 'hostel'],
+            ['name' => 'Division of Student Affairs', 'type' => 'dsa'],
+            ['name' => 'Senate',                      'type' => 'senate'],
+        ];
 
         foreach ($units as $unit) {
             Unit::create([
-                'name' => $unit,
-                'slug' => Str::slug($unit),
+                'name' => $unit['name'],
+                'slug' => Str::slug($unit['name']),
+                'type' => $unit['type'],
             ]);
         }
+
     }
 }
