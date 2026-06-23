@@ -10,6 +10,7 @@ use App\Livewire\Login;
 use App\Livewire\ClearanceRequests;
 use App\Livewire\OfficerManagement;
 use App\Livewire\Student;
+use App\Livewire\UnitManagement;
 use App\Models\Unit;
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +39,10 @@ Route::get('student/dashboard', Student::class)->name('student.dashboard')->midd
 
 Route::domain(config('app.admin_prefix').config('app.domain'))->name('admin.')->middleware(['auth','role:admin'])->group(function () {
     Route::get('dashboard', AdminDashboard::class)->name('dashboard');
+    Route::get('unit-management', UnitManagement::class)->name('unit-management');
     Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
     Route::get('officers-management', OfficerManagement::class)->name('officers');
     Route::get('announcements', AdminAnnouncement::class)->name('announcements');
+
 
 });
