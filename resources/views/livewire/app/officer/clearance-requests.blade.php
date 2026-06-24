@@ -121,10 +121,10 @@
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs capitalize">
                         @if(user()->hasRole('officer'))
 {{--                            show individual clearance status--}}
-                        <x-tag :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
+                        <x-status-badge :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
                         @else
 {{--                            show overall clearance status--}}
-                            <x-tag :status="$request->status->label()" :classes="$request->status->classes()" />
+                            <x-status-badge :status="$request->status->label()" :classes="$request->status->classes()" />
                         @endif
                     </span>
                             </td>

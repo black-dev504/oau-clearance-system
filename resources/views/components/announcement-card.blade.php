@@ -35,7 +35,7 @@
 
         <div class="flex flex-col">
             <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">{{$announcement?->title}} <span
-                    class="ml-2"> <x-tag :status="$announcement->priority. ' Priority'"
+                    class="ml-2"> <x-status-badge :status="$announcement->priority. ' Priority'"
                                          :classes="$priorityClasses"/> </span></h3>
             <p class=" text-sm text-gray-500 dark:text-zinc-400 mt-2">
                 {{ Str::limit($announcement?->content, 400) }}
@@ -93,7 +93,7 @@
 @else
 
     <div wire:click="viewAnnouncement({{ $announcement->id }})" class=" cursor-pointer flex flex-col gap-2 p-6 mt-8 rounded-[14px] border {{$priorityClasses['border']}} bg-white dark:bg-zinc-800">
-        <x-tag :status="$announcement?->priority. ' Priority'"
+        <x-status-badge :status="$announcement?->priority. ' Priority'"
                :classes="$priorityClasses ?? []"/>
 
         <h1 class="font-bold text-2xl dark:text-zinc-100">{{Str::title($announcement?->title)}}</h1>

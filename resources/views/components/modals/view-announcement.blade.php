@@ -8,7 +8,7 @@
 <flux:modal name="view-announcement" x-on:close="$wire.resetModal()" wire:key="view-announcement" class="min-w-5xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
     <div class="w-full  rounded-t-2xl p-7 flex bg-gradient-to-r from-primary  to-[#8E51FF]">
         <div class="flex flex-col gap-3 flex-start">
-            <x-tag :status="$this->selectedAnnouncement?->priority. ' priority'" :classes="$priorityClasses"/>
+            <x-status-badge :status="$this->selectedAnnouncement?->priority. ' priority'" :classes="$priorityClasses"/>
 
             <div class="flex flex-col">
                 <h1 class="font-semibold text-[20px] text-white mb-1">{{$this->selectedAnnouncement?->title}}</h1>

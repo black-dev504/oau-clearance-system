@@ -37,6 +37,7 @@ class DashboardService
             'units_metrics' => Unit::all()
                 ->map(fn ($unit) => [
                     'name' => $unit->name,
+                    'type' => $unit->type,
                     'metric' => $this->unitMetrics($unit),
                 ])
                 ->sortByDesc('metric')

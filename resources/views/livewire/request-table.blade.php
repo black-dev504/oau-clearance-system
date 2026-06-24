@@ -77,7 +77,7 @@
                         <td class="px-6 py-4">
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs capitalize">
-                    <x-tag />
+                    <x-status-badge />
                     </span>
                         </td>
                         <td class="px-6 py-4">

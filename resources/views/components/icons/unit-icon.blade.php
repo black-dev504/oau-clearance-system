@@ -1,7 +1,11 @@
-
+@props(
+[
+    'color' => '#374151'
+]
+)
 
 <svg
-    {{$attributes->merge(['class' => ""])}}
+    style="color: {{ $color }}"
     width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 10C0 4.47715 4.47715 0 10 0H38C43.5228 0 48 4.47715 48 10V38C48 43.5228 43.5228 48 38 48H10C4.47715 48 0 43.5228 0 38V10Z" fill="currentColor" fill-opacity="0.125"/>
     <path d="M18 34V16C18 15.4696 18.2107 14.9609 18.5858 14.5858C18.9609 14.2107 19.4696 14 20 14H28C28.5304 14 29.0391 14.2107 29.4142 14.5858C29.7893 14.9609 30 15.4696 30 16V34H18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

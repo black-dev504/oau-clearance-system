@@ -72,7 +72,7 @@
                 <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
 
                     @foreach($units_metrics as $unit)
-                        <x-unit-performance-card :unitName="$unit['name']" :processed_requests="$unit['metric']['processed']" :approval_rate="$unit['metric']['approval_rate']"/>
+                        <x-unit-performance-card :unitName="$unit['name']" :processed_requests="$unit['metric']['processed']" :approval_rate="$unit['metric']['approval_rate']"  :type="$unit['type']" />
                     @endforeach
 
                 </div>
@@ -129,10 +129,10 @@
                                     <div class="text-sm text-gray-900">
                                         @if(user()->hasRole('officer'))
                                             {{--                            show individual clearance status--}}
-                                            <x-tag :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
+                                            <x-status-badge :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
                                         @else
                                             {{--                            show overall clearance status--}}
-                                            <x-tag :status="$request->status->label()" :classes="$request->status->classes()" />
+                                            <x-status-badge :status="$request->status->label()" :classes="$request->status->classes()" />
                                         @endif                                    </div>
                                 </div>
                             </td>

@@ -15,7 +15,7 @@
     </div>
 
     <div class="flex flex-col gap-2 p-6 mt-8 rounded-[14px] border border-[#FEE685] bg-white">
-        <x-tag />
+        <x-status-badge />
         <h1 class="font-bold text-2xl">System Maintenance Scheduled</h1>
         <p class="text-base text-[#666666]">Dear Clearance Officers, We wish to inform you that a scheduled system maintenance will take place on April 20, 2026, from 2:00 AM to 6:00 AM (WAT). During this period, the clearance review portal will be temporarily unavailable. We advise all officers to complete any pending reviews before the maintenance window. The </p>
        <div class="border-t border-[#E0DCD4] mt-1 flex justify-between pt-4">

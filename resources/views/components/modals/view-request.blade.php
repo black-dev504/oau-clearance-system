@@ -12,7 +12,7 @@
 
                 <div class="flex flex-col">
                     <h1 class="font-semibold text-[20px] text-white mb-1">{{$this->selectedRequest?->name}}<span
-                            class="ml-1">  <x-tag :status="$clearance?->status->label()" :classes="$clearance?->status->classes()"/></span></h1>
+                            class="ml-1">  <x-status-badge :status="$clearance?->status->label()" :classes="$clearance?->status->classes()"/></span></h1>
                     <p class="text-[14px] text-white/70">Submitted on
                         <span>{{$this->selectedRequest?->created_at->format('F j, Y \a\t g:i A')}}</span>
                     </p>
@@ -92,7 +92,7 @@
                                     @foreach($this->selectedRequest?->clearances ?? [] as $clearance)
                                         <div class="flex items-center gap-2 justify-between ">
                                             <span class="capitalize">{{$clearance->unit?->name}}</span>
-                                            <x-tag :status="$clearance->status->label()" :classes="$clearance->status->classes()"/>
+                                            <x-status-badge :status="$clearance->status->label()" :classes="$clearance->status->classes()"/>
                                         </div>
                                     @endforeach
                                 </x-unit-details>

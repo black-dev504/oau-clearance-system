@@ -120,7 +120,7 @@
                                 <div >
                                     <div class="text-sm text-gray-500 mb-1 pl-3 dark:text-zinc-400">Status</div>
                                     <div class="text-sm text-gray-900">
-                                        <x-tag :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
+                                        <x-status-badge :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
                                     </div>
                                 </div>
                             </td>

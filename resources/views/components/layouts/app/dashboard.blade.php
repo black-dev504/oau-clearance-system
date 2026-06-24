@@ -106,7 +106,7 @@
 {{--                            <div >--}}
 {{--                                <div class="text-sm text-gray-500 mb-1 pl-3">Status</div>--}}
 {{--                                <div class="text-sm text-gray-900">--}}
-{{--                                    <x-tag :status="$request->status->label()" :classes="$request->status->classes()" />--}}
+{{--                                    <x-status-badge :status="$request->status->label()" :classes="$request->status->classes()" />--}}
 {{--                                </div>--}}
 {{--                            </div>--}}
 

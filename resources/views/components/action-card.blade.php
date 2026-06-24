@@ -11,7 +11,7 @@
 <div
     class="w-full border dark:bg-zinc-700 bg-[#F9F9F9]  {{$priorityClasses['border']}} rounded-xl flex items-center justify-between p-5">
     <div class="flex flex-col gap-y-1">
-        <x-tag :status="$announcement?->priority. ' Priority'"
+        <x-status-badge :status="$announcement?->priority. ' Priority'"
                :classes="$priorityClasses ?? []"/>
 
         <h1 class="font-bold text-xl dark:text-zinc-100">{{$announcement?->title}}</h1>
