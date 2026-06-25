@@ -18,9 +18,9 @@
     </div>
     <div class="bg-white p-6 gap-4 flex w-full">
         <div class="w-full flex flex-col gap-4">
-            <flux:input  wire:model="unitName" label="Unit Name *" placeholder="e.g Library" />
-            <flux:input  wire:model="unitCode" label="Unit Code *" placeholder="e.g LIB" />
-            <flux:select  wire:model="unitType" label="Type" >
+            <flux:input  wire:model="name" label="Unit Name *" placeholder="e.g Library" />
+            <flux:input  wire:model="code" label="Unit Code *" placeholder="e.g LIB" />
+            <flux:select  wire:model="type" label="Type" >
                 <flux:select.option >Select type of unit...</flux:select.option>
                 @foreach(array_column(config('units.types'), 'label') as $type)
                     <flux:select.option value="{{$type}}">{{$type}}</flux:select.option>

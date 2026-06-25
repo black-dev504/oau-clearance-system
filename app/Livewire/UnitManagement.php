@@ -2,7 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Department;
+use App\Models\Faculty;
 use App\Models\Unit;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -10,39 +13,22 @@ class UnitManagement extends Component
 {
 
     public ?bool $editing = false;
-    public ?string $unitName;
-    public ?string $unitCode;
-    public ?string $unitType;
+    public ?string $name;
+    public ?string $code;
+    public ?string $type;
+    public string $activeView = 'units';
 
-
-    public function addUnit()
+    public function setView(string $view)
     {
-        $validated = $this->validate(
-            [
-                'unitName' => 'required|string',
-                'unitCode' => 'required|string|max:3|unique:units,code',
-                'unitType' => [
-                    'required',
-                    Rule::in(array_column(config('units.types'), 'label'))
-                ],
-            ]
-        );
-
-        $unit = Unit::create($validated);
-
-        $this->dispatch('notification', [
-            'type' => 'success',
-            'message' => 'Unit added successfully'
-        ]);
-
+        $this->activeView = $view;
     }
+
 
 
 
 
     public function render()
     {
-        $units = Unit::all();
-        return view('livewire.app.admin.unit-management', ['unitData' => $units]);
+        return view('livewire.app.admin.unit-management');
     }
 }

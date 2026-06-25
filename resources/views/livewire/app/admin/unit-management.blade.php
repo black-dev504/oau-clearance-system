@@ -1,4 +1,3 @@
-@php use App\Support\UnitType; @endphp
 <div class="flex flex-col gap-6">
     <div
         class=" flex items-center justify-between bg-background dark:text-zinc-400 dark:bg-zinc-800 rounded-xl overscroll-y-contain">
@@ -12,7 +11,6 @@
         <div>
 
 
-            <x-modals.add-unit/>
         </div>
 
 
@@ -107,79 +105,13 @@
 
     </div>
 
-    <x-unit-management-table>
-        <x-slot:options>
-            <div class="flex justify-between">
+        @if ($activeView === 'units')
+            <livewire:units-table />
+        @elseif($activeView === 'faculties')
+            <livewire:faculties-table />
+        @elseif($activeView === 'departments')
+            <livewire:departments-table />
+        @endif
 
-                <x-search/>
-                <p class="text-[#6A7282]">{{$unitData->count()}} results</p>
-            </div>
-        </x-slot:options>
-
-
-        <x-slot:header>
-
-            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Unit</th>
-            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Type</th>
-            {{--            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Department</th>--}}
-            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Officers</th>
-            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Request/MO</th>
-            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Status</th>
-        </x-slot:header>
-
-        @foreach($unitData as $unit)
-
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4">
-                    <div class="flex gap-4 ">
-{{--                        @dd()--}}
-                        <x-icons.unit-icon :color="UnitType::accent($unit->type)" />
-                        <div class="flex items-center">
-                            <span
-                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{$unit->name}}</span>
-                        </div>
-                    </div>
-                </td>
-
-                <td class="px-6 py-4">
-                    <x-badge :value="$unit->type" :color="UnitType::accent($unit->type)"/>
-                </td>
-
-
-                <td class="px-6 py-4">
-                    {{$unit->users->count()}}
-                </td>
-
-                <td class="px-6 py-4">
-                    574
-                    {{--                    <div--}}
-                    {{--                        x-data="{ width: 0 }"--}}
-                    {{--                        x-init="setTimeout(() => width = {{ $approval_rate }}, {{rand(50,150)}})"--}}
-                    {{--                        class="w-full rounded-full h-2 bg-gray-300"--}}
-                    {{--                    >--}}
-                    {{--                        <div--}}
-                    {{--                            :style="`width: ${width}%`"--}}
-                    {{--                            class="bg-green-400 h-2 rounded-full transition-all duration-700 ease-out"--}}
-                    {{--                        ></div>--}}
-                    {{--                    </div>--}}
-                </td>
-
-                <td class="px-6 py-4">
-                    <x-status-badge :status="$unit->status" :classes="$unit->status == 'active'? ['dot'=> 'bg-green-500',
-                                                                                          'bg' => 'bg-green-100',
-                                                                                           'text' => 'text-green-500'
-                                                                                           ]:
-                                                                                           ['dot'=> 'bg-red-500',
-                                                                                          'bg' => 'bg-red-100',
-                                                                                           'text' => 'text-red-500'
-                                                                                           ]
-                                                                                           "/>
-                </td>
-            </tr>
-
-        @endforeach
-
-
-    </x-unit-management-table>
 </div>
 
