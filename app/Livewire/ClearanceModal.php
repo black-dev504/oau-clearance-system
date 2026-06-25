@@ -6,6 +6,7 @@ use App\Livewire\Forms\ClearanceForm;
 use App\Models\Clearance;
 use App\Models\ClearanceRequest;
 use App\Models\Department;
+use App\Models\Hostel;
 use App\Models\Unit;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -264,6 +265,7 @@ class ClearanceModal extends Component
     {
         return view('livewire.clearance-modal', [
             'departments' => Department::all(),
+            'hostels' => Hostel::all()
         ]);
     }
 }

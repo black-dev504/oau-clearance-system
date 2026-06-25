@@ -19,7 +19,6 @@
 
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Unit</th>
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Type</th>
-        {{--            <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Department</th>--}}
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Officers</th>
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Request/MO</th>
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Status</th>
@@ -55,7 +54,7 @@
 
                     <div class="flex flex-col ">
                             <span
-                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{$unit->name}}
+                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{Str::title($unit->name)}}
                             </span>
                         <span class="text-sm text-gray-400 dark:text-zinc-400">{{$unit->code}}</span>
                     </div>
@@ -63,7 +62,7 @@
             </td>
 
             <td class="px-6 py-4">
-                <x-badge :value="$unit->type" :color="UnitType::accent($unit->type)"/>
+                <x-badge :value="Str::title($unit->type)" :color="UnitType::accent($unit->type)"/>
             </td>
 
 

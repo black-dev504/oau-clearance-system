@@ -31,7 +31,12 @@
                     Hostel Information
                 </h4>        <div class="w-full grid md:grid-cols-2 grid-cols-1 gap-4 border border-gray-200  shadow-sm dark:border-white/10 rounded-xl p-4 mt-2">
 
-                    <flux:input wire:model="form.hall" label="Hall of Residence*" placeholder="Awo Hall"  />
+                    <flux:select wire:model="form.hostel_id" label="Hall of Residence*" >
+                        <flux:select.option>Choose from the list...</flux:select.option>
+                        @foreach($hostels as $hostel)
+                            <flux:select.option :value="{{$hostel->id}}">{{$hostel->name}}</flux:select.option>
+                        @endforeach
+                    </flux:select>
                     <flux:input wire:model="form.block" label="Block*" placeholder="F" type="text"  />
                     <flux:input wire:model="form.room_number" label="Room Number" type="number" placeholder="303"  />
                     <flux:input wire:model="form.bed_space" label="Bedspace" placeholder="corner 2"  />

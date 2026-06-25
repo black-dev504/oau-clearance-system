@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Department extends Model
 {
+    protected $guarded = ['id'];
+
     use HasFactory;
 
     public function users():HasMany

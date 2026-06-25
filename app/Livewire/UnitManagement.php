@@ -4,7 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Department;
 use App\Models\Faculty;
+use App\Models\Hostel;
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -16,11 +18,11 @@ class UnitManagement extends Component
     public ?string $name;
     public ?string $code;
     public ?string $type;
-    public string $activeView = 'units';
+    public string $activeTable = 'units';
 
-    public function setView(string $view)
+    public function setTable(string $view)
     {
-        $this->activeView = $view;
+        $this->activeTable = $view;
     }
 
 
@@ -29,6 +31,14 @@ class UnitManagement extends Component
 
     public function render()
     {
-        return view('livewire.app.admin.unit-management');
+        return view('livewire.app.admin.unit-management',
+        [
+            'unitCount' => Unit::count(),
+            'hostelCount' => Hostel::count(),
+            'departmentCount' => Department::count(),
+            'facultyCount' => Faculty::count(),
+            'officerCount' => User::where('role', 'officer')->count()
+        ]
+        );
     }
 }

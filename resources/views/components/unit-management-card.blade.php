@@ -1,20 +1,27 @@
 @props([
     'count' => '6',
     'heading' => 'Faculties',
-    'subheading' => 'Top-level academic bodies'
+    'subheading' => 'Top-level academic bodies',
+    'currentTab' => ''
 ])
+@php
 
-<div class="flex flex-col w-full p-5 bg-white border-gray-200 border rounded-2xl ">
+ $bgColor = $currentTab == strtolower($heading) ? 'bg-gradient-to-r from-[#7F22FE] to-[#8200DB] ' : 'bg-white ';
+ $textColor = $currentTab === strtolower($heading) ? 'text-white' : '';
+@endphp
 
-    <div class="flex gap-3">
-        <div class="rounded-full p-3.5 flex items-center justify-center bg-[#F3F4F6]">
+<div class="flex flex-col w-full p-5 {{$bgColor}} border-gray-200 border rounded-2xl ">
+
+
+    <div class="flex gap-3 mb-1">
+        <div class=" flex items-center justify-center">
 
             {{$slot}}
 
         </div>
-        <h1 class="font-black text-black text-3xl">{{$count}}</h1>
+        <h1 class="font-black {{$textColor}} text-3xl">{{$count}}</h1>
 
     </div>
-    <h1 class="font-medium text-base">{{$heading}}</h1>
-    <flux:text class="text-base">{{$subheading}}</flux:text>
+    <h1 class="font-medium text-base {{ $textColor}}">{{$heading}}</h1>
+    <flux:text class="text-sm {{ $textColor}}">{{$subheading}}</flux:text>
 </div>

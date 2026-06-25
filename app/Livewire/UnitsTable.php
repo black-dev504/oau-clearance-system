@@ -19,7 +19,7 @@ class UnitsTable extends Component
             $validated = $this->validate(
                 [
                     'name' => 'required|string',
-                    'code' => 'required|string|max:3|unique:units,code',
+                    'code' => 'required|string|max:4|unique:units,code',
                     'type' => [
                         'required',
                         Rule::in(array_column(config('units.types'), 'label'))

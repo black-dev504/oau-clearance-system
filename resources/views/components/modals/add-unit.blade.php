@@ -5,7 +5,7 @@
 </flux:modal.trigger>
 
 
-<flux:modal name="add-unit" x-on:close="" wire:key="add-officer" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
+<flux:modal name="add-unit" x-on:close="" wire:key="add-unit" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
 
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-violet-600 to-purple-700">
         <div class="flex gap-3 items-center" >

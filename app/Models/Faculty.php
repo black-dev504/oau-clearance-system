@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Faculty extends Model
 {
+    protected $guarded = ['id'];
     use HasFactory;
 
     public function departments()

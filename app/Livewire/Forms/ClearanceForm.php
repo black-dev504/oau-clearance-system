@@ -22,7 +22,7 @@ class ClearanceForm extends Form
     public ?string $graduation_year = null;
     public ?string $address = null;
     public ?string $course = null;
-    public ?string $hall = null;
+    public ?string $hostel_id = null;
     public ?string $block = null;
     public ?string $bed_space = null;
     public ?int $room_number = null;
@@ -46,7 +46,7 @@ class ClearanceForm extends Form
             'form.graduation_year' => 'Graduation Year',
             'form.address' => 'Address',
             'form.course' => 'Course',
-            'form.hall' => 'Hall',
+            'form.hostel_id' => 'Hall',
             'form.block' => 'Block',
             'form.bed_space' => 'Bed Space',
             'form.room_number' => 'Room Number',
@@ -84,7 +84,7 @@ class ClearanceForm extends Form
                 'form.address' => 'required|string|max:255',
                 'form.email' => 'required|email|max:255',
                 'form.phone' => 'required|digits_between:10,15',
-                'form.hall' => 'nullable|string|max:255',
+                'form.hostel_id' => 'nullable|integer|exists:hostels,id',
                 'form.block' => 'nullable|string|max:255',
                 'form.bed_space' => 'nullable|string|max:255',
                 'form.room_number' => 'nullable|digits_between:1,4',

@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Hostel;
+use App\Models\Unit;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Livewire\Component;
+
+class HostelsTable extends Component
+{
+    public ?string $name;
+    public ?string $code;
+    public ?string $warden;
+    public $gender;
+
+    public ?bool $editing = false;
+
+
+    public function addHostel()
+    {
+        $validated = $this->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:4|unique:hostels,code',
+            'gender' => 'required|string|in:male,female',
+            'warden' => 'required|string|max:255'
+        ]);
+
+        DB::transaction(function () use ($validated) {
+            $hostel = Hostel::create(
+                [
+                    ...$validated,
+                    'status' => 'active',
+                    'slug' => Str::slug($this->name),
+
+                ]);
+
+            $unit = Unit::create([
+                'name' => $hostel->name,
+                'slug' => Str::slug($hostel->name),
+                'type' => 'hostel',
+                'code' => $hostel->code,
+            ]);
+
+            $hostel->update(['unit_id' => $unit->id]);
+        });
+
+        $this->js('$flux.modal("add-hostel").close()');
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Hostel added successfully'
+        ]);
+
+    }    public function render()
+    {
+        return view('livewire.hostels-table',
+        [
+            'hostels' => Hostel::all()
+        ]
+        );
+    }
+}

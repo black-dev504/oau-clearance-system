@@ -1,13 +1,20 @@
 
-@php use App\Support\UnitType; @endphp
 
 <x-unit-management-table>
     <x-slot:options>
         <div class="flex justify-between">
+            <div class="flex flex-col">
+                <x-search/>
+                <p class="text-[#6A7282] text-sm ml-1">{{$faculties->count()}} results</p>
+            </div>
 
-            <x-search/>
-            <p class="text-[#6A7282]">{{$faculties->count()}} results</p>
+            <div>
+                <x-modals.add-faculty />
+            </div>
+
         </div>
+
+
     </x-slot:options>
 
 
@@ -36,7 +43,7 @@
 
                     <div class="flex justify-center items-center ">
                             <span
-                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{$faculty->name}}
+                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{Str::title($faculty->name)}}
                             </span>
                     </div>
                 </div>

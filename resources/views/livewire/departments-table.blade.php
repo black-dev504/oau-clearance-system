@@ -1,12 +1,15 @@
 
-@php use App\Support\UnitType; @endphp
 
 <x-unit-management-table>
     <x-slot:options>
         <div class="flex justify-between">
 
             <div class="flex gap-3">
-                <x-search/>
+
+                <div class="flex flex-col ">
+                    <x-search/>
+                    <p class="text-[#6A7282] text-sm ml-1 ">{{$departments->count()}} results</p>
+                </div>
                 <flux:select>
                     <flux:select.option >All Faculties </flux:select.option>
                     @foreach($faculties as $faculty)
@@ -15,7 +18,12 @@
 
                 </flux:select>
             </div>
-            <p class="text-[#6A7282]">{{$departments->count()}} results</p>
+
+            <div>
+
+                <x-modals.add-department />
+            </div>
+
         </div>
     </x-slot:options>
 
@@ -89,7 +97,7 @@
 
                         </div>
 
-                        <x-modals.delete-confirmation :id="$department->id" fn="deleteFaculty"/>
+                        <x-modals.delete-confirmation :id="$department->id" fn="deleteDepartment"/>
                     </div>
                 </div>
             </td>
