@@ -60,7 +60,7 @@
 
             </td>
 
-            <td class="px-6 py-4 group">
+            <td class="flex px-6 py-4 group">
                 <x-status-badge :status="$hostel->status" :classes="$hostel->status == 'active'? ['dot'=> 'bg-green-500',
                                                                                           'bg' => 'bg-green-100',
                                                                                            'text' => 'text-green-500'
@@ -72,7 +72,8 @@
                                                                                            "/>
 
                 <div class="hidden group-hover:flex justify-between w-full items-center">
-                    <a class="text-primary text-sm"> View > </a>
+
+                    <div></div>
 
                     <div class="flex items-center gap-3 shrink-0">
                         <div wire:click="openEditMode({{$hostel?->id}})">
@@ -100,6 +101,17 @@
         </tr>
 
     @endforeach
+    <x-slot:pagination>
+        @if($hostels->hasPages())
+            <div class=" w-full px-4 py-4  dark:border-white/10">
+                <div class=" w-full items-center" >
+                    <div>
 
+                        {{ $hostels->links('vendor.pagination.tailwind') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+    </x-slot:pagination>
 
 </x-unit-management-table>

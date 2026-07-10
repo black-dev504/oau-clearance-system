@@ -23,7 +23,7 @@
         <flux:input wire:model="form.graduation_year" label="Year of Graduation*" placeholder="eg.2023/24" type="text"  />
         <flux:input wire:model="form.matric_no" label="Matric Number" type="text" placeholder="eg.CSC/2000/001"  />
         <flux:input wire:model="form.course" label="Course of Study" placeholder="eg.Software Engineering"  />
-        <flux:select wire:model="form.department_id" label="Department"  >
+        <flux:select wire:model.live="form.department_id" label="Department"  >
             <flux:select.option >Choose your department....</flux:select.option>
             @foreach($departments as $department)
                 <flux:select.option value="{{$department->id}}">{{$department->name}}</flux:select.option>
@@ -31,7 +31,8 @@
         </flux:select>
 
         <flux:input
-            :value="$this->facultyName"
+            :value="$this->faculty"
             label="Faculty"
+            disabled
         />
     </div>

@@ -63,7 +63,7 @@
 
                     <div class="flex justify-center items-center ">
                             <span
-                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{$department->name}}
+                                class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{Str::title($department->name)}}
                             </span>
                     </div>
                 </div>
@@ -75,11 +75,11 @@
 
 
             <td class="px-6 py-4">
-                {{$department->hod ?? '-'}}
+                {{Str::title($department?->hod) ?? '-'}}
             </td>
 
             <td class="px-6 py-4">
-                {{$department->unit->name ?? '-'}}
+                {{Str::title( $department?->unit?->name ) ?? '-'}}
             </td>
 
             <td class="px-6 py-4 flex gap-1 whitespace-nowrap">
@@ -108,6 +108,19 @@
         </tr>
 
     @endforeach
+
+    <x-slot:pagination>
+        @if($departments->hasPages())
+            <div class=" w-full px-4 py-4  dark:border-white/10">
+                <div class=" w-full items-center" >
+                    <div>
+
+                        {{ $departments->links('vendor.pagination.tailwind') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+    </x-slot:pagination>
 
 
 </x-unit-management-table>

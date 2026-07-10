@@ -56,7 +56,7 @@
                             <span
                                 class="text-base text-gray-900 font-bold dark:text-zinc-100 whitespace-nowrap">{{Str::title($unit->name)}}
                             </span>
-                        <span class="text-sm text-gray-400 dark:text-zinc-400">{{$unit->code}}</span>
+                        <span class=" uppercase text-sm text-gray-400 dark:text-zinc-400">{{$unit->code}}</span>
                     </div>
                 </div>
             </td>
@@ -99,5 +99,17 @@
 
     @endforeach
 
+   <x-slot:pagination>
+       @if($unitData->hasPages())
+           <div class=" w-full px-4 py-4  dark:border-white/10">
+               <div class=" w-full items-center" >
+                   <div>
+
+                       {{ $unitData->links('vendor.pagination.tailwind') }}
+                   </div>
+               </div>
+           </div>
+       @endif
+   </x-slot:pagination>
 
 </x-unit-management-table>

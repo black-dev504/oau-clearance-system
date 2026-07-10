@@ -88,6 +88,8 @@ class OfficerDashboard extends Component
             rejected: $data['rejected'],
             reapplied: $data['reapplied'],
         );
+
+        return $data;
     }
 
 
@@ -98,7 +100,7 @@ class OfficerDashboard extends Component
 
     public function render(DashboardService $service)
     {
-        $data = $service->officerDashboard($this->unit);
+        $data = $this->refreshDashboard($service);
         return view('livewire.app.officer.dashboard', $data);
     }
 }

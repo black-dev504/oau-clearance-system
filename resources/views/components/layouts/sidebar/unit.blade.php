@@ -63,7 +63,7 @@
         </flux:navbar>
 
         <flux:navbar >
-            <h1 class="text-2xl dark:text-zinc-400 ">{{ config('units.' . $unit . '.heading') }}</h1>
+            <h1 class="text-2xl dark:text-zinc-400 ">{{ auth()->user()?->unit->name }} Clearance Portal</h1>
 
         </flux:navbar>
     </flux:header>

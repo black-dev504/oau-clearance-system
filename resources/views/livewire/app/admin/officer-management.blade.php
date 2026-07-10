@@ -37,7 +37,7 @@
                                     <span>{{get_initials($officer->full_name)}}</span>
                                 </div>
                                 <div>
-                                    <div class="font-medium mb-1 items-center text-gray-900 dark:text-zinc-100">{{$officer->full_name}}</div>
+                                    <div class="font-medium mb-1 items-center text-gray-900 dark:text-zinc-100">{{Str::title($officer->full_name)}}</div>
 
                                 </div>
                             </div>

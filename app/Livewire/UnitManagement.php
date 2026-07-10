@@ -15,9 +15,7 @@ class UnitManagement extends Component
 {
 
     public ?bool $editing = false;
-    public ?string $name;
-    public ?string $code;
-    public ?string $type;
+
     public string $activeTable = 'units';
 
     public function setTable(string $view)

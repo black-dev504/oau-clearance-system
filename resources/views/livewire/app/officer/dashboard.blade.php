@@ -6,7 +6,7 @@
 
 <div>
     <div class="bg-background dark:text-zinc-400 dark:bg-zinc-800 rounded-xl overscroll-y-contain">
-        <flux:heading size="xl" level="1">Good afternoon, {{$unitName}} officer </flux:heading>
+        <flux:heading size="xl" level="1">Good afternoon, {{Str::title(user()->fullName)}}  </flux:heading>
         <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>
 
         <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">

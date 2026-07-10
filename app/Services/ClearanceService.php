@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
+use App\Models\Unit;
 use App\Models\User;
 
 class ClearanceService
@@ -15,6 +16,7 @@ class ClearanceService
         if ($user->hasRole('officer')) {
             $query->whereHas('clearances', function ($q) use ($user, $status) {
                 $q->where('unit_id', $user->unit_id)
+                    ->where('status', '!=', ClearanceStatus::LOCKED)
                     ->when($status, fn ($q) => $q->where('status', $status)
                     );
 
@@ -75,6 +77,23 @@ class ClearanceService
         ]);
 
         return $clearance;
+    }
+
+
+    public function getStudentUnits(ClearanceRequest $request)
+    {
+        $departmentUnit = $request->department->unit;
+        $facultyUnit    = $request->department->faculty->unit;
+        $hostelUnit     = $request->hostel?->unit;
+
+        return Unit::whereNotIn('type', ['department', 'faculty', 'hostel'])
+            ->get()
+            ->push($departmentUnit)
+            ->push($facultyUnit)
+            ->push($hostelUnit)
+            ->filter()
+            ->sortBy('order')
+            ->values();
     }
 
 }

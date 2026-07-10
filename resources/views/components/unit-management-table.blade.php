@@ -1,7 +1,7 @@
-
-
+{{--@props['']--}}
+<div>
 <div
-    class="bg-white intro-y overflow-auto  dark:bg-zinc-800 dark:border-white/10 border border-gray-100 rounded-2xl mt-8 shadow-sm dark:shadow-none">
+    class="block bg-white intro-y overflow-auto  dark:bg-zinc-800 dark:border-white/10 border border-gray-100 rounded-2xl mt-8 shadow-sm dark:shadow-none">
     <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
         {{$options}}
     </div>
@@ -19,4 +19,9 @@
 
         </tbody>
     </table>
+
+
+</div>
+    {{$pagination}}
+
 </div>

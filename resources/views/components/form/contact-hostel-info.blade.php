@@ -33,8 +33,8 @@
 
                     <flux:select wire:model="form.hostel_id" label="Hall of Residence*" >
                         <flux:select.option>Choose from the list...</flux:select.option>
-                        @foreach($hostels as $hostel)
-                            <flux:select.option :value="{{$hostel->id}}">{{$hostel->name}}</flux:select.option>
+                        @foreach($this->hostels as $hostel)
+                            <flux:select.option value="{{$hostel->id}}">{{$hostel->name}}</flux:select.option>
                         @endforeach
                     </flux:select>
                     <flux:input wire:model="form.block" label="Block*" placeholder="F" type="text"  />

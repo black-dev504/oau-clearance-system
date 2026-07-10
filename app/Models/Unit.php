@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ClearanceStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
@@ -24,6 +25,11 @@ class Unit extends Model
         );
     }
 
+    public function openClearanceRequests()
+    {
+        return $this->clearanceRequests()->where('clearances.status', '!=', ClearanceStatus::LOCKED);
+    }
+
     public function clearances()
     {
         return $this->hasMany(Clearance::class);
@@ -32,6 +38,11 @@ class Unit extends Model
     public function announcements()
     {
         return $this->belongsToMany(Announcement::class);
+    }
+
+    public function unitTypes()
+    {
+
     }
 
 }

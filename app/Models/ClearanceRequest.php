@@ -68,6 +68,11 @@ class ClearanceRequest extends Model
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
+
+    public function hostel()
+    {
+        return $this->belongsTo(Hostel::class, 'hostel_id');
+    }
 }
 
 

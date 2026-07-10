@@ -18,6 +18,7 @@ class DepartmentsTable extends Component
     public $faculties = [];
     public ?string $faculty_id = null;
     public ?bool $editing = false;
+    public ?string $search = null;
 
 
     public function addDepartment()
@@ -40,6 +41,7 @@ class DepartmentsTable extends Component
             $unit = Unit::create([
                 'name' => $department->name,
                 'slug' => Str::slug($department->name),
+                'order' => config('units.types')['department']['order'],
                 'type' => 'department',
                 'code' => $department->code,
             ]);
@@ -55,13 +57,26 @@ class DepartmentsTable extends Component
         ]);
 
     }
+
+    public function getDepartmentsProperty()
+    {
+        $query = Department::query();
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('code', 'like', '%' . $this->search . '%')
+                ->orWhere('hod', 'like', '%' . $this->search . '%');
+        }
+
+        return $query;
+    }
+
     public function render()
     {
-        $departments = Department::all();
         $this->faculties = Faculty::all();
         return view('livewire.departments-table',
          [
-             'departments' => $departments,
+             'departments' => $this->departments->latest()->paginate(10),
              'faculties' => $this->faculties
          ]
         );

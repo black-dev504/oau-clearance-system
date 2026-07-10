@@ -17,9 +17,23 @@ class AdminDashboard extends Component
         $this->selectedRequest = ClearanceRequest::findorFail($id);
         $this->dispatch('modal-show', name: $modal);
     }
-    public function render(DashboardService $service)
+
+    public function refreshDashboard(DashboardService $service)
     {
         $data = $service->data(user());
+
+
+        $this->dispatch('updateAdminChart',
+            pending_requests: $data['pending_requests'],
+
+        );
+
+        return $data;
+    }
+
+    public function render(DashboardService $service)
+    {
+        $data = $this->refreshDashboard($service);
         return view('livewire.app.admin.dashboard', $data);
     }
 }

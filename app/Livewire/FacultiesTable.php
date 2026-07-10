@@ -15,6 +15,7 @@ class FacultiesTable extends Component
     public ?string $dean;
     public ?string $accent = '';
     public ?bool $editing = false;
+    public ?string $search = '';
 
 
     public function addFaculty()
@@ -35,9 +36,10 @@ class FacultiesTable extends Component
                 ]);
 
             $unit = Unit::create([
-            'name' => $faculty->name,
-            'slug' => Str::slug($faculty->name),
-            'type' => 'faculty',
+                'name' => $faculty->name,
+                'slug' => Str::slug($faculty->name),
+                'type' => 'faculty',
+                'order' => config('units.types')['faculty']['order'],
                 'code' => $faculty->code,
         ]);
 
@@ -51,10 +53,25 @@ class FacultiesTable extends Component
             'message' => 'Faculty added successfully'
         ]);
 
+
+
+    }
+
+    public function getFacultiesProperty()
+    {
+        $query = Faculty::query();
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('code', 'like', '%' . $this->search . '%')
+                    ->orWhere('dean', 'like', '%' . $this->search . '%');
+        }
+
+        return $query;
     }
     public function render()
     {
-        $data = Faculty::all();
+        $data = $this->faculties->paginate();
         return view('livewire.faculties-table',
             [
                 'faculties' => $data

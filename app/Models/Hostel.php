@@ -13,4 +13,9 @@ class Hostel extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    public function clearanceRequests()
+    {
+        return $this->hasMany(ClearanceRequest::class);
+    }
+
 }

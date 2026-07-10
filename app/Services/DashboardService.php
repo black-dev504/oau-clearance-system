@@ -42,10 +42,15 @@ class DashboardService
                 ])
                 ->sortByDesc('metric')
                 ->values(),
-            'pending_requests' =>  Unit::all()->map(fn ($unit) => [
-               'unit_name' => Str::title($unit->name),
-               'count' => $unit->clearances()->pending()->count()
-            ]),
+            'pending_requests' => Unit::withCount(['clearances as pending_count' => fn($q) => $q->pending()])
+                ->get()
+                ->groupBy('type')
+                ->map(fn($units, $type) => [
+                    'unit_type' => Str::title($type),
+                    'count'     => $units->sum('pending_count'),
+                ])
+                ->values()
+                ->toArray(),
         ];
     }
 
@@ -112,7 +117,7 @@ class DashboardService
                 'rejected' => $unit->clearances()->rejected()->count(),
                 'reapplied' => $unit->clearances()->reapply()->count(),
                 'recentAnnouncements' => $unit->announcements()->latest()->take(5)->get(),
-                'recentRequests' => user()->unit->clearanceRequests()->latest()->take(5)->get(),
+                'recentRequests' => user()->unit->openClearanceRequests()->latest()->take(5)->get(),
 
         ];
     }
@@ -138,8 +143,7 @@ class DashboardService
         return [
             'registered' => true,
             'stats' => [
-                'clearanceUnits' => $clearances,
-                'total' => $clearances->count(),
+                'clearanceUnits' => $clearances->sortBy(fn($clearance) => $clearance->unit->order),                'total' => $clearances->count(),
                 'approved' => $clearances
                     ->where('status', \App\Enums\ClearanceStatus::APPROVED)
                     ->count(),

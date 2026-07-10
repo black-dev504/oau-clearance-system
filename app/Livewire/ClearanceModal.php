@@ -19,6 +19,8 @@ class ClearanceModal extends Component
 
     public bool $showModal = false;
     public ClearanceForm $form;
+    public $hostels;
+    public $faculty = '';
     public string $currentForm = 'personalInfo';
     protected array $steps = ['personalInfo', 'contact', 'library', 'review'];
 
@@ -89,18 +91,14 @@ class ClearanceModal extends Component
 
             }
         }
+
     }
 
-    public function getFacultyNameProperty()
+    public function updatedFormDepartmentId($value)
     {
-        if (!$this->form->department_id) {
-            return '';
-        }
+        $department = Department::with('faculty')->find($value);
 
-        return Department::with('faculty')
-            ->find($this->form->department_id)
-            ?->faculty
-            ?->name;
+        $this->faculty = $department->faculty->name;
     }
 
     public function next(): void
@@ -263,9 +261,10 @@ class ClearanceModal extends Component
 
     public function render()
     {
+        $this->hostels = Hostel::all();
         return view('livewire.clearance-modal', [
             'departments' => Department::all(),
-            'hostels' => Hostel::all()
+            'hostels' =>$this->hostels,
         ]);
     }
 }

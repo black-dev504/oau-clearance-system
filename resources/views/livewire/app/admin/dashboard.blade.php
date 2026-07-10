@@ -188,11 +188,10 @@
 
     window.addEventListener('updateAdminChart', (event) => {
         const {
-            approved,
-            pending,
-            rejected
+            pending_requests
         } = event.detail;
-        updateChart(approved, pending, rejected);
+
+        updateChart(pending_requests);
     })
 
     let pendingRequests = @json($pending_requests);
@@ -201,7 +200,7 @@
     let unitCounts = {};
 
     // pendingRequests.forEach(item => {
-    //     unitCounts[item.unit_name] = item.count;
+    //     unitCounts[item.unit_type] = item.count;
     // });
 
 
@@ -213,7 +212,7 @@
         statusChart = new Chart(document.getElementById('status-chart'), {
             type: "doughnut",
             data: {
-                labels:   $data.map(item => item.unit_name),
+                labels:   $data.map(item => item.unit_type),
                 datasets: [{
                     data:  $data.map(item => item.count),
                     backgroundColor:[
@@ -254,12 +253,13 @@
         });
     }
 
-    function updateChart($approved, $pending, $rejected)
+    function updateChart($data)
     {
         if (statusChart) {
             statusChart.destroy();
         }
-        createChart([$approved, $pending, $rejected]);
+
+        createChart($data);
 
     }
 

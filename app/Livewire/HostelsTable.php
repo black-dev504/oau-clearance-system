@@ -14,6 +14,7 @@ class HostelsTable extends Component
     public ?string $code;
     public ?string $warden;
     public $gender;
+    public ?string $search =null;
 
     public ?bool $editing = false;
 
@@ -39,6 +40,7 @@ class HostelsTable extends Component
             $unit = Unit::create([
                 'name' => $hostel->name,
                 'slug' => Str::slug($hostel->name),
+                'order' => config('units.types')['hostel']['order'],
                 'type' => 'hostel',
                 'code' => $hostel->code,
             ]);
@@ -53,11 +55,26 @@ class HostelsTable extends Component
             'message' => 'Hostel added successfully'
         ]);
 
-    }    public function render()
+    }
+
+    public function getHostelsProperty()
     {
+        $query = Hostel::query();
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('code', 'like', '%' . $this->search . '%')
+                ->orWhere('warden', 'like', '%' . $this->search . '%');
+        }
+
+        return $query;
+    }
+    public function render()
+    {
+
         return view('livewire.hostels-table',
         [
-            'hostels' => Hostel::all()
+            'hostels' => $this->hostels->paginate()
         ]
         );
     }

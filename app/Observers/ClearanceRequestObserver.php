@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Enums\ClearanceStatus;
 use App\Models\ClearanceRequest;
 use App\Models\Unit;
+use App\Services\ClearanceService;
 
 class ClearanceRequestObserver
 {
@@ -27,23 +28,22 @@ class ClearanceRequestObserver
     {
 
 
-        $departmentUnit = $request->department->unit;
-        $facultyUnit = $request->department->faculty->unit;
+        $units = app(ClearanceService::class)->getStudentUnits($request);
 
-        $units = Unit::whereNotIn('type', ['department', 'faculty'])->get()
-                 ->push($departmentUnit)
-                 ->push($facultyUnit);
+        $firstOrder = $units->min('order');
+
 
         $request->clearances()->createMany(
             $units->map(fn ($unit) => [
-                'unit_id' => $unit->id,
-                'status' => ClearanceStatus::PENDING,
+                'unit_id' => $unit?->id,
+                'status' => $unit->order === $firstOrder ? ClearanceStatus::PENDING : ClearanceStatus::LOCKED,
             ])->toArray()
         );
     }
 
     public function updated(ClearanceRequest $request)
     {
+
         $request->clearances()->where('status', ClearanceStatus::REJECTED)
             ->update(['status' => ClearanceStatus::REAPPLY]);
 

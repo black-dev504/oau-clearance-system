@@ -20,7 +20,7 @@
 
     <div wire:click="setTable('units')"
         @class([
-            'w-full flex justify-between text-left rounded-2xl border transition-all p-6',
+            ' cursor-pointer w-full flex justify-between text-left rounded-2xl border transition-all p-6',
             'border-violet-200 bg-gradient-to-r from-violet-600 to-purple-700 shadow-lg shadow-violet-200' => $activeTable === 'units',
             'border-gray-200 bg-white hover:bg-gray-50 ' => $activeTable !== 'units',
         ])>
@@ -79,7 +79,7 @@
 
     <div class="flex w-full justify-between gap-4 ">
 
-        <div class="w-full" wire:click="setTable('faculties')">
+        <div class="w-full cursor-pointer" wire:click="setTable('faculties')">
              <x-unit-management-card heading="Faculties" subheading="Top-level academic bodies" :count="$facultyCount" :currentTab="$activeTable">
 
                 <x-icons.unit-icon :color="$activeTable === 'faculties'? '#8E51FF': '#6A7282' ">
@@ -98,7 +98,7 @@
         </x-unit-management-card>
         </div>
 
-        <div  class="w-full" wire:click="setTable('departments')">
+        <div  class="w-full cursor-pointer" wire:click="setTable('departments')">
             <x-unit-management-card heading="Departments" subheading="Grouped under faculties" :currentTab="$activeTable" :count="$departmentCount">
                 <x-icons.unit-icon :color="$activeTable === 'departments'? '#8E51FF': '#6A7282' ">
 
@@ -126,7 +126,7 @@
         </x-unit-management-card>
         </div>
 
-        <div  class="w-full" wire:click="setTable('hostels')">
+        <div  class="w-full cursor-pointer" wire:click="setTable('hostels')">
             <x-unit-management-card heading="Hostels" subheading="Residential Accommodation" :currentTab="$activeTable" :count="$hostelCount">
                 <x-icons.unit-icon :color="$activeTable === 'hostels'? '#8E51FF': '#6A7282' ">
 

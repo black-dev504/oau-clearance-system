@@ -3,7 +3,7 @@
         $clearance = $this->selectedRequest?->clearanceForUnit(user()->unit_id);
     @endphp
 
-    <flux:modal name="view-request" class="min-w-5xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
+    <flux:modal name="view-request" x-on:close="" class="min-w-5xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
         <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#2D2855] to-secondary">
             <div class="flex gap-3 items-center">
                 <div class="flex w-20 h-20 items-center justify-center rounded-full border-2 border-white/30 bg-white/20">
@@ -28,8 +28,8 @@
                     <x-unit-details title="Academic Details">
                         <flux:input disabled :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER"/>
                         <flux:input disabled :value="$this->selectedRequest?->course" label="COURSE OF STUDY"/>
-                        <flux:input disabled :value="$this->selectedRequest?->department" label="DEPARTMENT"/>
-                        <flux:input disabled :value="$this->selectedRequest?->department" label="FACULTY"/>
+                        <flux:input disabled :value="$this->selectedRequest?->department->name" label="DEPARTMENT"/>
+                        <flux:input disabled :value="$this->selectedRequest?->department->faculty->name" label="FACULTY"/>
                         <flux:input disabled :value="$this->selectedRequest?->graduation_year" label="YEAR OF GRADUATION"/>
                     </x-unit-details>
 

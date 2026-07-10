@@ -1,6 +1,8 @@
 @props(['clearance'])
 
-<div class="bg-white dark:bg-zinc-600/20 dark:border-white/10 border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+
+<div class="bg-white dark:bg-zinc-600/20 dark:border-white/10 border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow
+    {{ $clearance->status === \App\Enums\ClearanceStatus::LOCKED ? 'opacity-50 grayscale pointer-events-none' : '' }}">
     <div class="flex items-start justify-between mb-3">
         <h3 class="text-xl text-gray-900 dark:text-zinc-100">{{$clearance?->unit?->name}}</h3>
         <x-status-badge :status="$clearance->status->label()" :classes="$clearance->status->classes()"  />
@@ -13,5 +15,4 @@
     @endif
 
 </div>
-
 

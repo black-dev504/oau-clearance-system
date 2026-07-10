@@ -82,5 +82,16 @@
 
     @endforeach
 
+    <x-slot:pagination>
+        @if($faculties->hasPages())
+            <div class=" w-full px-4 py-4  dark:border-white/10">
+                <div class=" w-full items-center" >
+                    <div>
 
+                        {{ $faculties->links('vendor.pagination.tailwind') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+    </x-slot:pagination>
 </x-unit-management-table>

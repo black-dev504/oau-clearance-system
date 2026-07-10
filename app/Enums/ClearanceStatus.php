@@ -13,15 +13,18 @@ enum ClearanceStatus:int
 
     case SUBMITTED = 4;
 
+    case LOCKED = 5;
+
 
     public  function label()
     {
        return match ($this) {
-           self::PENDING => __('Pending'),
-           self::APPROVED => __('Approved'),
-           self::REJECTED => __('Rejected'),
-           self::REAPPLY => __('Reapply'),
-           self::SUBMITTED => __('Submitted'),
+               self::PENDING => __('Pending'),
+               self::APPROVED => __('Approved'),
+               self::REJECTED => __('Rejected'),
+               self::REAPPLY => __('Reapply'),
+               self::SUBMITTED => __('Submitted'),
+               self::LOCKED => __('Locked'),
        };
 
     }
@@ -50,6 +53,12 @@ enum ClearanceStatus:int
                     'dot' => 'bg-purple-700',
                     'bg' => 'bg-purple-100',
                 ],
+
+                self::LOCKED => [
+                    'text' => 'text-gray-700',
+                    'dot' => 'bg-gray-700',
+                    'bg' => 'bg-gray-100',
+                ]
             };
 
     }
@@ -61,6 +70,8 @@ enum ClearanceStatus:int
             'rejected' => self::REJECTED,
             'pending' => self::PENDING,
             'reapply' => self::REAPPLY,
+            'locked' => self::LOCKED,
+            'submitted' => self::SUBMITTED,
             default => throw new \InvalidArgumentException("Invalid status: $status"),
         };
     }

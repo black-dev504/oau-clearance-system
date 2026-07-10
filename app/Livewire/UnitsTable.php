@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Faculty;
 use App\Models\Unit;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -11,6 +12,10 @@ class UnitsTable extends Component
 {
 
     public ?bool $editing = false;
+    public ?string $search = null;
+    public ?string $name;
+    public ?string $code;
+    public ?string $type;
 
 
     public function addUnit()
@@ -30,7 +35,8 @@ class UnitsTable extends Component
             $unit = Unit::create([
                 ...$validated,
                 'slug' => Str::slug($this->name),
-                'status' => 'active'
+                'status' => 'active',
+                'order' => config('units.types')[strtolower($this->type)]['order']
             ]);
 
             $this->js('$flux.modal("add-unit").close()');
@@ -52,9 +58,21 @@ class UnitsTable extends Component
 
     }
 
+    public function getUnitsProperty()
+    {
+        $query = Unit::query();
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('code', 'like', '%' . $this->search . '%');
+        }
+
+        return $query;
+    }
+
     public function render()
     {
-        $units = Unit::all();
+        $units = $this->units->paginate();
         return view('livewire.units-table', [
             'unitData' => $units
         ]);
