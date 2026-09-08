@@ -22,8 +22,8 @@
             <flux:input  wire:model="code" label="Unit Code *" placeholder="e.g LIB" />
             <flux:select  wire:model="type" label="Type" >
                 <flux:select.option >Select type of unit...</flux:select.option>
-                @foreach(array_column(config('units.types'), 'label') as $type)
-                    <flux:select.option value="{{$type}}">{{$type}}</flux:select.option>
+                @foreach(array_filter(config('units.types'), fn($type) => !in_array($type['label'], ['Faculty', 'Department', 'Hostel'])) as $type)
+                    <flux:select.option value="{{$type['label']}}">{{$type['label']}}</flux:select.option>
                 @endforeach
             </flux:select>
 

@@ -19,6 +19,7 @@ class DepartmentsTable extends Component
     public ?string $faculty_id = null;
     public ?bool $editing = false;
     public ?string $search = null;
+    public ?int $deleteId = null;
 
 
     public function addDepartment()
@@ -56,6 +57,18 @@ class DepartmentsTable extends Component
             'message' => 'Department added successfully'
         ]);
 
+    }
+
+    public function deleteDepartment()
+    {
+        $department = Department::findOrFail($this->deleteId);
+        $department->delete();
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Department deleted successfully'
+        ]);
+
+        $this->js('$flux.modal("delete-department").close();');
     }
 
     public function getDepartmentsProperty()

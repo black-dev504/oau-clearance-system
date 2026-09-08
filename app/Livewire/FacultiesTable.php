@@ -15,6 +15,7 @@ class FacultiesTable extends Component
     public ?string $dean;
     public ?string $accent = '';
     public ?bool $editing = false;
+    public ?int $deleteId = null;
     public ?string $search = '';
 
 
@@ -55,6 +56,62 @@ class FacultiesTable extends Component
 
 
 
+    }
+
+    public function openEditMode($id)
+    {
+        $faculty = Faculty::findOrFail($id);
+        $this->editing = true;
+        $this->name = $faculty->name;
+        $this->code = $faculty->code;
+        $this->dean = $faculty->dean;
+
+        $this->dispatch('modal-show', name: 'add-faculty');
+    }
+
+    public function updateFaculty($id)
+    {
+        $faculty = Faculty::findOrFail($id);
+
+        $validated = $this->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:4|unique:faculties,code,' . $faculty->id,
+            'dean' => 'required|string|unique:faculties,dean,' . $faculty->id,
+            'accent' => ['required', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+        ]);
+
+        DB::transaction(function () use ($faculty, $validated) {
+            $faculty->update($validated);
+
+            $unit = Unit::findOrFail($faculty->unit_id);
+            $unit->update([
+                'name' => $faculty->name,
+                'slug' => Str::slug($faculty->name),
+                'code' => $faculty->code,
+            ]);
+        });
+
+        $this->js('$flux.modal("add-faculty").close()');
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Faculty updated successfully'
+        ]);
+
+        $this->editing = false;
+    }
+
+    public function deleteFaculty()
+    {
+        $faculty = Faculty::findOrFail($this->deleteId);
+        $faculty->delete();
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Faculty deleted successfully'
+        ]);
+
+        $this->js('$flux.modal("delete-faculty").close()');
     }
 
     public function getFacultiesProperty()

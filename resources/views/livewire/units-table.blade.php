@@ -26,7 +26,7 @@
 
     @foreach($unitData as $unit)
 
-        <tr class="hover:bg-gray-50">
+        <tr class="hover:bg-gray-50 group">
             <td class="px-6 py-4">
                 <div class="flex gap-4 ">
                     <x-icons.unit-icon :color="UnitType::accent($unit->type)">
@@ -84,7 +84,7 @@
                 {{--                    </div>--}}
             </td>
 
-            <td class="px-6 py-4">
+            <td class="px-6 py-4  flex items-center justify-between gap-4">
                 <x-status-badge :status="$unit->status" :classes="$unit->status == 'active'? ['dot'=> 'bg-green-500',
                                                                                           'bg' => 'bg-green-100',
                                                                                            'text' => 'text-green-500'
@@ -94,8 +94,27 @@
                                                                                            'text' => 'text-red-500'
                                                                                            ]
                                                                                            "/>
+
+                <div class="hidden group-hover:flex items-center gap-3 shrink-0">
+                    <div wire:click="openEditMode({{$unit->id}})">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 2H3.33333C2.97971 2 2.64057 2.14048 2.39052 2.39052C2.14048 2.64057 2 2.97971 2 3.33333V12.6667C2 13.0203 2.14048 13.3594 2.39052 13.6095C2.64057 13.8595 2.97971 14 3.33333 14H12.6667C13.0203 14 13.3594 13.8595 13.6095 13.6095C13.8595 13.3594 14 13.0203 14 12.6667V8" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.2499 1.75C12.5151 1.48478 12.8748 1.33578 13.2499 1.33578C13.625 1.33578 13.9847 1.48478 14.2499 1.75C14.5151 2.01521 14.6641 2.37493 14.6641 2.75C14.6641 3.12507 14.5151 3.48478 14.2499 3.75L8.24123 9.75933C8.08293 9.9175 7.88737 10.0333 7.67257 10.096L5.75723 10.656C5.69987 10.6727 5.63906 10.6737 5.58117 10.6589C5.52329 10.6441 5.47045 10.614 5.4282 10.5717C5.38594 10.5294 5.35583 10.4766 5.341 10.4187C5.32617 10.3608 5.32717 10.3 5.3439 10.2427L5.9039 8.32733C5.96692 8.1127 6.08292 7.91737 6.24123 7.75933L12.2499 1.75Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                    </div>
+
+                    <flux:modal.trigger name="delete-unit">
+                        <button type="button" wire:click="$set('deleteId', {{ $unit->id }})">
+                        <x-icons.delete />
+                        </button>
+                    </flux:modal.trigger>
+                </div>
             </td>
+
         </tr>
+
+
 
     @endforeach
 
@@ -111,5 +130,7 @@
            </div>
        @endif
    </x-slot:pagination>
+
+    <x-modals.delete-confirmation name="unit" fn="deleteUnit"/>
 
 </x-unit-management-table>

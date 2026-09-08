@@ -32,9 +32,9 @@ class UnitManagement extends Component
         return view('livewire.app.admin.unit-management',
         [
             'unitCount' => Unit::count(),
-            'hostelCount' => Hostel::count(),
-            'departmentCount' => Department::count(),
-            'facultyCount' => Faculty::count(),
+            'hostelCount' => Unit::where('type', 'hostel')->count(),
+            'departmentCount' => Unit::where('type', 'department')->count(),
+            'facultyCount' => Unit::where('type', 'faculty')->count(),
             'officerCount' => User::where('role', 'officer')->count()
         ]
         );

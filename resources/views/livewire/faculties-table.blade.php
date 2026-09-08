@@ -19,7 +19,6 @@
 
 
     <x-slot:header>
-
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Faculty</th>
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Code</th>
         <th class="text-left px-6 py-4 text-xs uppercase tracking-wider">Dean</th>
@@ -63,7 +62,7 @@
                 <div class="hidden group-hover:flex justify-between w-full items-center">
                     <a class="text-primary text-sm"> View > </a>
 
-                    <div class="flex items-center gap-3 shrink-0">
+                    <div class="hidden group-hover:flex items-center gap-3 shrink-0">
                         <div wire:click="openEditMode({{$faculty->id}})">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8 2H3.33333C2.97971 2 2.64057 2.14048 2.39052 2.39052C2.14048 2.64057 2 2.97971 2 3.33333V12.6667C2 13.0203 2.14048 13.3594 2.39052 13.6095C2.64057 13.8595 2.97971 14 3.33333 14H12.6667C13.0203 14 13.3594 13.8595 13.6095 13.6095C13.8595 13.3594 14 13.0203 14 12.6667V8" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
@@ -72,11 +71,15 @@
 
                         </div>
 
-                        <x-modals.delete-confirmation :id="$faculty->id" fn="deleteFaculty"/>
+                        <flux:modal.trigger name="delete-faculty">
+                            <button type="button" wire:click="$set('deleteId', {{ $faculty->id }})">
+                                <x-icons.delete />
+                            </button>
+                        </flux:modal.trigger>
                     </div>
                 </div>
-            </td>
 
+            </td>
 
         </tr>
 
@@ -94,4 +97,7 @@
             </div>
         @endif
     </x-slot:pagination>
+
+    <x-modals.delete-confirmation name="faculty" fn="deleteFaculty"/>
+
 </x-unit-management-table>

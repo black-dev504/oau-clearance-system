@@ -57,7 +57,7 @@
                 Save
             </flux:button>
         @else
-            <flux:button variant="primary" color="violet"  wire:click="editFaculty"  class="px-13 py-3 !bg-gradient-to-r from-violet-600 to-purple-700 text-white  rounded-[10px]">
+            <flux:button variant="primary" color="violet"  wire:click="updateFaculty"  class="px-13 py-3 !bg-gradient-to-r from-violet-600 to-purple-700 text-white  rounded-[10px]">
                 Update
             </flux:button>
         @endif

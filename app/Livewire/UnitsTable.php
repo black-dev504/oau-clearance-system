@@ -13,6 +13,7 @@ class UnitsTable extends Component
 
     public ?bool $editing = false;
     public ?string $search = null;
+    public ?int $deleteId = null;
     public ?string $name;
     public ?string $code;
     public ?string $type;
@@ -56,6 +57,30 @@ class UnitsTable extends Component
             ]);
         }
 
+    }
+
+    public function deleteUnit()
+    {
+        $unit = Unit::findOrFail($this->deleteId);
+        $unit->delete();
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Unit deleted successfully'
+        ]);
+
+        $this->js('$flux.modal("delete-unit").close()');
+    }
+
+    public function openEditMode($id)
+    {
+        $unit = Unit::findOrFail($id);
+        $this->editing = true;
+        $this->name = $unit->name;
+        $this->code = $unit->code;
+        $this->type = $unit->type;
+
+        $this->dispatch('modal-show', name: 'add-unit');
     }
 
     public function getUnitsProperty()

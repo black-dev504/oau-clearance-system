@@ -15,7 +15,7 @@ class HostelsTable extends Component
     public ?string $warden;
     public $gender;
     public ?string $search =null;
-
+    public ?int $deleteId = null;
     public ?bool $editing = false;
 
 
@@ -55,6 +55,19 @@ class HostelsTable extends Component
             'message' => 'Hostel added successfully'
         ]);
 
+    }
+
+    public function deleteHostel()
+    {
+        $hostel = Hostel::findOrFail($this->deleteId);
+        $hostel->delete();
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Hostel deleted successfully'
+        ]);
+
+        $this->js('$flux.modal("delete-hostel").close();');
     }
 
     public function getHostelsProperty()
