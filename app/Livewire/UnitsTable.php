@@ -12,6 +12,7 @@ class UnitsTable extends Component
 {
 
     public ?bool $editing = false;
+    public  $selectedUnit;
     public ?string $search = null;
     public ?int $deleteId = null;
     public ?string $name;
@@ -74,13 +75,45 @@ class UnitsTable extends Component
 
     public function openEditMode($id)
     {
-        $unit = Unit::findOrFail($id);
+        $this->selectedUnit = Unit::findOrFail($id);
         $this->editing = true;
-        $this->name = $unit->name;
-        $this->code = $unit->code;
-        $this->type = $unit->type;
+        $this->name = $this->selectedUnit->name;
+        $this->code = $this->selectedUnit->code;
+        $this->type = $this->selectedUnit->type;
 
         $this->dispatch('modal-show', name: 'add-unit');
+    }
+
+    public function updateUnit()
+    {
+        $unit = Unit::findOrFail($this->selectedUnit->id);
+
+        $validated = $this->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:4|unique:faculties,code,' . $unit->id,
+            'type' => 'required|string',
+        ]);
+
+        $unit->update($validated);
+
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Unit updated successfully'
+        ]);
+
+        $this->js('$flux.modal("add-unit").close()');
+
+        $this->editing = false;
+        $this->selectedUnit = null;
+    }
+
+    public function resetModal()
+    {
+        $this->selectedUnit = null;
+        $this->editing = false;
+        $this->name = null;
+        $this->code = null;
+        $this->type = null;
     }
 
     public function getUnitsProperty()
