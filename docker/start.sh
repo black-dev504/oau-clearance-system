@@ -7,13 +7,19 @@ PORT="${PORT:-8080}"
 # Inject the port into the nginx config
 sed -i "s/PORT_PLACEHOLDER/${PORT}/" /etc/nginx/sites-available/default
 
+# Run database migrations FIRST: something in your app queries the DB on
+# boot (the 'units' table in your earlier error), so the schema must exist
+# before package:discover or config:cache run
+php artisan migrate --force
+
+# Discover packages now that real env vars (DB connection etc.) exist
+# (this was skipped at build time via --no-scripts)
+php artisan package:discover --ansi
+
 # Cache Laravel config/routes/views for production
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-
-# Run database migrations
-php artisan migrate --force
 
 # Start php-fpm in the background
 php-fpm -D

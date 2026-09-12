@@ -1,5 +1,6 @@
 FROM php:8.4-fpm
 
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev libcurl4-openssl-dev zip unzip nginx \
@@ -14,8 +15,9 @@ WORKDIR /var/www
 # Copy application code
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --optimize-autoloader --no-dev --no-interaction
+# Install PHP dependencies (skip scripts: package:discover needs a real DB
+# connection/env, which only exists at runtime, not build time)
+RUN composer install --optimize-autoloader --no-dev --no-interaction --no-scripts
 
 # Copy nginx config
 COPY docker/nginx.conf /etc/nginx/sites-available/default
@@ -31,3 +33,4 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
 EXPOSE 8080
 
 CMD ["/usr/local/bin/start.sh"]
+
