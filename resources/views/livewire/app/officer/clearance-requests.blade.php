@@ -89,8 +89,8 @@
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-700 dark:text-zinc-100">{{$request->matric_no}}</td>
                             <td class="px-6 py-4">
-                                <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request->course}}</div>
-                                <div class="text-xs text-gray-500 dark:text-zinc-400">{{$request->department->name}}</div>
+                                <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request?->course}}</div>
+                                <div class="text-xs text-gray-500 dark:text-zinc-400">{{$request?->department?->name}}</div>
                             </td>
 
 

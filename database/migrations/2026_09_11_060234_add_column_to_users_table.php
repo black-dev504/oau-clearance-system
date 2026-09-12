@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('units', function (Blueprint $table) {
-//            $table->unsignedTinyInteger('order')->after('slug');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['unit_id']);
+
+            $table->foreign('unit_id')
+                ->references('id')
+                ->on('units')
+                ->cascadeOnDelete();
         });
     }
 
@@ -21,8 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('units', function (Blueprint $table) {
-            $table->dropColumn('order');
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 };

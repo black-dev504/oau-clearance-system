@@ -119,6 +119,8 @@
                                 <div>
                                     <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Course</div>
                                     <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request->course}} </div>
+                                    <div class="text-xs text-gray-500 dark:text-zinc-400">{{$request?->department?->name}}</div>
+
                                 </div>
                             </td>
 
@@ -198,6 +200,7 @@
     let statusChart;
 
     let unitCounts = {};
+
 
     // pendingRequests.forEach(item => {
     //     unitCounts[item.unit_type] = item.count;
