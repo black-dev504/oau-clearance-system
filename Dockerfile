@@ -1,10 +1,14 @@
 FROM php:8.4-fpm
 
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev libcurl4-openssl-dev zip unzip nginx \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd curl fileinfo
+
+# Send nginx logs to stdout/stderr so they show up in Railway's log viewer
+# (apt's nginx package writes to files by default, unlike the official nginx image)
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -33,4 +37,3 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
 EXPOSE 8080
 
 CMD ["/usr/local/bin/start.sh"]
-
