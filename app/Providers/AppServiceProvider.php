@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,10 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        if ($this->app->environment('production')) {
-            URL::forceScheme('https');
-        }
         UploadedFile::macro('storeOnCloudinary', function (string $folder = 'student_clearance_pics') {
             return Cloudinary::uploadApi()->upload(
                 $this->getRealPath(),

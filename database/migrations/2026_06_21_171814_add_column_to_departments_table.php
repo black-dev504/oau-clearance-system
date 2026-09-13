@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('departments', function (Blueprint $table) {
-            $table->foreignId('unit_id')
-                ->nullable()
-                ->constrained()
-                ->cascadeOnDelete();
-        });
+//        Schema::table('departments', function (Blueprint $table) {
+//            $table->foreignId('unit_id')
+//                ->constrained()
+//                ->cascadeOnDelete();
+//        });
     }
 
     /**
