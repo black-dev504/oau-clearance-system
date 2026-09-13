@@ -23,19 +23,21 @@ Route::get('login', Login::class)->name('login');
 Route::post('logout', Logout::class)->name('logout');
 
 
+try {
+    if (Schema::hasTable('units')) {
+        $units = Unit::pluck('slug')->toArray();
 
-if(Schema::hasTable('units')) {
-    $units = Unit::pluck('slug')->toArray();
-
-
-    foreach ($units as $unit) {
-        Route::prefix($unit)->name($unit . '.')->middleware(['auth', 'role:officer'])->group(function () {
-            Route::get('dashboard', OfficerDashboard::class)->name('dashboard');
-            Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
-            Route::get('announcements', Announcements::class)->name('announcements');
-            Route::get('emails', Emails::class)->name('emails');
-        });
+        foreach ($units as $unit) {
+            Route::prefix($unit)->name($unit . '.')->middleware(['auth', 'role:officer'])->group(function () {
+                Route::get('dashboard', OfficerDashboard::class)->name('dashboard');
+                Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
+                Route::get('announcements', Announcements::class)->name('announcements');
+                Route::get('emails', Emails::class)->name('emails');
+            });
+        }
     }
+} catch (\Illuminate\Database\QueryException $e) {
+    logger()->error($e);
 }
 
 Route::get('student/dashboard', Student::class)->name('student.dashboard')->middleware(['auth','role:student']);
