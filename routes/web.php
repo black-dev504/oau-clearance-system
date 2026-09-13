@@ -40,14 +40,10 @@ try {
     logger()->error($e);
 }
 
-Route::get('student/dashboard', Student::class)->name('student.dashboard')->middleware(['auth','role:student']);
-
-Route::domain(config('app.admin_prefix').config('app.domain'))->name('admin.')->middleware(['auth','role:admin'])->group(function () {
+Route::prefix(config('app.admin_prefix'))->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('unit-management', UnitManagement::class)->name('unit-management');
     Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
     Route::get('officers-management', OfficerManagement::class)->name('officers');
     Route::get('announcements', AdminAnnouncement::class)->name('announcements');
-
-
 });
