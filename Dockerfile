@@ -1,14 +1,21 @@
-FROM php:8.4-fpm
+# ---- Stage 1: build frontend assets with Vite ----
+FROM node:20-alpine AS assets
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ---- Stage 2: PHP application ----
+FROM php:8.3-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev libcurl4-openssl-dev zip unzip nginx \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd curl fileinfo
-
-# Send nginx logs to stdout/stderr so they show up in Railway's log viewer
-# (apt's nginx package writes to files by default, unlike the official nginx image)
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -22,6 +29,9 @@ COPY . .
 # Install PHP dependencies (skip scripts: package:discover needs a real DB
 # connection/env, which only exists at runtime, not build time)
 RUN composer install --optimize-autoloader --no-dev --no-interaction --no-scripts
+
+# Copy the built frontend assets (public/build/) from the assets stage
+COPY --from=assets /app/public/build /var/www/public/build
 
 # Copy nginx config
 COPY docker/nginx.conf /etc/nginx/sites-available/default
