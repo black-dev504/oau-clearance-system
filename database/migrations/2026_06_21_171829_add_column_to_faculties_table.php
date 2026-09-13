@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('faculties', function (Blueprint $table) {
             $table->foreignId('unit_id')
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
         });
