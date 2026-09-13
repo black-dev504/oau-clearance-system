@@ -20,21 +20,21 @@ class DatabaseSeeder extends Seeder
     {
 //         User::factory(10)->create();
 //
-//        User::factory()->create([
-//            'first_name' => 'Test ',
-//            'email' => 'admin@example.com',
-//            'password' => Hash::make('password'),
-//            'last_name' => 'admin',
-//            'role' => 'officer',
-//        ]);
-//
-//        User::factory()->create([
-//            'first_name' => 'Test ',
-//            'email' => 'student@gmail.com',
-//            'password' => Hash::make('password'),
-//            'last_name' => 'student',
-//            'role' => 'student',
-//        ]);
+        User::factory()->create([
+            'first_name' => 'Test ',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'last_name' => 'admin',
+            'role' => 'officer',
+        ]);
+
+        User::factory()->create([
+            'first_name' => 'Test ',
+            'email' => 'student@gmail.com',
+            'password' => Hash::make('password'),
+            'last_name' => 'student',
+            'role' => 'student',
+        ]);
 
         ClearanceRequest::factory()->create([
             'user_id' => 3
@@ -47,8 +47,8 @@ class DatabaseSeeder extends Seeder
 
 
 //
-//        $this->call(FacultySeeder::class);
-//        $this->call(DepartmentSeeder::class);
-//          $this->call(UnitSeeder::class);
+        $this->call(FacultySeeder::class);
+        $this->call(DepartmentSeeder::class);
+          $this->call(UnitSeeder::class);
     }
 }
