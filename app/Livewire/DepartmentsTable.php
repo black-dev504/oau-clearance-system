@@ -63,7 +63,8 @@ class DepartmentsTable extends Component
     public function deleteDepartment()
     {
         $department = Department::findOrFail($this->deleteId);
-        $department->delete();
+        $department->unit->delete();
+
         $this->dispatch('notification', [
             'type' => 'success',
             'message' => 'Department deleted successfully'

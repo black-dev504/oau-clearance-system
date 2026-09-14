@@ -44,6 +44,7 @@ class HostelsTable extends Component
                 'slug' => Str::slug($hostel->name),
                 'order' => config('units.types')['hostel']['order'],
                 'type' => 'hostel',
+                'gender' => $hostel->gender,
                 'code' => $hostel->code,
             ]);
 
@@ -62,7 +63,7 @@ class HostelsTable extends Component
     public function deleteHostel()
     {
         $hostel = Hostel::findOrFail($this->deleteId);
-        $hostel->delete();
+        $hostel->unit->delete();
 
         $this->dispatch('notification', [
             'type' => 'success',

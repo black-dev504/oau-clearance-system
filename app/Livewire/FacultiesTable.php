@@ -31,22 +31,21 @@ class FacultiesTable extends Component
             ]);
 
         DB::transaction(function () use ($validated) {
-            $faculty = Faculty::create(
-                [
-                    ...$validated,
-                    'status' => 'active'
-
-                ]);
 
             $unit = Unit::create([
-                'name' => $faculty->name,
-                'slug' => Str::slug($faculty->name),
+                'name' => $validated['name'],
+                'slug' => Str::slug($validated['name']),
                 'type' => 'faculty',
                 'order' => config('units.types')['faculty']['order'],
-                'code' => $faculty->code,
+                'code' => $validated['code'],
+                'status' => 'active'
         ]);
 
-            $faculty->update(['unit_id' => $unit->id]);
+           Faculty::create([
+                ...$validated,
+                'unit_id' => $unit->id
+            ]);
+
         });
 
         $this->js('$flux.modal("add-faculty").close()');
@@ -67,6 +66,7 @@ class FacultiesTable extends Component
         $this->name =$this->selectedFaculty->name;
         $this->code =$this->selectedFaculty->code;
         $this->dean =$this->selectedFaculty->dean;
+        $this->accent = $this->selectedFaculty->accent;
 
 
 
@@ -119,7 +119,7 @@ class FacultiesTable extends Component
     public function deleteFaculty()
     {
         $faculty = Faculty::findOrFail($this->deleteId);
-        $faculty->delete();
+        $faculty->unit->delete();
 
         $this->dispatch('notification', [
             'type' => 'success',

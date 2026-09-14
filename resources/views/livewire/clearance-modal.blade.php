@@ -1,14 +1,20 @@
 <div class="">
-    <div wire:loading.flex
+    <div
+        x-init="
+        Livewire.hook('request', ({ fail, succeed }) => {
+            succeed(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        });
+    "
+        wire:loading.flex
          wire:target="{{$this->reapplication ? 'update': 'submit'}}"
          x-cloak
-         class="absolute inset-0 bg-white/80 dark:bg-zinc-600/5 backdrop-blur-sm rounded-2xl h-full z-50 flex flex-col items-center justify-center gap-4">
+         class="fixed inset-0 bg-white/80 dark:bg-zinc-600/5 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center gap-4">
         <svg class="animate-spin h-10 w-10 text-[#4b3be4]" xmlns="http://www.w3.org/2000/svg" fill="none"
              viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
         </svg>
-        <p class="text-[#4b3be4] dark:text-white font-medium text-lg">Submitting your request...</p>
+        <p class="text-[#4b3be4] font-medium text-lg">Submitting your request...</p>
     </div>
 
     <flux:modal name="clearance-modal" wire:key="clearance-modal" class="w-full sm:max-w-3xl md:max-w-5xl rounded-2xl !p-0"
@@ -33,7 +39,7 @@
                     </div>
                 </div>
 
-                {{-- Progress steps: horizontally scrollable on mobile so 4 steps never get crushed --}}
+
                 <div class="flex items-center justify-start sm:justify-between gap-4 sm:gap-0 mt-4 sm:mt-6 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
                     <x-progress-step label="Personal Information" step="personalInfo" icon="👤" first=true />
                     <x-progress-step label="Contact & Hostel" step="contact" icon="🏠" />
@@ -99,6 +105,5 @@
         <x-modals.student-confirmation />
 
     </flux:modal>
-
 
 </div>

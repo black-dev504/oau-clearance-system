@@ -31,5 +31,5 @@
     <div class="w-fit rounded-full flex items-center justify-center py-2.5 px-4 {{ $iconBg }}">
         {{ $icon }}
     </div>
-    <span>{{ $label }}</span>
+    <span class="whitespace-nowrap">{{ $label }}</span>
 </div>
