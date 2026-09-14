@@ -1,13 +1,13 @@
 <flux:modal.trigger name="rejection-confirmation">
 
     <button
-        class="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+        class="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white justify-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
         Reject Application
     </button>
 </flux:modal.trigger>
 
 
-<flux:modal name="rejection-confirmation" wire:key="rejection-modal" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
+<flux:modal name="rejection-confirmation" wire:key="rejection-modal" class="w-full sm:max-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
     <div x-data="{ remarks: '' }">
 
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#E7000B] to-[#c10007]">
@@ -25,10 +25,10 @@
             </div>
         </div>
     </div>
-    <div class="bg-white p-6 gap-4 flex w-full">
+    <div class="bg-white dark:bg-zinc-800  p-6 gap-4 flex w-full">
         <div class="w-full flex flex-col gap-4">
 
-            <p class="text-base text-[#2D2D2D]">You are about to reject this application. Please provide a reason for the rejection that will be communicated to the student.</p>
+            <p class="text-base text-[#2D2D2D] dark:text-zinc-400">You are about to reject this application. Please provide a reason for the rejection that will be communicated to the student.</p>
 
                <flux:textarea
                 label="REASON FOR REJECTION *"
@@ -39,10 +39,10 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
+    <div class="grid grid-rows md:grid-cols-2 gap-4  border-t border-gray-200 dark:border-white/10 p-6">
         <button type="button"
                 @click="$flux.modal('rejection-confirmation').close()"
-                class="px-13 py-3 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
+                class="px-13 py-3 bg-white border border-gray-200 text-gray-700 dark:border-white/10 rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
         <button type="submit"

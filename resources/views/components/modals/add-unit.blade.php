@@ -5,7 +5,7 @@
 </flux:modal.trigger>
 
 
-<flux:modal name="add-unit" x-on:close="$wire.resetModal()" wire:key="add-unit" class="min-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
+<flux:modal name="add-unit" x-on:close="$wire.resetModal()" wire:key="add-unit" class="w-full sm:max-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
 
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-violet-600 to-purple-700">
         <div class="flex gap-3 items-center" >
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-white p-6 gap-4 flex w-full">
+    <div class="bg-white dark:bg-zinc-800 p-6 gap-4 flex w-full">
         <div class="w-full flex flex-col gap-4">
             <flux:input  wire:model="name" label="Unit Name *" placeholder="e.g Library" />
             <flux:input  wire:model="code" label="Unit Code *" placeholder="e.g LIB" />
@@ -30,9 +30,9 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
+    <div class="grid grid-cols-2 gap-4 dark:border-white/10 border-t border-gray-200 p-6">
         <button type="button"
-                class="px-13 py-2 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
+                class="px-13 py-2 bg-white dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-400 border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
 

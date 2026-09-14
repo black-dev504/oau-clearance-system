@@ -6,7 +6,7 @@
 </flux:modal.trigger>
 
 
-<flux:modal name="approval-confirmation">
+<flux:modal name="approval-confirmation" class=" sm:max-w-2xl rounded-2xl !p-0">
     <div class=" flex flex-col items-center p-6 ">
         <x-icons.caution />
         <h2 class="text-lg font-semibold mb-4 dark:text-zinc-100">Proceed?</h2>

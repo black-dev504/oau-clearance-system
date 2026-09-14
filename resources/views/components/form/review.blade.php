@@ -108,7 +108,7 @@
         <div class="bg-gray-50 dark:bg-zinc-600/20 dark:border dark:border-white/10 rounded-xl p-6">
             <h4 class="text-lg font-medium  dark:text-zinc-100 text-gray-900 mb-4">Uploaded Documents</h4>
             <div class="space-y-3">
-                <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-white dark:bg-zinc-800 rounded-lg">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -127,7 +127,7 @@
                     </svg>
 
                 </div>
-                <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-white dark:bg-zinc-800 rounded-lg">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -149,7 +149,7 @@
 
                 </div>
 
-                <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-white dark:bg-zinc-800 rounded-lg">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">

@@ -7,14 +7,14 @@
     </div>
 
     <table class=" w-full">
-        <thead class="bg-[#F3F4F6] text-[#6A7282] px-6 py-3 w-full">
+        <thead class="bg-[#F3F4F6] dark:text-zinc-400 border-b dark:border-white/10 dark:bg-zinc-700 text-[#6A7282] px-6 py-3 w-full">
         <tr>
             {{$header}}
         </tr>
         </thead>
 
 
-        <tbody class="divide-y divide-gray-200">
+        <tbody class="divide-y divide-gray-200 dark:divide-white/10">
             {{$slot}}
 
         </tbody>

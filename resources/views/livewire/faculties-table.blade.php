@@ -27,7 +27,7 @@
 
     @foreach($faculties as $faculty)
 
-        <tr class="hover:bg-gray-50 group">
+        <tr class="hover:bg-gray-50 dark:hover:bg-zinc-700 group">
             <td class="px-6 py-4">
                 <div class="flex gap-4 ">
 

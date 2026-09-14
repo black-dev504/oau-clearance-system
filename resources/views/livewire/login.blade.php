@@ -1,10 +1,10 @@
 <div class="">
-    <div class="grid grid-cols-2 ">
+    <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen md:min-h-0">
 
-        <div class="w-full flex flex-col p-25 items-center  justify-center space-y-6 bg-white dark:bg-zinc-800  shadow-md">
+        <div class="w-full flex flex-col p-6 sm:p-10 md:p-16 lg:p-25 items-center justify-center space-y-6 bg-white !dark:bg-zinc-800 shadow-md">
             <a href="#">
                 <img src="{{ asset('assets/images/oauLogo.svg') }}" alt="logo"
-                     class=" w-50 h-50 ">
+                     class="w-20 h-20 sm:w-32 sm:h-32 md:w-50 md:h-50">
             </a>
 
             <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
@@ -34,28 +34,25 @@
                         viewable
                     />
 
-
-
-{{--                    @if (Route::has('password.request'))--}}
-{{--                        <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>--}}
-{{--                            {{ __('Forgot your password?') }}--}}
-{{--                        </flux:link>--}}
-{{--                    @endif--}}
+                    {{--                    @if (Route::has('password.request'))--}}
+                    {{--                        <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>--}}
+                    {{--                            {{ __('Forgot your password?') }}--}}
+                    {{--                        </flux:link>--}}
+                    {{--                    @endif--}}
                 </div>
 
                 <!-- Remember Me -->
                 <flux:checkbox wire:model="remember" :label="__('Remember me')" />
 
-                <button type="submit" wire:model="login"  class="cursor-pointer w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 ">
+                <button type="submit" wire:model="login" class="cursor-pointer w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200">
                     Login
                 </button>
-
             </form>
         </div>
 
-        <div class="w-full h-screen flex items-center justify-center">
-                <img src="{{ asset('assets/images/student-login.png') }}" alt="Login Illustration"
-                class="object-cover overflow-hidden w-full h-full ">
+        <div class="hidden md:flex w-full h-screen md:h-full items-center justify-center">
+            <img src="{{ asset('assets/images/student-login.png') }}" alt="Login Illustration"
+                 class="object-cover overflow-hidden w-full h-full">
         </div>
     </div>
 </div>

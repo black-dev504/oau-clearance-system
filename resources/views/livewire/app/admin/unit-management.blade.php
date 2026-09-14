@@ -20,9 +20,9 @@
 
     <div wire:click="setTable('units')"
         @class([
-            ' cursor-pointer w-full flex justify-between text-left rounded-2xl border transition-all p-6',
-            'border-violet-200 bg-gradient-to-r from-violet-600 to-purple-700 shadow-lg shadow-violet-200' => $activeTable === 'units',
-            'border-gray-200 bg-white hover:bg-gray-50 ' => $activeTable !== 'units',
+            ' cursor-pointer w-full flex justify-between text-left rounded-2xl border dark:border-white/10 transition-all p-6',
+            'border-violet-200 dark:border-white/10 dark:shadow-none bg-gradient-to-r from-violet-600 to-purple-700 shadow-lg shadow-violet-200' => $activeTable === 'units',
+            'border-gray-200 bg-white dark:bg-zinc-800 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-zinc-700 ' => $activeTable !== 'units',
         ])>
         <div class="flex flex-col gap-2">
             <div class="flex gap-4">
@@ -45,7 +45,7 @@
                     </svg>
                 </x-icons.unit-icon>
 
-            @php $textColor = $activeTable === 'units' ? 'text-white' : 'text-black'; @endphp
+            @php $textColor = $activeTable === 'units' ? 'text-white' : 'text-black dark:text-zinc-400'; @endphp
 
 
                 <h1 class="font-black text-3xl {{ $textColor }}">{{ $unitCount }}</h1>

@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-white p-6 gap-4 flex w-full">
+    <div class="bg-white dark:bg-zinc-800 p-6 gap-4 flex w-full">
         <div class="w-full flex flex-col gap-4">
             <flux:input  wire:model="name" label="Faculty Name *" placeholder="e.g Faculty of Engineering" />
             <div class="flex gap-4 items-center">
@@ -46,9 +46,9 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
+    <div class="grid grid-cols-2 gap-4 border-t dark:border-white/10  border-gray-200 p-6">
         <button type="button"
-                class="px-13 py-2 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
+                class="px-13 py-2 bg-white dark:bg-zinc-800 dark:text-zinc-400 dark:border-white/10 border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
 

@@ -6,11 +6,11 @@
 ])
 @php
 
- $bgColor = $currentTab == strtolower($heading) ? 'bg-gradient-to-r from-[#7F22FE] to-[#8200DB] ' : 'bg-white ';
- $textColor = $currentTab === strtolower($heading) ? 'text-white' : '';
+ $bgColor = $currentTab == strtolower($heading) ? 'bg-gradient-to-r from-[#7F22FE] to-[#8200DB] ' : 'bg-white dark:bg-zinc-800 ';
+ $textColor = $currentTab === strtolower($heading) ? 'text-white' : 'dark:text-zinc-400 text-zinc-600';
 @endphp
 
-<div class="flex flex-col w-full p-5 {{$bgColor}} border-gray-200 border rounded-2xl ">
+<div class="flex flex-col w-full p-5 {{$bgColor}} border-gray-200 border dark:border-white/10 rounded-2xl ">
 
 
     <div class="flex gap-3 mb-1">
