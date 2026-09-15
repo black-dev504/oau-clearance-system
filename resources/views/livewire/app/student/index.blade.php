@@ -2,10 +2,26 @@
     use App\Enums\ClearanceStatus
 @endphp
 <div class="dark:bg-zinc-800">
-    <div class="flex flex-col py-8">
-        <h1 class=" text-4xl dark:text-zinc-100"> Student Dashboard</h1>
-        <p class="dark:text-zinc-400">Track your clearance progress and manage pending actions</p>
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 py-8">
+        <div class="flex flex-col">
+            <h1 class="text-2xl sm:text-4xl dark:text-zinc-100">Student Dashboard</h1>
+            <p class="text-sm sm:text-base dark:text-zinc-400">Track your clearance progress and manage pending actions</p>
+        </div>
+
+        @if($registered)
+            <button
+                @if($clearance_request->status !== ClearanceStatus::APPROVED) disabled @endif
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition
+                   w-full sm:w-auto
+                   {{ $clearance_request->status == ClearanceStatus::APPROVED
+                        ? 'bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 cursor-pointer'
+                        : 'bg-zinc-200 text-zinc-400 cursor-not-allowed dark:bg-zinc-800 dark:text-zinc-500' }}"
+            >
+                Print Certificate
+            </button>
+        @endif
     </div>
+
 
     @if(!$registered)
         <div class=" flex flex-col gap-6 max-w-3xl mx-auto">

@@ -28,6 +28,8 @@ class ClearanceObserver
     {
         $user = $clearance->clearanceRequest->user;
         $clearanceRequest = $clearance->clearanceRequest;
+        $studentUnits = app(ClearanceService::class)->getStudentUnits($clearanceRequest);
+
 
         if (!$clearance->isDirty('status')) {
             return;
@@ -37,7 +39,6 @@ class ClearanceObserver
 
             $currentUnit = $clearance->unit;
 
-            $studentUnits = app(ClearanceService::class)->getStudentUnits($clearanceRequest);
 
 
             $nextUnit = $studentUnits->where('order', '>', $currentUnit->order)->first();
@@ -56,10 +57,20 @@ class ClearanceObserver
 
             $allUnitsApproved = $clearanceRequest->clearances()
                     ->where('status', ClearanceStatus::APPROVED)
-                    ->count() === $clearanceRequest->required_units_count;
+                    ->count() === $studentUnits->count();
+
+            logger($clearanceRequest->clearances()
+                ->where('status', ClearanceStatus::APPROVED)
+                ->count());
+
+            logger($studentUnits->count());
+
 
             if ($allUnitsApproved) {
                 $clearanceRequest->update(['status' => ClearanceStatus::APPROVED]);
+            }
+            else{
+                $clearanceRequest->update(['status' => ClearanceStatus::PENDING]);
             }
 
     }
