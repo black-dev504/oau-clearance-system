@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificateController;
 use App\Livewire\Actions\Logout;
 use App\Livewire\AdminAnnouncement;
 use App\Livewire\AdminDashboard;
@@ -51,3 +52,7 @@ Route::prefix(config('app.admin_prefix'))->name('admin.')->middleware(['auth', '
     Route::get('officers-management', OfficerManagement::class)->name('officers');
     Route::get('announcements', AdminAnnouncement::class)->name('announcements');
 });
+
+Route::get('/clearance/{clearance_request}/certificate', [CertificateController::class, 'download'])
+    ->middleware('auth')
+    ->name('certificate.download');
