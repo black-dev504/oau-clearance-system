@@ -22,33 +22,33 @@ class DatabaseSeeder extends Seeder
 //
         User::factory()->create([
             'first_name' => 'Test ',
-            'email' => 'admin@example.com',
+            'email' => 'admin2@example.com',
             'password' => Hash::make('password'),
             'last_name' => 'admin',
-            'role' => 'officer',
+            'role' => 'admin',
         ]);
 
         User::factory()->create([
             'first_name' => 'Test ',
-            'email' => 'student@gmail.com',
+            'email' => 'student2@gmail.com',
             'password' => Hash::make('password'),
             'last_name' => 'student',
             'role' => 'student',
         ]);
 
-        ClearanceRequest::factory()->create([
-            'user_id' => 3
-
-        ]);
-
-        ClearanceRequest::factory()->create([
-            'user_id' => 4
-        ]);
-
-
+//        ClearanceRequest::factory()->create([
+//            'user_id' => 3
 //
-        $this->call(FacultySeeder::class);
-        $this->call(DepartmentSeeder::class);
-          $this->call(UnitSeeder::class);
+//        ]);
+//
+//        ClearanceRequest::factory()->create([
+//            'user_id' => 4
+//        ]);
+
+
+
+        $this->call(FacultyDepartmentSeeder::class);
+
+
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('unit_id')->after('role')
             ->nullable()
             ->constrained()
-            ->nullOnDelete();
+            ->cascadeOnDelete();
         });
     }
 
