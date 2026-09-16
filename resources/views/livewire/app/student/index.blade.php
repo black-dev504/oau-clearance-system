@@ -10,8 +10,8 @@
 
         @if($registered)
 
-            @if($clearance_request->status !== ClearanceStatus::APPROVED) aria-disabled="true" @endif
            <a href="{{ $clearance_request->status === ClearanceStatus::APPROVED ? route('certificate.download', $clearance_request) : '#' }}"
+            @if($clearance_request->status !== ClearanceStatus::APPROVED) disabled @endif
             @if($clearance_request->status !== ClearanceStatus::APPROVED)
                 onclick="return false;"
             @endif
@@ -265,10 +265,10 @@
                                     <div>
                                         <p class="text-sm text-gray-900 dark:text-zinc-100">Means of Identification</p>
                                         {{--TODO: IMAGE FORMAT AND PREVIEW --}}
-                                        <p class="text-xs text-gray-500 dark:text-zinc-400">2.4 MB • PDF</p>
+{{--                                        <p class="text-xs text-gray-500 dark:text-zinc-400">2.4 MB • PDF</p>--}}
                                     </div>
                                 </div>
-                                <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
+                                <button class="text-blue-600 hover:text-blue-700 text-sm"></button>
                             </div>
 
                             <div
@@ -284,10 +284,10 @@
                                     <div>
                                         <p class="text-sm text-gray-900 dark:text-zinc-100">Payment Receipt</p>
                                         {{--TODO: IMAGE FORMAT AND PREVIEW --}}
-                                        <p class="text-xs text-gray-500 dark:text-zinc-400">2.4 MB • PDF</p>
+{{--                                        <p class="text-xs text-gray-500 dark:text-zinc-400">2.4 MB • PDF</p>--}}
                                     </div>
                                 </div>
-                                <button class="text-blue-600 hover:text-blue-700 text-sm">View</button>
+                                <button class="text-blue-600 hover:text-blue-700 text-sm"></button>
                             </div>
 
 
@@ -305,14 +305,14 @@
                     </button>
                 </div>
             </div>
-            <div class="my-8 bg-white dark:bg-zinc-600/20">
-                <div class="flex items-center gap-2 mb-4">
-                    <h2 class="text-2xl text-gray-900 dark:text-zinc-100">Actions Required</h2>
-                    <span class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded-full text-sm">
-              2
-              </span>
-                </div>
-            </div>
+{{--            <div class="my-8 bg-white dark:bg-zinc-600/20">--}}
+{{--                <div class="flex items-center gap-2 mb-4">--}}
+{{--                    <h2 class="text-2xl text-gray-900 dark:text-zinc-100">Actions Required</h2>--}}
+{{--                    <span class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded-full text-sm">--}}
+{{--              2--}}
+{{--              </span>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
         </div>
     @endif
