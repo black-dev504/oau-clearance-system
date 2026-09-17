@@ -138,6 +138,8 @@ class DepartmentsTable extends Component
         $this->code = null;
         $this->hod = null;
         $this->faculty_id = null;
+
+        $this->js('$flux.modal("add-department").close()');
     }
 
     public function getDepartmentsProperty()

@@ -83,8 +83,9 @@ class OfficerManagement extends Component
     {
         $this->editing = false;
         $this->selectedOfficer = null;
-
         $this->reset(['first_name', 'last_name', 'email', 'unit_id', 'password']);
+        $this->js('$flux.modal("add-officer").close()');
+
     }
 
     public function generateDefaultPassword()

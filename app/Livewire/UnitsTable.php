@@ -130,6 +130,8 @@ class UnitsTable extends Component
         $this->name = null;
         $this->code = null;
         $this->type = null;
+
+        $this->js('$flux.modal("add-unit").close()');
     }
 
     public function getUnitsProperty()

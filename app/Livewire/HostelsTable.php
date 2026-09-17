@@ -129,6 +129,9 @@ class HostelsTable extends Component
         $this->code = null;
         $this->warden = null;
         $this->gender = null;
+
+        $this->js('$flux.modal("add-hostel").close();');
+
     }
 
     public function getHostelsProperty()

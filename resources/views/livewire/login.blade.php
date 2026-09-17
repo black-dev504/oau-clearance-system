@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- Remember Me -->
-                <flux:checkbox wire:model="remember" :label="__('Remember me')" />
+{{--                <flux:checkbox wire:model="remember" :label="__('Remember me')" />--}}
 
                 <button type="submit" wire:model="login" class="cursor-pointer w-full bg-linear-to-r text-center from-[#4B3BE4] to-[#A70088] text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200">
                     Login

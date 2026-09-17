@@ -72,7 +72,7 @@
                         <div class="flex-1">
                             <h4 class="text-lg text-gray-900 dark:text-zinc-100 mb-2">Fill Out Your Information</h4>
                             <p class="text-gray-600 dark:text-zinc-400">Complete your personal details and upload
-                                required documents like transcripts, ID cards, and forms.</p>
+                                required documents like receipts, ID cards, and forms.</p>
                         </div>
                     </div>
 
@@ -129,6 +129,7 @@
                         <ul class="text-gray-700 dark:text-zinc-400 space-y-1">
                             <li>• Valid Student ID Card</li>
                             <li>• Any outstanding fee receipts (if applicable)</li>
+                            <li>• DSA Clearance receipt</li>
                             <li>• Library Registration card</li>
                         </ul>
                     </div>

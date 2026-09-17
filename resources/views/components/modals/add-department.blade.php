@@ -38,7 +38,7 @@
     </div>
 
     <div class="grid grid-cols-2 gap-4 border-t dark:border-white/10 border-gray-200 p-6">
-        <button type="button"
+        <button type="button" wire:click="resetModal"
                 class="px-13 py-2 bg-white dark:text-zinc-400  dark:bg-zinc-800 border border-gray-200 text-gray-700 rounded-[10px] dark:border-white/10" data-tw-dismiss="modal">
             Cancel
         </button>

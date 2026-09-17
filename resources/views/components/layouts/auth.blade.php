@@ -15,7 +15,7 @@
 <main class="min-h-screen">
    {{ $slot }}
 </main>
-
+@fluxScripts
 @livewireScripts
 </body>
 </html>

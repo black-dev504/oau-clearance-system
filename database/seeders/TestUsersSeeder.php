@@ -20,7 +20,7 @@ class TestUsersSeeder extends Seeder
      * their student + 2 officer accounts.
      */
     protected array $adminNames = [
-        'toba', 'usman', 'faisal', 'tiddy', 'emmy',
+        'toba', 'usman', 'faisal', 'tiddy', 'emmy', 'marvel', 'muideen', 'bolu', 'ore', 'motun'
     ];
 
     public function run(): void

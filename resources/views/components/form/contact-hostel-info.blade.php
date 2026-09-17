@@ -14,7 +14,8 @@
                 <flux:input wire:model="form.address" label="Contact address*" placeholder="1st ave" />
             </div>
             <flux:input wire:model="form.email" label="Email Address" placeholder="johndoe@gmail.com" type="email" />
-            <flux:input wire:model="form.phone" label="Phone Number" type="number" placeholder="234 0000 0000" />
+            <flux:input wire:model="form.phone" label="Phone Number"  inputmode="numeric"
+                        pattern="[0-9\s]*" type="tel" placeholder="234 0000 0000" />
         </div>
 
         <flux:switch @click="schoolHostel = !schoolHostel" label="Did you stay in any of the school hostels" align="left" />

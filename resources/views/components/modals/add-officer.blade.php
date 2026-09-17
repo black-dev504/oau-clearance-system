@@ -19,7 +19,7 @@ $units = \App\Models\Unit::all();
                 </div>
             </div>
         </div>
-        <div class="bg-white p-6 gap-4 flex w-full">
+        <div class="bg-white dark:bg-zinc-800 p-6 gap-4 flex w-full">
             <div class="w-full flex flex-col gap-4">
                 <flux:input  wire:model="first_name" label="First Name *" placeholder="Enter first name" />
                 <flux:input  wire:model="last_name" label="Last Name *" placeholder="Enter Last name" />
@@ -39,9 +39,9 @@ $units = \App\Models\Unit::all();
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 border-t border-gray-200 p-6">
-            <button type="button"
-                    class="px-13 py-2 bg-white border border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
+        <div class="grid grid-cols-2 gap-4 border-t dark:border-white/10 border-gray-200 p-6">
+            <button type="button" wire:click="resetModal"
+                    class="px-13 py-2 bg-white dark:text-zinc-400 border dark:bg-zinc-800 dark:border-white/10 border-gray-200 text-gray-700 rounded-[10px]" data-tw-dismiss="modal">
                 Cancel
             </button>
 

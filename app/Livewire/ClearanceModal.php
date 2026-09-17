@@ -44,12 +44,12 @@ class ClearanceModal extends Component
     {
         if ($name === 'form.means_of_identification') {
 
-//          $this->validateOnly('form.means_of_identification',
-//                [
-//                    'form.means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-//
-//                ]
-//            );
+          $this->validateOnly('form.means_of_identification',
+                [
+                    'means_of_identification' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+
+                ]
+            );
 
             if ($value) {
                 $this->meansOfIdentificationPreview = $value->temporaryUrl();
@@ -57,9 +57,9 @@ class ClearanceModal extends Component
         }
 
         if ($name === 'form.clearance_receipt') {
-//            $this->validateOnly('form.clearance_receipt', [
-//                'form.clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-//            ]);
+            $this->validateOnly('form.clearance_receipt', [
+                'clearance_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
             if ($value) {
                 $this->clearanceReceiptPreview = $value->temporaryUrl();
@@ -69,9 +69,9 @@ class ClearanceModal extends Component
 
 
         if ($name === 'form.library_card') {
-//            $this->validateOnly('library_card', [
-//                'form.library_card' =>'required|image|mimes:jpeg,png,jpg|max:2048',
-//            ]);
+            $this->validateOnly('form.library_card', [
+                'library_card' =>'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
             if ($value) {
                 $this->libraryCardPreview = $value->temporaryUrl();
@@ -81,9 +81,9 @@ class ClearanceModal extends Component
         }
 
         if ($name === 'form.library_receipt') {
-//            $this->validateOnly('library_receipt', [
-//                'form.library_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-//            ]);
+            $this->validateOnly('form.library_receipt', [
+                'library_receipt' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
             if ($value) {
                 $this->libraryReceiptPreview = $value->temporaryUrl();

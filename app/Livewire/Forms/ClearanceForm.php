@@ -69,7 +69,8 @@ class ClearanceForm extends Form
                 'form.matric_no' => [
                     'required',
                     'string',
-                    'max:12',
+                    'max:15',
+                    'regex:/^[A-Za-z]{2,4}\/\d{4}\/\d{2,4}$/',
                     Rule::unique('clearance_requests', 'matric_no')
                         ->ignore($this->selectedClearanceRequestId),
                 ],

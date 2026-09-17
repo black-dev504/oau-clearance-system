@@ -34,8 +34,8 @@
                     <x-unit-details title="Academic Details">
                         <flux:input disabled :value="$this->selectedRequest?->matric_no" label="MATRIC NUMBER" />
                         <flux:input disabled :value="$this->selectedRequest?->course" label="COURSE OF STUDY" />
-                        <flux:input disabled :value="$this->selectedRequest?->department->name" label="DEPARTMENT" />
-                        <flux:input disabled :value="$this->selectedRequest?->department->faculty->name" label="FACULTY" />
+                        <flux:input disabled :value="$this->selectedRequest?->department?->name" label="DEPARTMENT" />
+                        <flux:input disabled :value="$this->selectedRequest?->department?->faculty?->name" label="FACULTY" />
                         <flux:input disabled :value="$this->selectedRequest?->graduation_year" label="YEAR OF GRADUATION" />
                     </x-unit-details>
 

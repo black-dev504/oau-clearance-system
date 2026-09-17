@@ -136,7 +136,10 @@ class FacultiesTable extends Component
         $this->name = null;
         $this->code = null;
         $this->dean  = null;
-        $this->accent = null
+        $this->accent = null;
+
+        $this->js('$flux.modal("add-faculty").close()');
+
     ;}
 
 
