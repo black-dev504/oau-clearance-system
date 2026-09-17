@@ -24,7 +24,7 @@ class FacultiesTable extends Component
     public function addFaculty()
     {
         $validated = $this->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:faculties,name|unique:units,name',
             'code' => 'required|string|max:4|unique:faculties,code',
             'dean' => 'required|string|unique:faculties,dean',
             'accent' => ['required', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],

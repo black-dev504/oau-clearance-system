@@ -9,12 +9,12 @@
         wire:target="{{$this->reapplication ? 'update': 'submit'}}"
         x-cloak
         class="fixed inset-0 bg-white/80 dark:bg-zinc-600/5 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center gap-4">
-        <svg class="animate-spin h-10 w-10 text-[#4b3be4]" xmlns="http://www.w3.org/2000/svg" fill="none"
+        <svg class="animate-spin h-10 w-10 dark:text-purple-400 text-[#4b3be4]" xmlns="http://www.w3.org/2000/svg" fill="none"
              viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
         </svg>
-        <p class="text-[#4b3be4] font-medium text-lg">Submitting your request...</p>
+        <p class="text-[#4b3be4] dark:text-purple-400 font-medium text-lg">Submitting your request...</p>
     </div>
 
     <flux:modal name="clearance-modal" wire:key="clearance-modal"

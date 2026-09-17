@@ -243,6 +243,11 @@ class ClearanceModal extends Component
                 'type' => 'success',
                 'message' => 'Successfully Submitted Clearance Request'
             ]);
+
+            $this->dispatch('notification', [
+                'type' => 'success',
+                'message' => 'You can track the progress of your clearance request Here.'
+            ]);
             $this->dispatch('dataUpdated');
 
 

@@ -76,38 +76,38 @@
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-white/10">
                         @if($requests->count() > 0)
                         @foreach($requests as $request)
-                        <div wire:key="request-{{ $request->id }}">
+                        <div wire:key="request-{{ $request?->id }}">
                         <tr class="hover:bg-gray-50 dark:hover:bg-zinc-700 dark:border-white/10 dark:bg-zinc-800">
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-1">
                                     <div
                                         class="bg-gradient-to-r from-[#2D2855] to-secondary  text-white font-bold rounded-full image-fit zoom-in mr-4 h-12 w-12 flex items-center justify-center">
-                                        <span>{{get_initials($request->name)}}</span>
+                                        <span>{{get_initials($request?->name)}}</span>
                                     </div>
-                                    <span class="text-sm text-gray-900 dark:text-zinc-100">{{$request->name}}</span>
+                                    <span class="text-sm text-gray-900 dark:text-zinc-100">{{$request?->name}}</span>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-700 dark:text-zinc-100">{{$request->matric_no}}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 dark:text-zinc-100">{{$request?->matric_no}}</td>
                             <td class="px-6 py-4">
-                                <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request->course}}</div>
-                                <div class="text-xs text-gray-500 dark:text-zinc-400">{{$request->department->name}}</div>
+                                <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request?->course}}</div>
+                                <div class="text-xs text-gray-500 dark:text-zinc-400">{{$request?->department?->name}}</div>
                             </td>
 
 
                             <td class="px-6 py-4">
                                 <div class="text-sm text-gray-700 dark:text-zinc-100">
-                                    {{$request->created_at->format('F j, Y') }}
+                                    {{$request?->created_at->format('F j, Y') }}
 
                                 </div>
                                 <div class="text-xs text-gray-500 dark:text-zinc-400" >
-                                    {{$request->created_at->format('g:i A')}}
+                                    {{$request?->created_at->format('g:i A')}}
                                 </div>
                             </td>
 {{--                        TODO: REVISIT THE REAPPLICATION AND REJECTION DATE --}}
                             @if($currentStatus == ClearanceStatus::REAPPLY)
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-[#C10007]">
-                                        {{$request->clearanceForUnit(user()->unit_id)->updated_at->format('F j, Y') }}
+                                        {{$request?->clearanceForUnit(user()->unit_id)->updated_at->format('F j, Y') }}
                                     </div>
                                     <div class="text-xs text-gray-500 dark:text-zinc-400">Latest Rejection</div>
 
@@ -121,24 +121,24 @@
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs capitalize">
                         @if(user()->hasRole('officer'))
 {{--                            show individual clearance status--}}
-                        <x-status-badge :status="$request->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)?->status->classes()" />
+                            <x-status-badge :status="$request?->clearanceForUnit(user()->unit_id)?->status->label()" :classes="$request?->clearanceForUnit(user()->unit_id)?->status->classes()" />
                         @else
 {{--                            show overall clearance status--}}
-                            <x-status-badge :status="$request->status->label()" :classes="$request->status->classes()" />
+                            <x-status-badge :status="$request?->status->label()" :classes="$request?->status->classes()" />
                         @endif
                     </span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
 
-                                    <button id="contact-{{$request->id}}" wire:click="openModal('student-contact', {{ $request->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4] dark:border-white/10">
+                                    <button id="contact-{{$request?->id}}" wire:click="openModal('student-contact', {{ $request?->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4] dark:border-white/10">
                                             <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                         </button>
 
 
-                                        <button id="view-{{$request->id}}"  wire:click="openModal('view-request', {{ $request->id }})" class="cursor-pointer items-center justify-center gap-2 inline-flex px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm rounded-lg hover:bg-purple-700">
+                                        <button id="view-{{$request?->id}}"  wire:click="openModal('view-request', {{ $request?->id }})" class="cursor-pointer items-center justify-center gap-2 inline-flex px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm rounded-lg hover:bg-purple-700">
                                             <svg
                                                 class="w-4 h-4 text-gray-600"
                                                 fill="none"
@@ -204,7 +204,7 @@
 
     <x-modals.student-contact />
     <x-modals.view-request />
-    <x-modals.rejection-confirmation  />
-    <x-modals.officer-confirmation />
+{{--    <x-modals.rejection-confirmation  />--}}
+{{--    <x-modals.officer-confirmation />--}}
 
 </div>

@@ -61,7 +61,7 @@
             </td>
 
             <td class="flex px-6 py-4 group">
-                <x-status-badge :status="$hostel->status" :classes="$hostel->status == 'active'? ['dot'=> 'bg-green-500',
+                <x-status-badge :status="$hostel->unit->status" :classes="$hostel->unit->status == 'active'? ['dot'=> 'bg-green-500',
                                                                                           'bg' => 'bg-green-100',
                                                                                            'text' => 'text-green-500'
                                                                                            ]:

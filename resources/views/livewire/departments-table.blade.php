@@ -85,7 +85,7 @@
             <td class="px-6 py-4 flex gap-1 justify-between  whitespace-nowrap">
                 <span>
                     <x-badge :value="strtoupper($department->faculty->code)" :color="$department->faculty->accent" />
-                    <a class="text-primary text-sm hidden group-hover:inline-flex"> View > </a>
+                    <a class="text-primary text-sm hidden group-hover:inline-flex"></a>
                 </span>
                 <div class="hidden group-hover:flex  items-center gap-3 shrink-0">
                     <div wire:click="openEditMode({{$department->id}})">

@@ -27,11 +27,13 @@ class DepartmentsTable extends Component
     public function addDepartment()
     {
         $validated = $this->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:departments,name|unique:units,name',
             'code' => 'required|string|max:4|unique:departments,code',
             'hod' => 'required|string|unique:faculties,dean',
             'faculty_id' => 'required|integer|exists:faculties,id'
         ]);
+
+
 
         DB::transaction(function () use ($validated) {
             $department = Department::create(
@@ -45,6 +47,7 @@ class DepartmentsTable extends Component
                 'slug' => Str::slug($department->name),
                 'order' => config('units.types')['department']['order'],
                 'type' => 'department',
+                'status' => 'active',
                 'code' => $department->code,
             ]);
 

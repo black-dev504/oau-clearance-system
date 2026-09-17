@@ -24,7 +24,7 @@ class HostelsTable extends Component
     public function addHostel()
     {
         $validated = $this->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:hostels,name|unique:units,name',
             'code' => 'required|string|max:4|unique:hostels,code',
             'gender' => 'required|string|in:male,female',
             'warden' => 'required|string|max:255'

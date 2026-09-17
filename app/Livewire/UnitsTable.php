@@ -60,6 +60,22 @@ class UnitsTable extends Component
 
     }
 
+    public function updateStatus($unitId, $actionType)
+    {
+        $unit = Unit::findorFail($unitId);
+
+        if ( $actionType == 'activate'){
+            $unit->update([
+                'status' => 'active',
+            ]);
+        }
+        elseif ( $actionType == 'suspend'){
+
+            $unit->update([
+                'status' => 'deactivated',
+            ]);        }
+    }
+
     public function deleteUnit()
     {
         $unit = Unit::findOrFail($this->deleteId);
