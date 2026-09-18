@@ -12,11 +12,11 @@
     <flux:sidebar.nav>
         <flux:sidebar.item class="mt-2 data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.dashboard')" icon="home" :href="route('admin.dashboard')">Dashboard</flux:sidebar.item>
         <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.unit-management')" :href="route('admin.unit-management')" icon="document-text" >Units Management</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.clearance-requests')" :href="route('admin.clearance-requests')"  icon="calendar" badge="12" > Requests</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.clearance-requests')" :href="route('admin.clearance-requests')"  icon="calendar" > Requests</flux:sidebar.item>
         <flux:sidebar.item class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.officers')"  icon="inbox" :href="route('admin.officers')">Officers</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.user-management')"  icon="inbox" :href="route('admin.user-management')">Users</flux:sidebar.item>
         <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.announcements')" :href="route('admin.announcements')" icon="document-text" >Announcements</flux:sidebar.item>
     </flux:sidebar.nav>
-
     <flux:sidebar.spacer />
 
     <flux:sidebar.nav>
@@ -26,7 +26,7 @@
         <flux:sidebar.profile avatar="https://fluxui.dev/img/demo/user.png" name="{{strtoupper( user()->full_name)}}" />
 
         <flux:menu>
-            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>
+{{--            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>--}}
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

@@ -1,12 +1,12 @@
 <div class="bg-background dark:text-zinc-400 dark:bg-zinc-800 rounded-xl overscroll-y-contain">
 {{--    <flux:heading size="xl" level="1">Good afternoon, {{$unit->name}} officer </flux:heading>--}}
 {{--    <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>--}}
-
     <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">
 
         <x-card title="Total Requests" :value="$total_requests"   class=" ">
             <x-icons.total />
         </x-card>
+
 
         <x-card title="Active Units" :value="$total_units" class=" ">
             <svg xmlns="http://www.w3.org/2000/svg"

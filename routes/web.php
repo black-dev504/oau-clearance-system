@@ -12,6 +12,7 @@ use App\Livewire\ClearanceRequests;
 use App\Livewire\OfficerManagement;
 use App\Livewire\Student;
 use App\Livewire\UnitManagement;
+use App\Livewire\UserManagement;
 use App\Models\Unit;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -50,6 +51,7 @@ Route::prefix(config('app.admin_prefix'))->name('admin.')->middleware(['auth', '
     Route::get('unit-management', UnitManagement::class)->name('unit-management');
     Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
     Route::get('officers-management', OfficerManagement::class)->name('officers');
+    Route::get('user-management', UserManagement::class)->name('user-management');
     Route::get('announcements', AdminAnnouncement::class)->name('announcements');
 });
 

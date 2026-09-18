@@ -44,6 +44,7 @@ class HostelsTable extends Component
                 'slug' => Str::slug($hostel->name),
                 'order' => config('units.types')['hostel']['order'],
                 'type' => 'hostel',
+                'status' => 'active',
                 'gender' => $hostel->gender,
                 'code' => $hostel->code,
             ]);
@@ -53,10 +54,13 @@ class HostelsTable extends Component
 
         $this->js('$flux.modal("add-hostel").close()');
 
+
         $this->dispatch('notification', [
             'type' => 'success',
-            'message' => 'Hostel added successfully'
+            'message' => 'Hostel added successfully',
+            'reload' => true,
         ]);
+
 
     }
 
@@ -119,6 +123,10 @@ class HostelsTable extends Component
         $this->editing = false;
         $this->selectedHostel = null;
         $this->js('$flux.modal("add-hostel").close();');
+        $this->dispatch('notification', [
+            'type' => 'success',
+            'message' => 'Hostel updated successfully'
+        ]);
     }
 
     public function resetModal()
