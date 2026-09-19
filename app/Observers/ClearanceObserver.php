@@ -16,9 +16,8 @@ class ClearanceObserver
 
     public function created(Clearance $clearance)
     {
-        //TODO: REMOVE: $clearance->clearanceRequest->user_id
         $clearance->activities()->create([
-            'user_id' => user()?->id ?? $clearance->clearanceRequest->user_id,
+            'user_id' => user()?->id ,
             'type' => ClearanceStatus::SUBMITTED,
             'title' => "{$clearance->unit->name} clearance requested submitted",
         ]);

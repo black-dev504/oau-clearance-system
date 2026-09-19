@@ -23,10 +23,12 @@ class OfficerDashboard extends Component
     public $remarks = '';
 
 
-    public function openModal($modal, $id = null)
+    public function openModal($modal, $requestId = null)
     {
         $this->activeModal = $modal;
-        $this->selectedRequest = ClearanceRequest::findorFail($id);
+        if ($requestId) {
+            $this->selectedRequest = ClearanceRequest::with('clearances.unit')->find($requestId);
+        }
         $this->dispatch('modal-show', name: $modal);
     }
 
@@ -87,10 +89,13 @@ class OfficerDashboard extends Component
             pending: $data['pending'],
             rejected: $data['rejected'],
             reapplied: $data['reapplied'],
+            locked: $data['locked'],
         );
 
         return $data;
     }
+
+
 
 
     public function mount()

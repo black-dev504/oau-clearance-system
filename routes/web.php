@@ -24,26 +24,6 @@ Route::get('/', function () {
 Route::get('login', Login::class)->name('login');
 Route::post('logout', Logout::class)->name('logout');
 
-
-
-try {
-    if (Schema::hasTable('units')) {
-        $units = Unit::pluck('slug')->toArray();
-
-        foreach ($units as $unit) {
-            Route::prefix($unit)->name($unit . '.')->middleware(['auth', 'role:officer'])->group(function () {
-                Route::get('dashboard', OfficerDashboard::class)->name('dashboard');
-                Route::get('clearance-requests', ClearanceRequests::class)->name('clearance-requests');
-                Route::get('announcements', Announcements::class)->name('announcements');
-                Route::get('emails', Emails::class)->name('emails');
-            });
-        }
-    }
-}
-
-    catch (\Illuminate\Database\QueryException $e) {
-            logger()->error($e);
-        }
 Route::get('student/dashboard', Student::class)->name('student.dashboard')->middleware(['auth','role:student']);
 
 Route::prefix(config('app.admin_prefix'))->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
@@ -58,3 +38,10 @@ Route::prefix(config('app.admin_prefix'))->name('admin.')->middleware(['auth', '
 Route::get('/clearance/{clearance_request}/certificate', [CertificateController::class, 'download'])
     ->middleware('auth')
     ->name('certificate.download');
+
+Route::prefix('{unit:slug}')->middleware(['auth', 'role:officer'])->group(function () {
+    Route::get('dashboard', OfficerDashboard::class)->name('unit.dashboard');
+    Route::get('clearance-requests', ClearanceRequests::class)->name('unit.clearance-requests');
+    Route::get('announcements', Announcements::class)->name('unit.announcements');
+    Route::get('emails', Emails::class)->name('unit.emails');
+});

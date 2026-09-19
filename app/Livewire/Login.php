@@ -70,7 +70,7 @@ class Login extends Component
 
         return $this->redirect($redirectRoute);
 
-      /**  TODO:: NAVIGATE **/
+        /**  TODO:: NAVIGATE **/
 //        $this->redirect($redirectRoute, navigate: true);
     }
 
@@ -80,7 +80,7 @@ class Login extends Component
         return match (true) {
             $user->hasRole('student') => route('student.dashboard'),
             $user->hasRole('admin')   => route('admin.dashboard'),
-            $user->hasRole('officer') => route($user->unit?->slug . '.dashboard'),
+            $user->hasRole('officer') => route('unit.dashboard', $user->unit),
             default => $this->rejectUnknownRole(),
         };
     }

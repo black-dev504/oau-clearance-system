@@ -1,6 +1,5 @@
-
 @php
-    $unitName = strtolower($this->unit->name);
+    use App\Enums\ClearanceStatus;$unitName = strtolower($this->unit->name);
     $unitSlug = strtolower($this->unit->slug);
 @endphp
 
@@ -11,27 +10,28 @@
 
         <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">
 
-            <x-card title="Total Requests" :value="$total"  class="!border-l-blue-400 ">
-                <x-icons.total />
+            <x-card title="Total Requests" :value="$total" class="!border-l-blue-400 ">
+                <x-icons.total/>
             </x-card>
 
             <x-card title="Approved Requests" :value="$approved" class="!border-l-green-500 ">
-                <x-icons.approved />
+                <x-icons.approved/>
             </x-card>
 
-            <x-card title="Pending Review" :value="$pending"  icon="pending" class="!border-l-yellow-500 ">
-                <x-icons.pending />
+            <x-card title="Pending Review" :value="$pending" icon="pending" class="!border-l-yellow-500 ">
+                <x-icons.pending/>
             </x-card>
 
-            <x-card title="Queried Requests" :value="$rejected"  icon="pending" class="!border-l-red-500">
-                <x-icons.rejected />
+            <x-card title="Queried Requests" :value="$rejected" icon="pending" class="!border-l-red-500">
+                <x-icons.rejected/>
             </x-card>
 
         </div>
 
         <div class="relative flex-1 overflow-hidden mt-8 ">
             <div class="w-full gap-6 grid xl:grid-cols-4 lg:grid-cols-5 grid-cols-1 ">
-                <div class="w-full dark:bg-zinc-800 xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
+                <div
+                    class="w-full dark:bg-zinc-800 xl:col-span-1 lg:col-span-2 col-span-1 border shadow-sm border-gray-200 bg-white  dark:border-white/10 rounded-xl p-4 flex flex-col justify-between">
                     <div class="w-full flex items-center justify-between text-xl dark:text-zinc-100 font-semibold">
                         <h3>Clearance Status</h3>
                         <span>{{$total}}</span>
@@ -45,123 +45,175 @@
                     </div>
                 </div>
 
-                <div class="w-full dark:bg-zinc-800 bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
+                <div
+                    class="w-full dark:bg-zinc-800 bg-white border border-gray-200 shadow-sm  dark:border-white/10 rounded-xl p-4 flex flex-col lg:col-span-3 col-span-1">
                     <div class="w-full flex justify-between items-center">
                         <h3 class="font-semibold text-xl dark:text-zinc-100">Recent Announcements</h3>
-                        <a href="{{route(strtolower($unitSlug).'.announcements')}}" class="text-primary">View all</a>
+                        <a href="{{ route('unit.announcements', user()->unit) }}" class="text-primary">View all</a>
                     </div>
 
                     @if($recentAnnouncements->count() > 0)
 
+                        <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
 
+                            @foreach($recentAnnouncements as $announcement)
 
-                    <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
+                                <x-action-card :announcement="$announcement"/>
 
-                        @foreach($recentAnnouncements as $announcement)
-
-                        <x-action-card :announcement="$announcement" />
-
-                        @endforeach
-                    </div>
+                            @endforeach
+                        </div>
                     @else
                         <div class="flex flex-col items-center justify-center ">
-                            <x-icons.table-empty-state />
+                            <x-icons.table-empty-state/>
                         </div>
-
 
                     @endif
                 </div>
             </div>
 
-            <div class="bg-white intro-y overflow-auto  dark:bg-zinc-800 dark:border-white/10 border border-gray-100 rounded-2xl mt-8 shadow-sm dark:shadow-none">
+            <div
+                class="bg-white intro-y overflow-auto  dark:bg-zinc-800 dark:border-white/10 border border-gray-100 rounded-2xl mt-8 shadow-sm dark:shadow-none">
                 <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
                     <div class="flex items-center justify-between">
                         <div>
                             <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900">Recent Requests</h2>
-                            <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">Manage and review student clearances</p>
+                            <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1">Manage and review student
+                                clearances</p>
                         </div>
 
                     </div>
                 </div>
 
                 <table class="w-full dark:border-white/10 dark:border">
-                <tbody class=" dark:bg-zinc-800 divide-y divide-gray-50 dark:divide-white/10">
+                    <tbody class=" dark:bg-zinc-800 divide-y divide-gray-50 dark:divide-white/10">
 
-                @if($recentRequests->count() > 0)
+                    @if($recentRequests->count() > 0)
 
-                    @foreach($recentRequests as $request)
-                        <tr wire:key="request-{{ $request->id }}" class="overflow-auto px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
+                        @foreach($recentRequests as $request)
+                            <tr wire:key="request-{{ $request->id }}"
+                                class="overflow-auto px-8 py-6 dark:hover:bg-zinc-700 hover:bg-gray-50/50 transition-colors">
 
-                            <td class=" w-auto px-6 py-4">
-                                <div class="flex gap-3">
-                                <div
-                                    class="bg-gradient-to-br from-primary to-secondary text-white font-bold rounded-full image-fit zoom-in mr-1 h-12 w-12 flex items-center justify-center">
-                                    <span>{{get_initials($request->name)}}</span>
-                                </div>
+                                <td class=" w-auto px-6 py-4">
+                                    <div class="flex gap-3">
+                                        <div
+                                            class="bg-gradient-to-br from-primary to-secondary text-white font-bold rounded-full image-fit zoom-in mr-1 h-12 w-12 flex items-center justify-center">
+                                            <span>{{get_initials($request->name)}}</span>
+                                        </div>
 
 
-                                <div>
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <div class="font-medium text-gray-900 dark:text-zinc-100">{{$request->name}}</div>
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <div
+                                                    class="font-medium text-gray-900 dark:text-zinc-100">{{$request->name}}</div>
+                                            </div>
+                                            <div
+                                                class="text-sm text-gray-500 dark:text-zinc-400">{{$request->matric_no}}</div>
+                                        </div>
                                     </div>
-                                    <div class="text-sm text-gray-500 dark:text-zinc-400">{{$request->matric_no}}</div>
-                                </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td class=" w-auto px-6 py-4">
-                                <div>
-                                    <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Course</div>
-                                    <div class="text-sm text-gray-900 dark:text-zinc-100">{{$request->course}} </div>
-                                </div>
-                            </td>
-
-                            <td class=" w-auto px-6 py-4">
-                                <div >
-                                    <div class="text-sm text-gray-500 mb-1 pl-3 dark:text-zinc-400">Status</div>
-                                    <div class="text-sm text-gray-900">
-                                        <x-status-badge :status="$request->clearanceForUnit(user()->unit_id)->status->label()" :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()" />
+                                <td class=" w-auto px-6 py-4">
+                                    <div>
+                                        <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Course</div>
+                                        <div
+                                            class="text-sm text-gray-900 dark:text-zinc-100">{{$request->course}} </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td class=" w-auto px-6 py-4">
+                                <td class=" w-auto px-6 py-4">
+                                    <div>
+                                        <div class="text-sm text-gray-500 mb-1 pl-3 dark:text-zinc-400">Status</div>
+                                        <div class="text-sm text-gray-900">
+                                            <x-status-badge
+                                                :status="$request->clearanceForUnit(user()->unit_id)->status->label()"
+                                                :classes="$request->clearanceForUnit(user()->unit_id)->status->classes()"/>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                <div>
-                                    <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Submitted</div>
-                                    <div class="text-sm text-gray-900 dark:text-zinc-100">{{ $request->created_at->diffForHumans()}}</div>
-                                </div>
-                            </td>
+                                <td class=" w-auto px-6 py-4">
 
-                            <td class=" w-auto px-6 py-4">
+                                    <div>
+                                        <div class="text-sm text-gray-500 mb-1 dark:text-zinc-400">Submitted</div>
+                                        <div
+                                            class="text-sm text-gray-900 dark:text-zinc-100">{{ $request->created_at->diffForHumans()}}</div>
+                                    </div>
+                                </td>
 
-                                 <div class="flex items-center gap-3 shrink-0">
-                                        <button type="button" wire:click="openModal('student-contact', {{ $request->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
-                                            <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </button>
+                                <td class=" w-auto px-6 py-4">
 
-                                        <button type="button"  wire:click="openModal('view-request', {{ $request->id }})" class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
-                                            Review
-                                        </button>
-                                </div>
-                            </td>
+                                    @if($request->clearanceForUnit(user()->unit_id)->status == ClearanceStatus::LOCKED)
 
-                        </tr>
-                    @endforeach
-                @else
+                                        <div class="flex items-center gap-3 shrink-0">
+                                            <button type="button"
+                                                    wire:click="openModal('student-contact', {{ $request->id }})"
+                                                    class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
+                                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z"
+                                                        stroke="#666666" stroke-width="1.33333" stroke-linecap="round"
+                                                        stroke-linejoin="round"/>
+                                                </svg>
+                                            </button>
 
-                    <div class="flex flex-col items-center justify-center py-12">
-                        <x-icons.table-empty-state />
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">No recent requests</h3>
-                        <p class="text-sm text-gray-500 dark:text-zinc-400 mt-1">You have not received any clearance requests recently.</p>
-                        <button class=" cursor-pointer px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4" >
-                            Refresh
-                        </button>
-                    </div>
-                @endif
-                </tbody>
+                                            <button type="button"
+                                                    wire:click="openModal('locked-progress', {{ $request->id }})"
+                                                            class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px]
+                                                           border-[#E0DCD4] dark:border-white/10
+                                                           bg-gray-100 text-gray-400 hover:bg-gray-200
+                                                           dark:bg-white/5 dark:hover:bg-white/10 transition-colors">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <rect x="4" y="10" width="16" height="11" rx="2"/>
+                                                    <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+                                                    <circle cx="12" cy="15.5" r="1"/>
+                                                    <path d="M12 16.5V18"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+
+                                    @else
+                                        <div class="flex items-center gap-3 shrink-0">
+                                            <button type="button"
+                                                    wire:click="openModal('student-contact', {{ $request->id }})"
+                                                    class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
+                                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z"
+                                                        stroke="#666666" stroke-width="1.33333" stroke-linecap="round"
+                                                        stroke-linejoin="round"/>
+                                                </svg>
+                                            </button>
+
+                                            <button type="button" wire:click="openModal('view-request', {{ $request->id }})"
+                                                    class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
+                                                Review
+                                            </button>
+                                        </div>
+
+                                    @endif
+
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @else
+
+                        <div class="flex flex-col items-center justify-center py-12">
+                            <x-icons.table-empty-state/>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">No recent requests</h3>
+                            <p class="text-sm text-gray-500 dark:text-zinc-400 mt-1">You have not received any clearance
+                                requests recently.</p>
+                            <button
+                                class=" cursor-pointer px-4 py-3 bg-[#7F22FE]  text-white rounded-lg hover:bg-purple-700 transition-colors mt-4">
+                                Refresh
+                            </button>
+                        </div>
+                    @endif
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -169,15 +221,17 @@
 
 
     <div class="px-8 py-5 border-t dark:bg-zinc-800 dark:border-white/10 border-gray-100 bg-gray-50/50">
-        <a href="{{route($unitSlug.'.clearance-requests')}}" class="text-sm text-violet-600 font-medium hover:text-violet-700">
+        <a href="{{route('unit.clearance-requests', user()->unit)}}"
+           class="text-sm text-violet-600 font-medium hover:text-violet-700">
             View all {{$total}} requests →
         </a>
     </div>
 
 
-    <x-modals.student-contact />
-    <x-modals.view-request />
-    <x-modals.view-announcement />
+    <x-modals.student-contact/>
+    <x-modals.view-request/>
+    <x-modals.view-announcement/>
+    <x-modals.locked-progress/>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -191,9 +245,8 @@
             rejected,
             reapplied
         } = event.detail;
-        updateChart(approved, pending, rejected, reapplied);
+        updateChart(approved, pending, rejected, reapplied, locked);
     })
-
 
 
     let statusChart;
@@ -201,19 +254,19 @@
     let pending = {{ $pending }};
     let rejected = {{ $rejected  }};
     let reapplied = {{ $reapplied }};
+    let locked = {{ $locked }};
 
-    createChart(approved, pending, rejected, reapplied);
+    createChart(approved, pending, rejected, reapplied, locked);
 
-    function createChart($approved, $pending, $rejected, $reapplied)
-    {
+    function createChart($approved, $pending, $rejected, $reapplied, $locked) {
         statusChart = new Chart(document.getElementById('status-chart'), {
             type: "doughnut",
             data: {
-                labels: ['Approved', 'Pending', 'Rejected', 'Reapplied'],
+                labels: ['Approved', 'Pending', 'Rejected', 'reapplied', 'Locked'],
                 datasets: [{
-                    data: [$approved, $pending, $rejected, $reapplied],
-                    backgroundColor: ['#039855', '#EEA23E', '#E33B32', '#A855F7'],
-                    hoverBackgroundColor: ['#039855', '#EEA23E', '#E33B32', '#C084FC'],
+                    data: [$approved, $pending, $rejected, $reapplied, $locked],
+                    backgroundColor: ['#039855', '#EEA23E', '#E33B32', '#A855F7', '#6B7280'],
+                    hoverBackgroundColor: ['#039855', '#EEA23E', '#E33B32', '#C084FC', '#F3F4F6'],
                     borderWidth: 0
                 }]
             },
@@ -243,12 +296,11 @@
         });
     }
 
-    function updateChart($approved, $pending, $rejected)
-    {
+    function updateChart($approved, $pending, $rejected, $reapplied, $locked) {
         if (statusChart) {
             statusChart.destroy();
         }
-        createChart($approved, $pending, $rejected);
+        createChart($approved, $pending, $rejected, $reapplied, $locked);
 
     }
 </script>

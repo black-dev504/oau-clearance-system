@@ -4,18 +4,18 @@
 
 <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
     <flux:sidebar.header>
-       <div class="w-full items-center flex justify-center">
-        <img src="{{asset('assets/images/oauLogo.svg')}}"/>
-       </div>
+        <div class="w-full items-center flex justify-center">
+            <img src="{{asset('assets/images/oauLogo.svg')}}"/>
+        </div>
         <flux:sidebar.collapse class="lg:hidden" />
     </flux:sidebar.header>
 
 
     <flux:sidebar.nav>
-        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.dashboard')" icon="home" :href="route($unit . '.dashboard')">Dashboard</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.clearance-requests')"  icon="calendar"  :href="route($unit .'.clearance-requests')">Clearance Requests</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.announcements')" icon="document-text" :href="route($unit .'.announcements')">Announcements</flux:sidebar.item>
-        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.emails')"  icon="inbox" :href="route($unit .'.emails')">Emails</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('unit.dashboard')" icon="home" :href="route('unit.dashboard', $unit)">Dashboard</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('unit.clearance-requests')"  icon="calendar"  :href="route('unit.clearance-requests', $unit)">Clearance Requests</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('unit.announcements')" icon="document-text" :href="route('unit.announcements', $unit)">Announcements</flux:sidebar.item>
+        <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs('unit.emails')"  icon="inbox" :href="route('unit.emails', $unit)">Emails</flux:sidebar.item>
     </flux:sidebar.nav>
 
     <flux:sidebar.spacer />
@@ -27,7 +27,7 @@
         <flux:sidebar.profile avatar="https://fluxui.dev/img/demo/user.png" name="{{strtoupper( user()->full_name)}}" />
 
         <flux:menu>
-{{--            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>--}}
+            {{--            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>--}}
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -72,5 +72,3 @@
 
 
 </div>
-
-

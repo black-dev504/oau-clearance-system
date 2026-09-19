@@ -17,6 +17,7 @@
                                 ['status' => 'Reapply',  'label' => 'Reapplications'],
                                 ['status' => 'Approved', 'label' => 'Approved'],
                                 ['status' => 'Rejected', 'label' => 'Rejected'],
+                                ['status' => 'Locked', 'label' => 'Locked']
                             ];
                         @endphp
 
@@ -129,39 +130,59 @@
                     </span>
                             </td>
                             <td class="px-6 py-4">
-                                <div class="flex items-center gap-2">
+                                @if($request->clearanceForUnit(user()->unit_id)->status == ClearanceStatus::LOCKED)
 
-                                    <button id="contact-{{$request?->id}}" wire:click="openModal('student-contact', {{ $request?->id }})" class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 border-[#E0DCD4] dark:border-white/10">
-                                            <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z" stroke="#666666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <div class="flex items-center gap-3 shrink-0">
+                                        <button type="button"
+                                                wire:click="openModal('student-contact', {{ $request->id }})"
+                                                class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
+                                            <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z"
+                                                    stroke="#666666" stroke-width="1.33333" stroke-linecap="round"
+                                                    stroke-linejoin="round"/>
                                             </svg>
                                         </button>
 
-
-                                        <button id="view-{{$request?->id}}"  wire:click="openModal('view-request', {{ $request?->id }})" class="cursor-pointer items-center justify-center gap-2 inline-flex px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm rounded-lg hover:bg-purple-700">
-                                            <svg
-                                                class="w-4 h-4 text-gray-600"
-                                                fill="none"
-                                                stroke="white"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                                />
+                                        <button type="button"
+                                                wire:click="openModal('locked-progress', {{ $request->id }})"
+                                                class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px]
+                                                           border-[#E0DCD4] dark:border-white/10
+                                                           bg-gray-100 text-gray-400 hover:bg-gray-200
+                                                           dark:bg-white/5 dark:hover:bg-white/10 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="4" y="10" width="16" height="11" rx="2"/>
+                                                <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+                                                <circle cx="12" cy="15.5" r="1"/>
+                                                <path d="M12 16.5V18"/>
                                             </svg>
+                                        </button>
+                                    </div>
+
+
+                                @else
+                                    <div class="flex items-center gap-3 shrink-0">
+                                        <button type="button"
+                                                wire:click="openModal('student-contact', {{ $request->id }})"
+                                                class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
+                                            <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M0.666748 2.66675L5.92675 6.17342C6.14586 6.3196 6.40335 6.39761 6.66675 6.39761C6.93015 6.39761 7.18764 6.3196 7.40675 6.17342L12.6667 2.66675M2.00008 10.0001H11.3334C11.687 10.0001 12.0262 9.85961 12.2762 9.60956C12.5263 9.35951 12.6667 9.02037 12.6667 8.66675V2.00008C12.6667 1.64646 12.5263 1.30732 12.2762 1.05727C12.0262 0.807224 11.687 0.666748 11.3334 0.666748H2.00008C1.64646 0.666748 1.30732 0.807224 1.05727 1.05727C0.807224 1.30732 0.666748 1.64646 0.666748 2.00008V8.66675C0.666748 9.02037 0.807224 9.35951 1.05727 9.60956C1.30732 9.85961 1.64646 10.0001 2.00008 10.0001Z"
+                                                    stroke="#666666" stroke-width="1.33333" stroke-linecap="round"
+                                                    stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <button type="button" wire:click="openModal('view-request', {{ $request->id }})"
+                                                class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
                                             Review
                                         </button>
-                                </div>
-                            </td>
+                                    </div>
+
+                                @endif                            </td>
                         </tr>
                         </div>
                         @endforeach
@@ -204,6 +225,7 @@
 
     <x-modals.student-contact />
     <x-modals.view-request />
+    <x-modals.locked-progress />
 {{--    <x-modals.rejection-confirmation  />--}}
 {{--    <x-modals.officer-confirmation />--}}
 

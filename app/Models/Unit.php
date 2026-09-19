@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     protected $guarded = ['id'];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
     public function users()
     {
         return $this->hasMany(User::class);
@@ -27,7 +32,9 @@ class Unit extends Model
 
     public function openClearanceRequests()
     {
-        return $this->clearanceRequests()->where('clearances.status', '!=', ClearanceStatus::LOCKED);
+//        return $this->clearanceRequests()->where('clearances.status', '!=', ClearanceStatus::LOCKED);
+        return $this->clearanceRequests();
+
     }
 
     public function clearances()

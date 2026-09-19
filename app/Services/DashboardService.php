@@ -110,15 +110,15 @@ class DashboardService
         }
 
         return [
-            'total' => $unit->clearances()->count(),
+                'total' => $unit->clearances()->count(),
 
                 'pending' => $unit->clearances()->pending()->count(),
                 'approved' => $unit->clearances()->approved()->count(),
                 'rejected' => $unit->clearances()->rejected()->count(),
                 'reapplied' => $unit->clearances()->reapply()->count(),
+                'locked' => $unit->clearances()->where('status', ClearanceStatus::LOCKED)->count(),
                 'recentAnnouncements' => $unit->announcements()->latest()->take(5)->get(),
                 'recentRequests' => user()->unit->openClearanceRequests()->latest()->take(5)->get(),
-
         ];
     }
 

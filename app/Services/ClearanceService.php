@@ -16,7 +16,6 @@ class ClearanceService
         if ($user->hasRole('officer')) {
             $query->whereHas('clearances', function ($q) use ($user, $status) {
                 $q->where('unit_id', $user->unit_id)
-                    ->where('status', '!=', ClearanceStatus::LOCKED)
                     ->when($status, fn ($q) => $q->where('status', $status)
                     );
 
