@@ -48,18 +48,22 @@ class Login extends Component
 
         if ($user->status != 'active') {
             Auth::logout();
-
             abort(403, "Your account is {$user->status}. Please contact Support.");
-
         }
-
 
         if (!$user->hasRole('officer') && $user->unit_id) {
             Auth::logout();
-
             throw ValidationException::withMessages([
                 'email' => 'Only officers should be assigned to units.',
             ]);
+
+        }
+
+        if ($user->hasRole('officer') && $user->unit && $user->unit->status !== 'active') {
+            Auth::logout();
+
+            abort(403, "This unit is currently {$user->unit->status}. Please contact Support.");
+
         }
 
         $redirectRoute = $this->resolveDashboardRoute($user);
@@ -77,10 +81,16 @@ class Login extends Component
             $user->hasRole('student') => route('student.dashboard'),
             $user->hasRole('admin')   => route('admin.dashboard'),
             $user->hasRole('officer') => route($user->unit?->slug . '.dashboard'),
-            default            => abort(403),
+            default => $this->rejectUnknownRole(),
         };
     }
 
+    protected function rejectUnknownRole(): never
+    {
+        Auth::logout();
+
+        abort(403);
+    }
 
     /**
      * Ensure the login request is not rate limited.
@@ -93,7 +103,7 @@ class Login extends Component
             return;
         }
 
-        event(new Lockout($this));
+        event(new Lockout(request()));
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 

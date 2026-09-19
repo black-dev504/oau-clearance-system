@@ -59,11 +59,6 @@ class ClearanceObserver
                     ->where('status', ClearanceStatus::APPROVED)
                     ->count() === $studentUnits->count();
 
-            logger($clearanceRequest->clearances()
-                ->where('status', ClearanceStatus::APPROVED)
-                ->count());
-
-            logger($studentUnits->count());
 
 
             if ($allUnitsApproved) {

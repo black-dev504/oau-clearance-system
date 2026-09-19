@@ -13,7 +13,7 @@
 
     <flux:sidebar.nav>
         <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.dashboard')" icon="home" :href="route($unit . '.dashboard')">Dashboard</flux:sidebar.item>
-        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.clearance-requests')"  icon="calendar" badge="12" :href="route($unit .'.clearance-requests')">Clearance Requests</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.clearance-requests')"  icon="calendar"  :href="route($unit .'.clearance-requests')">Clearance Requests</flux:sidebar.item>
         <flux:sidebar.item  class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.announcements')" icon="document-text" :href="route($unit .'.announcements')">Announcements</flux:sidebar.item>
         <flux:sidebar.item class="mt-2 data-current:!bg-linear-to-r from-primary to-secondary data-current:!border-transparent data-current:text-white" :current="request()->routeIs($unit . '.emails')"  icon="inbox" :href="route($unit .'.emails')">Emails</flux:sidebar.item>
     </flux:sidebar.nav>
@@ -27,7 +27,7 @@
         <flux:sidebar.profile avatar="https://fluxui.dev/img/demo/user.png" name="{{strtoupper( user()->full_name)}}" />
 
         <flux:menu>
-            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>
+{{--            <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>--}}
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -55,7 +55,6 @@
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
-                    <flux:menu.item icon="cog-6-tooth" href="#">Settings</flux:menu.item>
 
                     <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
                 </flux:menu>
