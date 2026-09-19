@@ -14,7 +14,7 @@ class UserManagement extends Component
     use WithPagination;
 
     // Adjust this list to match the roles your app actually uses
-    public array $roles = ['student', 'admin', 'officer'];
+    public array $roles = ['student', 'admin'];
 
     // Badge color per role, keyed the same as $roles — used by x-badge in the view
     public array $roleColors = [
