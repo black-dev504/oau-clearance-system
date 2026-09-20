@@ -25,47 +25,39 @@ class ClearanceObserver
 
     public function updated(Clearance $clearance)
     {
-        $user = $clearance->clearanceRequest->user;
-        $clearanceRequest = $clearance->clearanceRequest;
-        $studentUnits = app(ClearanceService::class)->getStudentUnits($clearanceRequest);
-
-
         if (!$clearance->isDirty('status')) {
             return;
         }
 
-        if ($clearance->status === ClearanceStatus::APPROVED) {
+        $clearanceRequest = $clearance->clearanceRequest;
+        $user = $clearanceRequest->user;
 
+
+        $studentClearances = $clearanceRequest->clearances()->with('unit')->get()
+            ->sortBy(fn ($c) => $c->unit->order);
+
+        if ($clearance->status === ClearanceStatus::APPROVED) {
             $currentUnit = $clearance->unit;
 
+            $nextClearance = $studentClearances
+                ->first(fn ($c) => $c->unit->order > $currentUnit->order);
 
-
-            $nextUnit = $studentUnits->where('order', '>', $currentUnit->order)->first();
-
-            if ($nextUnit) {
-                Clearance::where('clearance_request_id', $clearance->clearance_request_id)
-                    ->where('unit_id', $nextUnit->id)
-                    ->update(['status' => ClearanceStatus::PENDING]);
+            if ($nextClearance) {
+                $nextClearance->update(['status' => ClearanceStatus::PENDING]);
             }
         }
-            $clearance->activities()->create([
-                'user_id' => $user->id,
-                'type' => $clearance->status,
-                'title' => "{$clearance->unit->name} clearance status changed to  {$clearance->status->label()}",
-            ]);
 
-            $allUnitsApproved = $clearanceRequest->clearances()
-                    ->where('status', ClearanceStatus::APPROVED)
-                    ->count() === $studentUnits->count();
+        $clearance->activities()->create([
+            'user_id' => $user->id,
+            'type' => $clearance->status,
+            'title' => "{$clearance->unit->name} clearance status changed to {$clearance->status->label()}",
+        ]);
 
+        $allUnitsApproved = $studentClearances->every(
+            fn ($c) => $c->id === $clearance->id ? $clearance->status === ClearanceStatus::APPROVED : $c->status === ClearanceStatus::APPROVED
+        );
 
-
-            if ($allUnitsApproved) {
-                $clearanceRequest->update(['status' => ClearanceStatus::APPROVED]);
-            }
-            else{
-                $clearanceRequest->update(['status' => ClearanceStatus::PENDING]);
-            }
-
-    }
-}
+        $clearanceRequest->update([
+            'status' => $allUnitsApproved ? ClearanceStatus::APPROVED : ClearanceStatus::PENDING,
+        ]);
+    }}

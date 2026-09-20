@@ -130,7 +130,7 @@
                     </span>
                             </td>
                             <td class="px-6 py-4">
-                                @if($request->clearanceForUnit(user()->unit_id)->status == ClearanceStatus::LOCKED)
+                                @if($request->clearanceForUnit(user()->unit_id)?->status == ClearanceStatus::LOCKED)
 
                                     <div class="flex items-center gap-3 shrink-0">
                                         <button type="button"
