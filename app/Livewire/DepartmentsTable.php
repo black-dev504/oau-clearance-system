@@ -22,6 +22,7 @@ class DepartmentsTable extends Component
     public $selectedDepartment;
     public ?string $search = null;
     public ?int $deleteId = null;
+    public  $filter=null;
 
 
     public function addDepartment()
@@ -150,6 +151,10 @@ class DepartmentsTable extends Component
             $query->where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('code', 'like', '%' . $this->search . '%')
                 ->orWhere('hod', 'like', '%' . $this->search . '%');
+        }
+
+        if($this->filter){
+            $query->where('faculty_id', $this->filter);
         }
 
         return $query;

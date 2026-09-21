@@ -16,6 +16,7 @@ class ClearanceRequests extends Component
 
     public $selectedRequest;
     public $search;
+    public $remarks;
     public $activeModal;
     public $sortValue = 'Newest';
     public $currentStatus = null;
@@ -50,9 +51,10 @@ class ClearanceRequests extends Component
     }
 
 
-    public function rejectRequest(ClearanceService $service, $remark)
+    public function rejectRequest(ClearanceService $service)
     {
-        $service->rejectClearance($this->selectedRequest, auth()->user(), $remark);
+        $this->validate(['remarks' => 'required|string|max:255'], ['remarks.required' => 'Remark is required']);
+        $service->rejectClearance($this->selectedRequest, auth()->user(), $this->remarks);
 
         $this->dispatch('notification', [
             'type' => 'success',
@@ -60,6 +62,7 @@ class ClearanceRequests extends Component
         ]);
 
         $this->closeModal(['rejection-confirmation', 'view-request']);
+        $this->remarks=null;
     }
 
     public function openReapplications()

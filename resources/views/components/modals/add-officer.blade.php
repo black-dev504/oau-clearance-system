@@ -46,12 +46,24 @@ $units = \App\Models\Unit::all();
             </button>
 
             @if(!$this->editing)
-                <flux:button variant="primary" color="violet"  wire:click="registerNewOfficer"  class="px-13 py-3 !bg-primary text-white  rounded-[10px]">
-                    Save
+                <flux:button variant="primary" color="violet"
+                             wire:click="registerNewOfficer"
+                             wire:loading.attr="disabled"
+                             wire:target="registerNewOfficer"
+                             class="px-13 py-3 !bg-primary text-white  rounded-[10px]">
+
+                    <span wire:loading.remove wire:target="registerNewOfficer">Add Officer</span>
+                    <span wire:loading wire:target="registerNewOfficer">Adding...</span>
                 </flux:button>
             @else
-                <flux:button variant="primary" color="violet"  wire:click="editOfficer"  class="px-13 py-3 !bg-primary text-white  rounded-[10px]">
-                    Update
+                <flux:button variant="primary" color="violet"
+                                 wire:click="editOfficer"
+                                 wire:loading.attr="disabled"
+                                 wire:target="editOfficer"
+                             class="px-13 py-3 !bg-primary text-white  rounded-[10px]">
+
+                    <span wire:loading.remove wire:target="editOfficer">Update Officer</span>
+                    <span wire:loading wire:target="editOfficer">Updating...</span>
                 </flux:button>
             @endif
 

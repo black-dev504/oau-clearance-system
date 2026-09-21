@@ -7,7 +7,7 @@
 </flux:modal.trigger>
 
 
-<flux:modal name="rejection-confirmation" wire:key="rejection-modal" class="w-full sm:max-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
+<flux:modal name="rejection-confirmation"  wire:key="rejection-modal" class="w-full sm:max-w-2xl rounded-2xl !p-0" xmlns:flux="http://www.w3.org/1999/html">
     <div x-data="{ remarks: '' }">
 
     <div class="w-full  rounded-t-2xl p-6 flex bg-gradient-to-r from-[#E7000B] to-[#c10007]">
@@ -33,7 +33,9 @@
                <flux:textarea
                 label="REASON FOR REJECTION *"
                 placeholder="e.g., Missing required documents, Incomplete library clearance, Invalid payment receipt..."
-                x-model="remarks"
+{{--                x-model="remarks"--}}
+                wire:model="remarks"
+                required
                />
 
         </div>
@@ -42,14 +44,25 @@
     <div class="grid grid-rows md:grid-cols-2 gap-4  border-t border-gray-200 dark:border-white/10 p-6">
         <button type="button"
                 @click="$flux.modal('rejection-confirmation').close()"
-                class="px-13 py-3 bg-white border border-gray-200 text-gray-700 dark:border-white/10 rounded-[10px]" data-tw-dismiss="modal">
+                class="px-13 py-3 bg-white dark:border-white/10 dark:text-zinc-400 dark:bg-zinc-800 border border-gray-200 text-gray-700  rounded-[10px]" data-tw-dismiss="modal">
             Cancel
         </button>
         <button type="submit"
-                wire:click="rejectRequest(remarks)"
-                class="px-13 py-3 bg-red-500 text-white  rounded-[10px]">
-            Confirm Rejection
+                wire:click="rejectRequest"
+                wire:loading.attr="disabled"
+                wire:target="rejectRequest"
+                class="px-13 py-3 bg-red-500 text-white rounded-[10px] flex items-center justify-center gap-2
+               disabled:opacity-70 disabled:cursor-not-allowed transition-opacity">
+            <svg wire:loading wire:target="rejectRequest"
+                 class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+
+            <span wire:loading.remove wire:target="rejectRequest">Confirm Rejection</span>
+            <span wire:loading wire:target="rejectRequest">Rejecting...</span>
         </button>
+
     </div>
     </div>
 </flux:modal>

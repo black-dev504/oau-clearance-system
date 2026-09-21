@@ -3,7 +3,8 @@
     'unitName' => '',
     'processed_requests' => 420,
     'approval_rate' => 85,
-    'type' => 'library'
+    'type' => 'library',
+    'total_requests' => ''
 
     ])
 
@@ -38,7 +39,7 @@
         <div class="flex flex-col">
             <span class="text-base text-gray-900 dark:text-zinc-100">{{$unitName}}</span>
             <span
-                class="text-sm font-semibold text-gray-500 dark:text-zinc-400">{{$processed_requests}} Processed</span>
+                class="text-sm font-semibold text-gray-500 dark:text-zinc-400">{{$processed_requests}}/{{$total_requests}} Processed</span>
         </div>
     </div>
 

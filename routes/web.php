@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CertificateController;
 use App\Livewire\Actions\Logout;
+use App\Livewire\ActivityLogs;
 use App\Livewire\AdminAnnouncement;
 use App\Livewire\AdminDashboard;
 use App\Livewire\Announcements;
@@ -33,6 +34,7 @@ Route::prefix(config('app.admin_prefix'))->name('admin.')->middleware(['auth', '
     Route::get('officers-management', OfficerManagement::class)->name('officers');
     Route::get('user-management', UserManagement::class)->name('user-management');
     Route::get('announcements', AdminAnnouncement::class)->name('announcements');
+    Route::get('logs', ActivityLogs::class)->name('logs');
 });
 
 Route::get('/clearance/{clearance_request}/certificate', [CertificateController::class, 'download'])

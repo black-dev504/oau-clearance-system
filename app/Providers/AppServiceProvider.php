@@ -4,8 +4,15 @@ namespace App\Providers;
 
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
+use Illuminate\Auth\Events\Failed;
+use App\Listeners\LogAuthenticationEvents;
+use App\Models\User;
+use App\Observers\UserObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Event::listen(Login::class, [LogAuthenticationEvents::class, 'handleLogin']);
+        Event::listen(Logout::class, [LogAuthenticationEvents::class, 'handleLogout']);
+        Event::listen(Failed::class, [LogAuthenticationEvents::class, 'handleFailedLogin']);
+
+        User::observe(UserObserver::class);
 
         if ($this->app->environment('production')) {
             URL::forceScheme('https');

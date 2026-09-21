@@ -1,3 +1,4 @@
+
 @props([
     'label' => '',
     'model' => '',
@@ -25,7 +26,7 @@
                     </svg>
                 </div>
                 <p class="text-sm font-medium text-gray-900 mb-1 dark:text-zinc-400">Click to upload {{$name}}</p>
-                <p class="text-xs text-gray-500">PNG, JPG or PDF (max. 2MB)</p>
+                <p class="text-xs text-gray-500">PNG, JPG or JPEG (max. 2MB)</p>
 
             @else
                 <div class="flex relative items-center justify-center w-full max-h-44">

@@ -66,9 +66,11 @@ class OfficerDashboard extends Component
     }
 
 
-    public function rejectRequest(ClearanceService $clearanceService, DashboardService $dashboardService, $remark)
+    public function rejectRequest(ClearanceService $clearanceService, DashboardService $dashboardService)
     {
-        $clearanceService->rejectClearance($this->selectedRequest, auth()->user(), $remark);
+        $this->validate(['remarks' => 'required|string|max:255'], ['remarks.required' => 'Remark is required']);
+
+        $clearanceService->rejectClearance($this->selectedRequest, auth()->user(), $this->remarks);
 
         $this->dispatch('notification', [
             'type' => 'success',
@@ -78,6 +80,7 @@ class OfficerDashboard extends Component
         $this->refreshDashboard($dashboardService);
 
         $this->closeModal(['rejection-confirmation', 'view-request']);
+        $this->remarks=null;
     }
 
     public function refreshDashboard(DashboardService $service)

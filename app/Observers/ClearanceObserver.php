@@ -21,6 +21,13 @@ class ClearanceObserver
             'type' => ClearanceStatus::SUBMITTED,
             'title' => "{$clearance->unit->name} clearance requested submitted",
         ]);
+
+        activity()
+            ->performedOn($clearance)
+            ->log(
+                'clearance.submitted',
+                "{$clearance->unit->name} clearance requested for {$clearance->clearanceRequest->user->name}"
+            );
     }
 
     public function updated(Clearance $clearance)
@@ -53,6 +60,14 @@ class ClearanceObserver
             'title' => "{$clearance->unit->name} clearance status changed to {$clearance->status->label()}",
         ]);
 
+        activity()
+            ->performedOn($clearance)
+            ->withChange('status', $clearance->getOriginal('status'), $clearance->status)
+            ->log(
+                'clearance.status_changed',
+                "{$clearance->unit->name} clearance for {$user->name} changed to {$clearance->status->label()}"
+            );
+
         $allUnitsApproved = $studentClearances->every(
             fn ($c) => $c->id === $clearance->id ? $clearance->status === ClearanceStatus::APPROVED : $c->status === ClearanceStatus::APPROVED
         );
@@ -60,4 +75,10 @@ class ClearanceObserver
         $clearanceRequest->update([
             'status' => $allUnitsApproved ? ClearanceStatus::APPROVED : ClearanceStatus::PENDING,
         ]);
+
+        if ($allUnitsApproved) {
+            activity()
+                ->performedOn($clearanceRequest)
+                ->log('clearance.fully_approved', "{$user->name} fully cleared — all units approved");
+        }
     }}

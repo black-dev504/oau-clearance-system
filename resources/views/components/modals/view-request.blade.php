@@ -90,7 +90,7 @@
 
                             @if(user()?->hasRole('admin'))
                                 <x-unit-details title="Clearance Status per Unit">
-                                    @foreach($this->selectedRequest?->clearances ?? [] as $clearance)
+                                    @foreach($this->selectedRequest?->clearances->sortBy(fn($clearance) => $clearance->unit->order) ?? [] as $clearance)
                                         <div class="flex items-center gap-2 justify-between flex-wrap">
                                             <span class="capitalize">{{ $clearance->unit?->name }}</span>
                                             <x-status-badge :status="$clearance->status->label()" :classes="$clearance->status->classes()" />

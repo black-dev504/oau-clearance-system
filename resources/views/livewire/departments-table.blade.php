@@ -10,8 +10,8 @@
                     <x-search/>
                     <p class="text-[#6A7282] text-sm ml-1 ">{{$departments->count()}} results</p>
                 </div>
-                <flux:select>
-                    <flux:select.option >All Faculties </flux:select.option>
+                <flux:select wire:model.live="filter">
+                    <flux:select.option value="" >All Faculties </flux:select.option>
                     @foreach($faculties as $faculty)
                         <flux:select.option value="{{$faculty->id}}">{{$faculty->name}}</flux:select.option>
                     @endforeach

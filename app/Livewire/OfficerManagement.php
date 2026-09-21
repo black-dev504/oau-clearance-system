@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\ClearanceRequest;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -11,6 +12,8 @@ class OfficerManagement extends Component
 {
     public  string $first_name;
     public string $last_name;
+    public ?string $search = null;
+    public ?int $unitFilter = null;
     public string $email='';
     public int $unit_id;
     public  string$password;
@@ -133,10 +136,32 @@ class OfficerManagement extends Component
         ]);
     }
 
+    public function getOfficersProperty()
+    {
+        $query = User::query();
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('first_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('last_name', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        if ($this->unitFilter) {
+            $query->where('unit_id', $this->unitFilter);
+        }
+
+        return $query;
+    }
+
+
     public function render()
     {
+        $officers = $this->officers->where('role', 'officer')->latest()->paginate();
         return view('livewire.app.admin.officer-management', [
-            'officers' => User::whereNotNull('unit_id' )->latest()->get()
+            'officers' => $officers,
+            'units' => Unit::all(),
         ]);
     }
 }

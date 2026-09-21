@@ -162,9 +162,17 @@
                     </button>
                     <button
                         type="submit"
-                        class="cursor-pointer px-4 py-2 text-sm bg-linear-to-r from-[#4B3BE4] to-[#A70088] text-white rounded-lg hover:opacity-90 transition-opacity"
+                        wire:loading.attr="disabled"
+                        wire:target="save"
+                        class="cursor-pointer px-4 py-2 text-sm bg-linear-to-r from-[#4B3BE4] to-[#A70088] text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {{ $editingUserId ? 'Save Changes' : 'Add User' }}
+                        <span wire:loading.remove wire:target="save">
+                            {{ $editingUserId ? 'Save Changes' : 'Add User' }}
+                        </span>
+
+                                            <span wire:loading wire:target="save">
+                            {{ $editingUserId ? 'Saving...' : 'Adding...' }}
+                        </span>
                     </button>
                 </div>
             </form>

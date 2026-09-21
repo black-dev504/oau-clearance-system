@@ -3,6 +3,16 @@
 
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Auth;
+use App\Support\ActivityLogger;
+
+
+if (! function_exists('activity')) {
+    function activity(): ActivityLogger
+    {
+        return new ActivityLogger();
+    }
+}
+
 
 if (! function_exists('user')) {
     /**

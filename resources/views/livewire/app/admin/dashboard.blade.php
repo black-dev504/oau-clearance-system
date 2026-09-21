@@ -72,7 +72,7 @@
                 <div class="w-full grid grid-cols-1 gap-4 mt-12 max-h-64 overflow-y-auto scrollbar-none">
 
                     @foreach($units_metrics as $unit)
-                        <x-unit-performance-card :unitName="$unit['name']" :processed_requests="$unit['metric']['processed']" :approval_rate="$unit['metric']['approval_rate']"  :type="$unit['type']" />
+                        <x-unit-performance-card :unitName="$unit['name']" :total_requests="$unit['metric']['total']" :processed_requests="$unit['metric']['processed']" :approval_rate="$unit['metric']['approval_rate']"  :type="$unit['type']" />
                     @endforeach
 
                 </div>

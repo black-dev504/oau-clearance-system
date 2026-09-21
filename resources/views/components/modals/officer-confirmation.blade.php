@@ -19,11 +19,24 @@
                 Cancel
             </button>
             <button
+                wire:loading.attr="disabled"
+                wire:target="approveRequest"
                 wire:click="approveRequest"
 {{--                @click="window.dispatchEvent(new CustomEvent('approve-request')); $flux.modal('approval-confirmation').close()"--}}
                 type="button"
                 class="px-13 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full">
-                Confirm
+
+                <svg wire:loading wire:target="rejectRequest"
+                     class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+
+                <span wire:loading.remove wire:target="approveRequest">Confirm </span>
+                <span wire:loading wire:target="approveRequest">Confirming...</span>
+
+
+
             </button>
         </div>
     </div>

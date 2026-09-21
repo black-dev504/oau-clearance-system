@@ -165,7 +165,7 @@
                                 @else
                                     <div class="flex items-center gap-3 shrink-0">
                                         <button type="button"
-                                                wire:click="openModal('student-contact', {{ $request->id }})"
+                                                wire:click="openModal('student-contact', {{ $request?->id }})"
                                                 class="cursor-pointer flex justify-center items-center w-9 h-9 border rounded-[10px] hover:bg-gray-100 dark:border-white/10  border-[#E0DCD4]">
                                             <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
                                                  xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +176,7 @@
                                             </svg>
                                         </button>
 
-                                        <button type="button" wire:click="openModal('view-request', {{ $request->id }})"
+                                        <button type="button" wire:click="openModal('view-request', {{ $request?->id }})"
                                                 class="cursor-pointer px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-violet-700 transition-colors">
                                             Review
                                         </button>

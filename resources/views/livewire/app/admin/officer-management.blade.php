@@ -1,7 +1,7 @@
 <div>
     <div class="bg-background dark:text-zinc-400 dark:bg-zinc-800 rounded-xl overscroll-y-contain">
             <flux:heading size="xl" level="1">Officer Management </flux:heading>
-            <flux:text class="mb-6 mt-2 text-base">Wednesday, May 20, 2026</flux:text>
+            <flux:text class="mb-6 mt-2 text-base">List of all officers across all units</flux:text>
 
 
 
@@ -10,9 +10,14 @@
     <div class="bg-white intro-y overflow-auto  dark:bg-zinc-800 dark:border-white/10 border border-gray-100 rounded-2xl mt-8 shadow-sm dark:shadow-none">
         <div class="px-8 py-6 border-b dark:border-white/10 border-gray-100">
             <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold dark:text-zinc-100 text-gray-900 whitespace-nowrap">Officer List</h2>
-                    <p class="text-sm text-gray-500 dark:text-zinc-400  mt-1 whitespace-nowrap">List of all officers across all units</p>
+                <div class="flex items-center gap-3">
+                    <x-search/>
+                    <flux:select wire:model.live="unitFilter"  class="w-48">
+                        <flux:select.option value="">All units</flux:select.option>
+                        @foreach($units as $unit)
+                            <flux:select.option value="{{ $unit->id }}">{{ $unit->name }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
                 </div>
 
                <div>

@@ -84,7 +84,7 @@ class DashboardService
             ->where('status', ClearanceStatus::APPROVED)
             ->count();
 
-        return $total > 0 ? ($approved / $total) * 100 : 0;
+        return $total > 0 ? round(($approved / $total) * 100, 2) : 0;
     }
 
     function formatTime($seconds)

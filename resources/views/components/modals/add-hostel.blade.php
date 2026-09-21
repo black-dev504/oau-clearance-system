@@ -43,12 +43,24 @@
         </button>
 
         @if(!$this->editing)
-            <flux:button variant="primary" color="violet"  wire:click="addHostel"  class="px-13 py-3 !bg-gradient-to-r from-violet-600 to-purple-700 text-white  rounded-[10px]">
-                Save
+            <flux:button variant="primary" color="violet"
+                         wire:click="addHostel"
+                         wire:loading.attr="disabled"
+                         wire:target="addHostel"
+                         class="px-13 py-3 !bg-primary text-white  rounded-[10px]">
+
+                <span wire:loading.remove wire:target="addHostel">Add</span>
+                <span wire:loading wire:target="addHostel">Adding...</span>
             </flux:button>
         @else
-            <flux:button variant="primary" color="violet"  wire:click="updateHostel"  class="px-13 py-3 !bg-gradient-to-r from-violet-600 to-purple-700 text-white  rounded-[10px]">
-                Update
+            <flux:button variant="primary" color="violet"
+                         wire:click="updateHostel"
+                         wire:loading.attr="disabled"
+                         wire:target="updateHostel"
+                         class="px-13 py-3 !bg-primary text-white  rounded-[10px]">
+
+                <span wire:loading.remove wire:target="updateHostel">Update</span>
+                <span wire:loading wire:target="updateHostel">Updating...</span>
             </flux:button>
         @endif
 

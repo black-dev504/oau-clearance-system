@@ -54,7 +54,8 @@ class ClearanceService
         }
 
         $clearance->update([
-            'status' => ClearanceStatus::APPROVED
+            'status' => ClearanceStatus::APPROVED,
+            'remark' => null,
         ]);
 
         return $clearance;
@@ -68,7 +69,6 @@ class ClearanceService
             throw new \Exception('Clearance not found for this unit');
         }
 
-//        TODO:: validate remark
 
         $clearance->update([
             'status' => ClearanceStatus::REJECTED,

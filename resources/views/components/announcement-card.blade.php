@@ -53,7 +53,7 @@
                                                 d="M14.6668 4.66666L8.68683 8.46666C8.48101 8.59561 8.24304 8.664 8.00016 8.664C7.75729 8.664 7.51932 8.59561 7.3135 8.46666L1.3335 4.66666"
                                                 stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round"
                                                 stroke-linejoin="round"/>
-                                            </svg> Sent to: {{$announcement?->units()->pluck('name')->implode(',')}}</span>
+                                            </svg> Sent to: {{Str::limit($announcement?->units()->pluck('name')->implode(','), 50)}}</span>
                 <span class="text-sm text-gray-500 inline-flex items-center gap-2 dark:text-zinc-400 mt-2"> <svg
                         width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
