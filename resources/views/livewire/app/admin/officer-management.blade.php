@@ -73,7 +73,7 @@
 
                             <div>
                                 <div class="text-sm text-gray-900 font-medium mb-1 dark:text-zinc-400">Status</div>
-                                <div class="text-sm text-gray-500 dark:text-zinc-100">Active</div>
+                                <div class="text-sm text-gray-500 dark:text-zinc-100">{{$officer->status}}</div>
                             </div>
                         </td>
 

@@ -253,12 +253,17 @@ class ClearanceModal extends Component
 
 //          $this->reset($this->info, $this->meansOfIdentificationPreview, $this->currentForm, $this->clearanceReceiptPreview);
 
-        } catch (\Throwable $e) {
-            logger($e->getMessage());
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Cloudinary upload failed', [
+                'message' => $e->getMessage(),
+                'user_id' => user()?->id,
+            ]);
+
             $this->dispatch('notification', [
                 'type' => 'error',
-                'message' => 'Upload failed: ' . $e->getMessage()
+                'message' => 'Something went wrong while uploading your file. Please try again.'
             ]);
+
         }
 
 
