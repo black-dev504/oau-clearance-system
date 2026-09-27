@@ -65,7 +65,7 @@
                         <td class=" w-auto px-6 py-4">
                             <div >
                                 <div class="text-sm text-gray-900 font-medium mb-1 dark:text-zinc-400 whitespace-nowrap">Requests Handled</div>
-                                <div class="text-sm text-gray-500 dark:text-zinc-100">276</div>
+                                <div class="text-sm text-gray-500 dark:text-zinc-100">0</div>
                             </div>
                         </td>
 
