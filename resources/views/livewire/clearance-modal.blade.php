@@ -90,27 +90,9 @@
                         wire:target="next"
                         class="px-3 sm:px-6 py-2 sm:py-3 text-xs sm:text-base bg-gradient-to-r from-[#4b3be4] to-[#a70088] text-white rounded-lg shrink-0">
                         <span wire:loading.remove wire:target="next">Next</span>
-                        <span wire:loading wire:target="next"><svg
-                                wire:loading
-                                class="w-5 h-5 animate-spin"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                            >
-    <circle
-        class="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        stroke-width="4"
-    ></circle>
-    <path
-        class="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-    ></path>
-</svg></span>
+                        <span wire:loading wire:target="next">
+                            Saving...
+                        </span>
                     </button>
 
                     <flux:modal.trigger name="confirm-submission">
