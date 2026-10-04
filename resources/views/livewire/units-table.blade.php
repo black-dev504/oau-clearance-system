@@ -71,7 +71,7 @@
             </td>
 
             <td class="px-6 py-4">
-                574
+                0
                 {{--                    <div--}}
                 {{--                        x-data="{ width: 0 }"--}}
                 {{--                        x-init="setTimeout(() => width = {{ $approval_rate }}, {{rand(50,150)}})"--}}
