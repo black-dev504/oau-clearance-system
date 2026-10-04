@@ -161,7 +161,7 @@ class OfficerManagement extends Component
 
     public function render()
     {
-        $officers = $this->officers->where('role', 'officer')->latest()->paginate(1);
+        $officers = $this->officers->where('role', 'officer')->latest()->paginate(10);
         return view('livewire.app.admin.officer-management', [
             'officers' => $officers,
             'units' => Unit::all(),
