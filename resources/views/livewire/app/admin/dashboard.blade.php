@@ -3,12 +3,12 @@
 {{--    <flux:text class="mb-6 mt-2 text-base">Do your Fucking Work!!</flux:text>--}}
     <div class="auto-rows-min grid md:grid-cols-4 gap-4 w-full">
 
-        <x-card title="Total Requests" :value="$total_requests"   class=" ">
+        <x-card title="Total Requests" :value="$total_requests"  :additional_metric="$approved_requests .' Approved Requests'"  class=" ">
             <x-icons.total />
         </x-card>
 
 
-        <x-card title="Active Units" :value="$total_units" class=" ">
+        <x-card title="Total Units" :value="$total_units" :additional_metric="$active_units . ' Active units'" class=" ">
             <svg xmlns="http://www.w3.org/2000/svg"
                  class="h-6 w-6 text-emerald-500"
                  fill="none"
@@ -25,7 +25,7 @@
             </svg>
         </x-card>
 
-        <x-card title="Total Officers" :value="$total_officers"   class="">
+        <x-card title="Total Officers" :value="$total_officers" :additional_metric="$active_officers . ' Active Officers'"   class="">
             <svg xmlns="http://www.w3.org/2000/svg"
                  class="h-6 w-6 text-yellow-700"
                  fill="none"
@@ -41,7 +41,7 @@
             </svg>
         </x-card>
 
-        <x-card title="Overall Approval Rate"  value="98%" class="">
+        <x-card title="Overall Approval Rate"  value="" class="">
             <x-icons.rejected />
         </x-card>
 

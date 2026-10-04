@@ -31,8 +31,11 @@ class DashboardService
 
         return [
             'total_requests' => ClearanceRequest::count(),
+            'approved_requests' => ClearanceRequest::where('status', ClearanceStatus::APPROVED)->count(),
             'total_officers' => User::where('role', 'officer')->count(),
+            'active_officers' => User::where('role', 'officer')->where('status', 'active')->count(),
             'total_units' => Unit::count(),
+            'active_units' => Unit::where('status', 'active')->count(),
             'recentRequests' => ClearanceRequest::latest()->take(8)->get(),
             'units_metrics' => Unit::all()
                 ->map(fn ($unit) => [
@@ -52,6 +55,14 @@ class DashboardService
                 ->values()
                 ->toArray(),
         ];
+    }
+
+    protected function percentChange(int $old, int $new): ?float
+    {
+        if ($old === 0) {
+            return null;
+        }
+        return round((($new - $old) / $old) * 100, 1);
     }
 
     protected function unitMetrics(Unit $unit): array
