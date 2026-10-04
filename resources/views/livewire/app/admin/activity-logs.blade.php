@@ -18,7 +18,7 @@
         <flux:select wire:model.live="causerFilter" label="User" class="w-48">
             <flux:select.option value="">All users</flux:select.option>
             @foreach($admins as $admin)
-                <flux:select.option value="{{ $admin->id }}">{{ $admin->name }}</flux:select.option>
+                <flux:select.option value="{{ $admin->id }}">{{ $admin->full_name }}</flux:select.option>
             @endforeach
         </flux:select>
 
@@ -48,7 +48,7 @@
                         {{ $log->created_at->format('M j, Y g:i A') }}
                     </td>
                     <td class="px-4 py-3 font-medium dark:text-zinc-100">
-                        {{ $log->causer?->name ?? 'System' }}
+                        {{ $log->causer?->full_name ?? 'System' }}
                     </td>
                     <td class="px-4 py-3">
                         <flux:badge size="sm" class="!bg-primary/10 !text-primary dark:!bg-primary/20">
