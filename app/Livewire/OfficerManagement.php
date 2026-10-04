@@ -7,9 +7,12 @@ use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class OfficerManagement extends Component
 {
+    use WithPagination;
+
     public  string $first_name;
     public string $last_name;
     public ?string $search = null;
@@ -158,7 +161,7 @@ class OfficerManagement extends Component
 
     public function render()
     {
-        $officers = $this->officers->where('role', 'officer')->latest()->paginate(10);
+        $officers = $this->officers->where('role', 'officer')->latest()->paginate(1);
         return view('livewire.app.admin.officer-management', [
             'officers' => $officers,
             'units' => Unit::all(),

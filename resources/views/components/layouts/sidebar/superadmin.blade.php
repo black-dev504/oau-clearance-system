@@ -16,6 +16,8 @@
         <flux:sidebar.item class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.officers')"  icon="inbox" :href="route('admin.officers')">Officers</flux:sidebar.item>
         <flux:sidebar.item class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.user-management')"  icon="inbox" :href="route('admin.user-management')">Users</flux:sidebar.item>
         <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.announcements')" :href="route('admin.announcements')" icon="document-text" >Announcements</flux:sidebar.item>
+        <flux:sidebar.item  class="mt-2  data-current:!bg-[#F5F3FF]  data-current:!border-transparent data-current:text-[#7F22FE]" :current="request()->routeIs('admin.logs')" :href="route('admin.logs')" icon="document-text" >Logs</flux:sidebar.item>
+
     </flux:sidebar.nav>
     <flux:sidebar.spacer />
 
